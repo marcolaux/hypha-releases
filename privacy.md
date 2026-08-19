@@ -3,8 +3,20 @@ title: hypha — Privacy Policy
 ---
 
 
-**Hypha**
+**hypha**
 Last updated: 19 August 2026
+
+<!--
+  THIS FILE IS THE SOURCE. It is published at
+  https://marcolaux.github.io/hypha-releases/privacy (GitHub Pages, from
+  `marcolaux/hypha-releases`), which is the address the App Store listing
+  points at. Do not edit the copy there by hand — run
+  `npm run release:changelog`, which regenerates it from this file with the
+  Jekyll front matter the page needs.
+
+  An HTML comment rather than a visible note: this text is for whoever edits
+  the policy, not for whoever has to read it.
+-->
 
 ## The short version
 
