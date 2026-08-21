@@ -67,21 +67,32 @@ expect to tidy up.
 **There are no Windows or Linux builds.** The build configuration for them
 exists and is not exercised; do not read its presence as a promise.
 
-**Notarization has never been exercised on a published build.** The credentials
-are in place and a release build should be signed and notarized, but no build has
-been published, so this is unproven rather than done. If one turns out not to be
-notarized, the first launch needs a right-click → Open (see `INSTALL.md`) and
-each update is signed with a different identity, so macOS asks you to re-grant
-local-network permission after every update.
+**Notarization is now done and checked.** 0.13.0 is signed with a Developer ID
+identity and notarized by Apple; `stapler validate` and `spctl` both pass on the
+app inside the published `.dmg` (`source=Notarized Developer ID`). So the first
+launch should NOT need a right-click → Open. If yours does, that is worth
+reporting — it would mean the staple did not survive the download.
 
-**Auto-update has never been observed working end to end.** The machinery is
-there and is wired to a real feed; nobody has yet watched an installed copy
-find, download and restart into a newer one. Until that happens, assume you may
-have to update by hand.
+**Auto-update has never been observed working end to end.** Still true, and it
+cannot be tested yet for a structural reason: 0.13.0 is the first release, so
+there is nothing to update *from*. The feed is real now — `latest-mac.yml` sits
+beside the installers and resolves — but nobody has watched an installed copy
+find, download and restart into a newer one. The first person to see 0.13.1
+arrive by itself will be the first evidence either way. Until then, assume you
+may have to update by hand.
 
-**iOS needs 16.4 or newer**, and the iOS build will come through TestFlight,
-which expires builds after 90 days. **No TestFlight build has been submitted
-yet.**
+**iOS needs 16.4 or newer**, on an **iPhone** — there is no iPad build, because
+the layout has never been run on one. iOS comes through TestFlight, which
+expires builds after 90 days. The first build (0.13.0, build 579) is uploaded
+and accepted; TestFlight access is by invitation.
+
+**The iPhone build runs its peer-to-peer stack on a JavaScript engine it has
+never run on.** The networking that syncs your notes lives in a separate
+embedded runtime, and that runtime had to be swapped from JavaScriptCore to V8
+for 0.13.0 — Apple refuses to distribute the JavaScriptCore build, because it
+reaches Apple APIs that are not public. Everything previously measured about
+sync on a phone was measured on the other engine. If sync misbehaves on iOS,
+this is the first thing to suspect, and saying so is genuinely useful.
 
 ---
 
