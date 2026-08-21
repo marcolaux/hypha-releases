@@ -7,6 +7,595 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-08-21
+
+**This is the first build of hypha that anyone other than its author can
+install.** Every version before it was a tag in a repository — built on one
+machine, never signed for distribution, never uploaded anywhere. macOS comes as
+a notarized `.dmg` with a working update feed; the phone comes through
+TestFlight. Read
+[Known limitations](https://github.com/marcolaux/hypha-releases/blob/main/KNOWN-LIMITATIONS.md)
+before you put anything in it you would be upset to lose, and take your own
+backups. The three that matter most: there is **no recovery for a forgotten
+passphrase**, a backup file still carries the vault credential, and the
+cryptography has not been independently audited. Sync between two desktops
+across the internet has never been run by anyone, and neither has an auto-update
+from one installed copy to the next — if you are the first to try either, saying
+what happened is the single most useful thing you can do with this build.
+
+### Added
+- **Link to a note that does not exist yet, and Hypha writes it for you.** Type
+  `@` or `[[` in a note, keep typing a title nothing matches, and the picker now
+  offers "Create “…”" as its last row. The new note is not blank of context: it
+  inherits the tags, the notebooks and the colour of the note you linked from,
+  so a thought you spun out of a project note is already filed under that
+  project. It is a one-shot copy at the moment of creation — retagging the
+  original later does not reach it, because the two are separate notes from that
+  point on. Picking an existing note is unchanged, and a title that already
+  exists is never offered for creation.
+- **Tags can have icons, like notebooks do.** Right-click a tag in the sidebar →
+  "Set icon…", pick from the full icon set, and the `#` becomes whatever you
+  chose; "Remove icon" puts the `#` back. Works on the phone too, where the
+  picker is now sized for a finger. A pinned notebook or tag in your Shortcuts
+  also shows its icon now — until now it showed the generic glyph, so the same
+  notebook could appear under two different icons in one sidebar.
+- **Colours can be recoloured.** Right-click a colour in the sidebar and there is
+  now a "Change color…" entry alongside Rename — the same picker used when you
+  create one, opened on the colour you clicked, with the preset swatches and a
+  hex field. Until now a colour's swatch was fixed at the moment it was created:
+  the menu could rename it and delete it, and that was all.
+- **Archive and Trash select like every other list.** Shift-click a range,
+  cmd-click to add and remove individual rows — the same as the notes list.
+  Right-clicking inside the selection acts on the whole set, so you can unarchive
+  or restore twenty notes with one menu and answer one confirmation instead of
+  twenty. Right-clicking a row outside the selection still acts on just that row.
+- **Hypha now asks before leaving a file behind.** Take a picture or a document
+  out of a note, and if no other note is using it you get a dialog offering to
+  delete it too, with a preview of what you are about to lose. The same question
+  comes up when you delete a note out of the trash, when you delete several at
+  once, and when you empty the trash — asked **once**, listing every file that
+  would be left with nothing pointing at it, with Keep all and Delete all
+  alongside the per-file choice. Keep is always the default and nothing is
+  pre-ticked. Files you do delete go to the attachment trash, so this is not a
+  decision you can get badly wrong in a hurry. If Hypha cannot read one of your
+  notes at that moment — a locked vault, a note still arriving from another
+  device — it says nothing and deletes nothing, because a note it cannot open
+  might be the one still using the file.
+- **A setting for downloading attachments over cellular, on by default.** Your
+  phone has always pulled the full attachment for every file in the vault the
+  moment it heard about it, whatever network it was on. That is often what you
+  want, so it stays the default — but it was never a choice you could see or
+  make. Sync settings on the phone now carries "Download attachments over
+  cellular" underneath "Download attachments automatically". Turn it off and
+  attachments wait for Wi-Fi: notes, notebooks, tags and note text still sync in
+  full over cellular, and tapping an attachment still downloads it right then,
+  because that is you asking for it. Walking back onto Wi-Fi picks up
+  everything that waited, without reopening the app. A personal hotspot counts
+  as cellular — it is somebody's data plan too. The toggle is not shown on the
+  desktop, which has no way to tell whether the network it is on is metered.
+- **Search on the phone, from any screen.** Tap the title at the top of any
+  screen and it becomes a search field. It searches the *text inside* your
+  notes, not just their titles — which the phone could not do at all before, and
+  which the desktop has always had in its title bar. The command palette comes
+  with it, so anything you can do from a menu you can now type the name of.
+  While the field has focus a row of chips appears: Notes, Commands, Tags,
+  Notebooks and Tabs, plus Archive, Trash, Reminders and Web Notes. The chips
+  are there so you never have to reach the symbol keyboard — typing `>` for
+  commands, `#` for tags, `@` for notebooks or `:` for open tabs still works
+  exactly as it does on the desktop.
+- **You can see where a drag will land.** Drag anything over a note — a word,
+  a picture, a file from Finder — and an accent-coloured line shows the exact
+  spot it will be inserted, following the theme in light and dark. The editor
+  had no such indicator at all: it was switched off years ago on the grounds
+  that the list-drag extension drew its own, and that extension has never drawn
+  anything.
+- **Double-click a picture to open it.** It opens as a preview beside the note,
+  in a pane split off to the right, so the picture and the note it belongs to
+  are on screen together. The attachment chip has behaved this way for a while;
+  a picture did nothing at all. "Open in new tab" in the right-click menu now
+  opens the same way, instead of replacing the note in the pane you were
+  reading. Opening the same file twice reuses the pane it is already in.
+- **Pictures can be resized.** Hover a picture in a note and drag any of its
+  four corners: the width follows the pointer, the proportions are kept, and it
+  will not grow wider than the column it sits in. Double-click a corner to give
+  it its natural size back. The size is stored with the note, so it survives a
+  reload and reaches your other devices like any other part of the note. Until
+  now a picture was always painted at whatever size it happened to be, with no
+  way to change it.
+
+### Changed
+- **Three test gates were failing and had stopped being read.** One pinned the
+  editor's drop indicator as *disabled* — the state a comment claimed was
+  deliberate and which actually left notes with no drop marker at all, fixed in
+  this same release; the gate was holding the old broken shape in place. One
+  matched an editor handler by an exact signature that had since gained a
+  parameter, so it went red on a change that did not touch what it guards. The
+  third was reporting a real defect nobody had looked at. All three now pass,
+  and the two brittle ones gained a self-check that fails loudly if they ever
+  start reading the wrong thing rather than quietly passing.
+- **Settings tells you what happened, where you can see it.** Backing up,
+  importing, restoring, rebuilding the search index, purging vector storage,
+  saving a publishing target, changing your passphrase, filing older attachments
+  — all of these used to answer in a small line at the bottom of the section. On
+  a phone that is several screens below the button you pressed, so the button
+  looked like it had done nothing. The answer now comes up as a dialog you
+  dismiss, on the desktop and on the phone alike. What was never an answer to a
+  click stays where it was: progress lines, the updater's state, the sync status
+  block, and the "these two passwords differ" kind of message, which now sits
+  beside the password fields it is about instead of at the foot of the section.
+- **The picture in a note's list row moved to the right.** It used to sit on the
+  left under the title, which made every row with a picture taller than the rows
+  around it and shifted the text of those rows sideways. It now sits on the
+  trailing edge beside the title and the preview text — the same place it has
+  always been on the phone — so more notes fit on screen and the rows line up.
+- **Archive and Trash open a note beside the list instead of pushing the list
+  around.** Clicking a row used to unfold its text underneath it like an
+  accordion, so opening a second note shoved the first one's rows down the
+  screen and a long note buried everything below it. Both screens now look like
+  the notes screen: the list on the left, the note on the right, read-only, with
+  its title at the top and a close button. Clicking another row replaces what is
+  shown rather than opening a second thing — there is one pane, never a stack of
+  tabs. The list column is the same width as the one on the notes screen and
+  moves with it, so switching between them no longer shifts the layout.
+- **The search box under each list is gone; the title above it does the job.**
+  Notes, Archive, Trash, Reminders and Web Notes each carried their own search
+  box that only filtered the rows already on screen, matching titles but never
+  the text inside a note. Searching from the title is strictly better on the
+  notes list, and the Archive, Trash, Reminders and Web Notes chips cover the
+  four lists global search cannot reach on its own — an archived or deleted note
+  is deliberately excluded from ordinary search results. Each list gets a row of
+  screen back.
+- **Split-pane and detached-window commands no longer appear on the phone.**
+  Five commands — split right, split down, close pane, cycle pane, detach pane —
+  were only ever hidden there because the phone had no command palette to run
+  them from. Now that it does, they are hidden properly: a phone has no split
+  panes and no second window, and running one would have left an editor pane you
+  could neither see nor close.
+- **Faint text is readable now, on every theme.** Placeholder text — including
+  the passphrase fields on the very first screen — was far below the
+  accessibility standard on all ten built-in themes, in the worst case almost
+  invisible. Muted text and some accent button labels were under it too. All of
+  them now meet WCAG AA, lifted just far enough to get there and no further, so
+  the themes still look like themselves. On the two light Monokai themes, accent
+  button labels change from white to near-black; white was genuinely unreadable
+  there.
+- **Backups no longer hand out your tag, notebook and reminder names in the
+  clear.** A backup was only ever encrypting your *notes*. Everything else —
+  tag names, notebook names, reminder titles and descriptions, settings values,
+  attachment filenames and sizes — sat in the file as plain text, including in
+  a backup taken while the vault was locked. Since a backup is the one file
+  you're told to put in Dropbox or iCloud, that was the wrong place for it.
+  Backups now seal all of it, and still work while locked. Restoring is
+  unchanged: on this machine it just works, and on a fresh install your
+  passphrase opens it.
+  **Older backups still restore** — nothing you already have becomes unreadable.
+- **The note map is no longer written for whoever built it.** The one cramped
+  toolbar row is now a panel down the left, laid out like the app's settings:
+  headings, and a sentence under each control saying what it actually does. The
+  two grouping methods lost their textbook names — they are "Natural groups" and
+  "Fixed number" now, with a line explaining that the first finds however many
+  groups exist and leaves loners out, and the second splits everything into
+  exactly the number you ask for whether or not it fits. The technical names are
+  still there, in the explanation, for when you want them. Seven settings that
+  existed in the code and were reachable from nowhere now have controls: showing
+  and hiding notes and colours, the smallest group size, and which of the four
+  kinds of connecting line get drawn — turning off "Similar meaning" alone
+  clears most of the thicket. The explanations sit behind an ⓘ next to each
+  label rather than printed under every control, so the panel is a list of
+  settings again instead of a page of prose, and the active grouping button now
+  takes your accent colour — in the muted grey it used to wear it read as
+  disabled rather than as the one that is on. Hovering an ⓘ shows its
+  explanation and clicking one keeps it up until you dismiss it, so the text
+  does not vanish the moment you reach for the scrollbar. There is a legend for the group colours, the map
+  says "no groups at this setting" instead of showing you an empty cloud, and it
+  offers a button that loosens the dial for you. Crowded areas no longer stack
+  five titles into one unreadable smear: labels that would collide are dropped
+  until you zoom in, and whatever you hover is always readable.
+- **The map remembers how you like to look at each vault.** Every option you
+  set is kept per vault on this machine and restored the next time you open the
+  map, instead of snapping back to the defaults on every open. It does not sync
+  — it is how *you* read *this* vault on *this* computer.
+- **The default grouping distance was too strict to group anything.** On a real
+  32-note vault the map came back with one group and everything else loose,
+  which reads as "there is no structure in your notes" when it actually meant
+  "this dial is set too tight". Loosened, the ceiling raised, and — more to the
+  point — that state now explains itself rather than looking like an answer.
+
+- **Open a note from the map and its own note map opens with it.** Clicking
+  through to a note used to drop you into a plain editor, which is a dead end
+  when you arrived by following connections; the note's sidebar now comes up on
+  its local map so you can keep going. It only affects the note you opened — it
+  does not change what the sidebar shows on every note you open afterwards.
+
+### Fixed
+- **The "delete this file too?" dialog opened behind the keyboard on iOS.** The
+  question Hypha asks when you remove the last note using a picture is a
+  full-screen dialog, and it had not been marked as one — so on a phone it laid
+  itself out inside a box the keyboard was sitting on top of. Every other dialog
+  carries that mark; this one, added in this release, did not.
+- **A setting's name and its explanation ran together as one line.** In
+  Appearance, "Stock themes" and the sentence explaining what resetting them
+  does rendered as a single run-on line with no break between them — the label
+  and its description were two inline boxes in a plain container, where every
+  other row in Settings stacks them. It was wrong on the desktop too; the phone
+  is only where it got noticed. The themes picker around it also got the touch
+  treatment its controls never had: the toolbar stacks instead of wrapping its
+  buttons up into the text above them, the search field no longer makes iOS zoom
+  the page when you tap it, and the card grid adapts to the width it has instead
+  of being locked at two columns.
+- **Some panels had no spacing between their sections.** A layout helper built
+  its gap size by string interpolation, which Tailwind cannot see when it scans
+  the source, so four of the nine possible spacings silently compiled to
+  nothing at all. Sync settings, Language settings and the note map's new
+  options panel all had sections sitting flush against each other — which looks
+  like a deliberately tight design rather than a missing stylesheet rule, and so
+  had gone unnoticed.
+- **The note map redrew itself differently every time you opened it.** The same
+  vault, unchanged, produced a different picture on each open: clusters swapped
+  colours, cluster numbers moved around, and nudging the K or density slider
+  re-rolled the whole thing again. K-Means picked its starting centroids at
+  random, and both clusterers numbered clusters in the order they happened to
+  meet them — an order that tracked the notes list, which re-sorts as you edit.
+  Opening the map fast rather than slow also raced the colour list, and a map
+  built without the colour nodes projects every other node somewhere else. All
+  four are pinned now: same vault, same map, and a given cluster keeps its
+  colour between redraws. Adding or removing notes still rearranges things —
+  the map is fitted to whatever is in it — and so does opening the map while
+  the semantic index is still filling in, which is what the banner at the top
+  is telling you.
+- **Pasting text with an `@` in it hijacked the note-link picker, and could
+  swallow the paste.** Paste a paragraph that happens to contain an `@` and the
+  picker opened over it, treating everything from that `@` to the end of what
+  you pasted as one long search. Pressing Enter then picked a note and deleted
+  that entire stretch — most of the paste, gone, replaced by a note title.
+  Pasting or dropping text no longer opens any of the three pickers: `@` for
+  notes, `#` for tags and `/` for commands now open when you *type* the trigger,
+  which is when you meant it. Typing a title with a space in it — `@meeting
+  notes` — still works exactly as it did.
+- **Note links no longer break code open.** Typing `@` inside a code block, or
+  inside an inline `code` span, opened the note picker — and picking a note from
+  inside a `code` span split the span in two and left the title sitting outside
+  it, unlinked. Neither the picker nor the link is offered inside code now.
+- **Closing a tab now takes you back to the tab you came from.** It used to jump
+  to the first tab in the strip — not the one you were last reading, and not
+  even a neighbour — so closing a file you had opened to check something threw
+  you to the far end of the strip. Closing keeps walking back through the tabs
+  you actually used, and closing a background tab leaves you where you are.
+  Moving a tab to another pane reveals the last-used tab in the pane it left.
+  After a restart the pane returns to the tab it was showing, and from there
+  falls back to the neighbour on the left.
+- **Dragging a picture inside a note moved nothing — it made a second copy that
+  would not open.** Dropping it left the original where it was and inserted a
+  duplicate, and right-clicking that duplicate to open it answered "no in-app
+  preview for this file type". Neither was really about the drop: the editor
+  never treated the drag as a drag at all, so the browser did it instead and
+  pasted the picture as web markup, which carries no record of which file it is.
+  Now dragging a picture, an attachment or an audio/video player **inside** a
+  note moves it, and dragging one **into another open note** copies it there —
+  pointing at the same file, not a second copy of it, and leaving the first note
+  untouched. Dragging a file in from Finder or a picture in from a web page
+  still adds it as a new attachment.
+- **Tab in a note jumped out of the editor.** Pressing Tab anywhere that was not
+  a list moved the focus to the notebook picker at the foot of the window
+  instead of indenting, which in the middle of writing is the last thing it
+  should do. Tab now indents and Shift-Tab outdents — in a paragraph, in a
+  heading, across a multi-line selection and inside a code block — and lists,
+  tables and code blocks keep the behaviour they already had. Tab in a note you
+  cannot edit still moves the focus, as it should.
+- **The editor collapsed runs of spaces.** Two spaces typed in a note rendered
+  as one, and a line could not be indented at all: the stylesheet ProseMirror
+  requires for whitespace was never loaded, so the editor ran at the browser
+  default. Spaces now render as typed, on the desktop and the phone.
+- **Settings on the phone.** The attachment list gave four buttons about half of
+  every row and truncated the filename to a few characters — the one part that
+  says which file it is; the buttons now take their own line and the name gets
+  the width. A device row in Sync no longer squeezes the fingerprint you compare
+  against your other device's screen. "Stock themes" and its description
+  rendered as one run-on line (on the desktop too). The theme picker's search
+  box, filter pills and import buttons wrapped into the text above them, and
+  tapping that search box zoomed the whole page and did not zoom back. Section
+  headings no longer have their summary line jammed in beside them.
+- **Deleting an attachment asked with a system alert.** Every other destructive
+  question in the app is hypha's own dialog; this one was the browser's, which
+  on the phone means an iOS alert dropped into the middle of a sheet. It also
+  means the sheet could not say "Delete" on the button that deletes.
+- **A dialog with nothing to cancel offered Cancel on the phone**, and a
+  three-way question — keep a file, move it to the trash, or delete it for good
+  — silently lost its middle answer there while the desktop offered all three.
+- **One day could end up with two daily notes — again.** This was reported fixed
+  once already, and it came back the same week, because the previous fix guarded
+  the two ways a daily note gets made against each other rather than removing the
+  reason they could disagree. A daily note was recognised by its title and by a
+  reserved "daily" tag, which meant deciding "does this day already have a note?"
+  took several separate steps, and a `@today` link and the Daily Notes screen
+  could each get part-way through that decision before the other finished — and
+  both make a note. Which day a note belongs to is now written on the note
+  itself, and looking the day up and creating it are one indivisible step, so
+  there is no longer a gap for a second note to appear in. Three things follow
+  from that, all of them things you could previously lose a note to: renaming a
+  daily note no longer stops it being that day's note, duplicating one no longer
+  puts a second note on the same day, and two devices that each made a note for
+  the same day offline now agree on which one the day opens. Daily notes you
+  already have are adopted as they are the first time you open them — nothing is
+  moved, rewritten, or renamed. If a day in your vault already has two notes,
+  both are still there and the older one is the one the day opens; the other is
+  now an ordinary note you can merge in and delete.
+- **The phone stopped reconnecting after you left Wi-Fi.** Walk out of the house
+  — or just switch Wi-Fi off — and the phone would drop its link to the desktop
+  and never pick it up again over cellular, until it was back on the same
+  network. **Two separate faults produced that one symptom, and the first fix
+  only removed one of them** — so if you read this entry earlier in the beta, it
+  claimed more than it delivered.
+
+  **On the phone, Hypha was refusing to reconnect.** It treated iOS's Low Data
+  Mode or Low Power Mode on a cellular connection as "stop syncing entirely",
+  and applied that rule at the worst possible moment, tearing down the working
+  connection it had just been using rather than merely declining to open a new
+  one. Low Data Mode and Low Power Mode no longer stop the phone syncing: it
+  stays connected over cellular and your notes, notebooks, tags and note text
+  keep arriving. How much data Hypha spends is decided by the two settings that
+  were always meant to decide it — "Download attachments automatically" and
+  "Download attachments over cellular" — and iOS's economy modes do not silently
+  overrule what you set there. Nothing changes when there is genuinely no network
+  at all: with no route off the device, Hypha still does not spend battery
+  bootstrapping a connection that cannot complete.
+
+  **At the other end, the rescue was being turned away.** The device the phone
+  was trying to reach — a desktop, or the relay daemon — kept its Wi-Fi
+  connection to the phone in its list of live connections after the phone had
+  gone. A phone that walks out of range says no goodbye, so there was nothing to
+  notice. But when the phone then found its way back over cellular, that arriving
+  connection was compared against the one already listed, judged a redundant
+  second copy of a phone that was already connected, and closed — and the phone
+  was told to stop trying, which it obeyed. Every rescue attempt was refused the
+  same way, so the phone could not get back in until the program at the other end
+  was restarted. A connection arriving by a different route is now treated as
+  what it is: evidence that the old one is dead. If the existing connection has
+  shown no sign of life for 45 seconds, the new one replaces it instead of being
+  turned away. And "stop trying" now lasts 30 seconds rather than until the
+  program is restarted, so if this ever goes wrong again it costs half a minute.
+
+  **What this does not yet fix**, so you can set your expectations by it: leaving
+  Wi-Fi is still not a smooth handover. The other end can hold a dead connection
+  for longer than it should — we know that happens and do not yet know why — and
+  the phone rebuilds its cellular connection from scratch, which takes minutes
+  rather than seconds. What has changed is that the reconnection is no longer
+  refused, and that recovering from it no longer needs anything restarted. Give
+  it a few minutes before assuming it has not worked.
+- **Long-press menus in the phone's sidebar now open.** Holding a row in the
+  sidebar was supposed to give you the same menu a right-click gives on the
+  desktop — rename, delete, pin as a shortcut. It never did, on any row: the
+  press did nothing and iOS took the gesture for selecting text instead.
+  Notebooks and tags had no menu at all, and the shortcut and colour rows had
+  one that could not be reached. Holding any sidebar row now opens its menu, and
+  the colour menu has gained **Change color…** alongside Rename.
+- **Links in notes: you can put the cursor in them, and on the phone they open
+  at all.** Clicking a link went straight to opening it, which meant there was no
+  way to place the text cursor inside link text to edit the words — the click was
+  always taken as "follow this". On the phone the same click did the opposite and
+  nothing happened at all: it tried to open the link in a way an iOS web view
+  silently discards, so tapping a link in a note had no effect whatsoever.
+  Clicking or tapping a link now puts the cursor exactly where you clicked and
+  offers a small panel beside the link with **Open**, **Edit link…** and **Remove
+  link**. Opening is a choice you make rather than something that happens to you,
+  and it now routes properly on both platforms — a link to another note opens
+  that note, a file opens in the system, and a web address opens your browser.
+  Right-clicking a link on the desktop offers the same three actions.
+- **Renaming a colour no longer wipes it out.** Renaming a colour in the sidebar
+  made it look deleted: it lost its dot and the notes carrying it lost their
+  tint. The colour was still there — the rename was saving the new name *and an
+  empty colour* over it, because it only ever sent the name, and the part it did
+  not send was blanked rather than left alone. It also quietly reset the
+  colour's creation date. Renaming now changes the name and nothing else.
+- **The rename box for a colour accepts more than one character.** Typing in it
+  re-selected everything after each keystroke, so every new character replaced
+  the one before it and you could never get past a single letter.
+- **The phone no longer quits itself while you have it locked.** Lock the screen
+  with Hypha open, come back half a minute later, and you were on the home screen
+  with the app starting from scratch — losing whatever you had on screen. When
+  the app went to the background it asked its networking engine to pause, and the
+  pause takes out a permit from iOS that is only handed back once the engine has
+  told iOS it has fully stopped. Hypha's engine never told it: a peer-to-peer
+  engine is always listening, and nothing was closing its connections. So the
+  permit was never handed back, and iOS terminates any app that holds one for
+  about thirty seconds. Hypha now closes those connections when you lock the
+  phone and opens them again when you come back, which is what lets iOS put the
+  app away properly. Syncing picks up on its own after the unlock, about four
+  seconds later, because the phone has to announce itself to your other devices
+  again before they can find it. Confirmed on an iPhone: locked, left for a
+  minute, unlocked, and still exactly where it was.
+- **Opening a note no longer counts as editing it.** Simply opening a note wrote
+  it back to disk a moment later, exactly as though you had typed in it — which
+  bumped it up a list sorted by Modified, and sent the write out to your other
+  devices. Reading a note is not changing it, and it now leaves no trace. The
+  same care applies in the other direction: when another device's edit arrives
+  and Hypha renders it into a note you happen to have open, that is the other
+  device's edit and it keeps the other device's time. Only your own typing
+  counts as your own edit — including when both land in the same second, where
+  your keystroke wins.
+- **A note you edit now stays at the top of the list, on every device.** Sorting
+  by Modified, editing a note moved it to the top — and then it slid back to
+  where it had been. Reopening the app put it back at the old position for good,
+  and other devices never moved it at all: the phone showed the note exactly
+  where it had been before you typed. The cause was that nothing was writing
+  down *when* a note was last edited. Saving a note updated its text but left
+  its modified date at the moment the note was created, so the jump to the top
+  was only ever a guess your own screen was making, and the first thing that
+  re-read the note from disk — a sync arriving from another device, or simply
+  reopening the app — undid it. Editing a note's text or renaming it now records
+  the time, so the order is the same everywhere and survives a restart. Notes
+  you have not edited since this release keep the date they had; each one moves
+  into its right place the next time you edit it. Pinning, favouriting or
+  archiving still does not count as editing, and receiving someone else's edit
+  keeps *their* time rather than stamping your own.
+- **An open Settings panel now notices what your other devices did.** With
+  Settings → Sync open, a device joining or being revoked somewhere else did not
+  appear until you restarted the app — and the same was true of Settings →
+  Attachments when a file was deleted on another device. Both panels stay open
+  once you have visited them, so leaving the screen and coming back was not a
+  way out of it either. Both now update as soon as a sync lands. Sync itself is
+  unchanged and no slower: the device list is re-read on its own, without the
+  keychain lookups that reading your room identity needs.
+- **Deleting a note now shows up on the Trash screen straight away.** If the
+  Trash screen was already open — in a second window, or beside the list you
+  deleted from — the deleted note did not appear there until you navigated away
+  and back, and a second window kept showing the note in All Notes as though
+  nothing had happened. The Archive screen was taught this in the previous
+  release and the Trash was not, so the same action behaved differently
+  depending on which of the two screens you were looking at. Both now behave the
+  same way, in every window.
+- **A big sync no longer skips the Archive screen.** When a device came back
+  after a while offline, or joined a vault for the first time, it took a
+  shortcut and rebuilt the notes list in one go — and that shortcut stepped past
+  the Archive refresh. So the sync that was most likely to be carrying archived
+  notes was the one that left the Archive screen showing the old list. The same
+  now applies when a single note cannot be read during a sync: the lists are
+  refreshed rather than assumed unchanged.
+- **The phone's log now says how much memory the app was holding when it went
+  away.** iOS can kill a backgrounded app for several unrelated reasons that all
+  look the same from the outside — you unlock the phone and you are on the home
+  screen. The app now records its memory footprint and remaining headroom as the
+  last thing it does before going to the background, and again when it comes
+  back, so the two cases can be told apart from a device log instead of guessed
+  at. Diagnostics only; nothing about the app changes.
+- **Typing on the phone no longer drags the whole app around.** Tapping into a
+  note brought the keyboard up and left the app with two scrollers: the note
+  scrolled, and so did everything behind it, sliding the nav bar off the top of
+  the screen while the formatting toolbar disappeared behind the keyboard. The
+  cause was a single measurement. The app worked out how much of the screen the
+  keyboard covered by comparing two viewport heights, and on iOS 27 one of those
+  heights now shrinks with the keyboard — so the sum came out *negative*, which
+  reads as "no keyboard at all". Nothing made room, and iOS scrolled the entire
+  page up to keep the cursor visible. The app now asks iOS how tall the keyboard
+  is instead of inferring it, and puts the page back where it belongs once the
+  room has been made.
+- **A device that was refused now says so, instead of pretending to sync.** If
+  you joined a vault with an invite link that had already been used, or that had
+  expired, or from a device the owner had since revoked, the join appeared to
+  work: the vault was registered, your passphrase opened it, and the app looked
+  entirely normal. It just never synced, forever, and said nothing — because the
+  owner's refusal was a silent disconnect, which looks exactly like the owner
+  simply being out of range. The only record of the real reason was a log line on
+  the *other* person's machine. Three changes fix it. The refusal now travels to
+  the refused device and says which of the reasons it was. Sync status shows
+  "Not admitted" — ranked above "offline" and "no peers", because no amount of
+  waiting or better Wi-Fi will repair it — with the reason in words and, on the
+  phone, a button to remove the vault. And re-using your *own* invite link is now
+  caught at the moment you paste it, before the vault is registered at all.
+- **Daily Notes on the phone opens today's note.** Tapping Daily Notes in the
+  sidebar landed on the day timeline, which is a date picker whose answer is the
+  same every day — two taps to reach the note you wanted. It now opens today
+  directly, and the timeline stays one back-swipe away for any other day. Tapping
+  a day in that timeline also works properly now: picking the already-selected
+  date, or any day that has no note yet, used to do nothing visible at all.
+- **Reordering the sidebar shortcuts now reaches your other devices.** Dragging
+  a pinned notebook, tag or favourite note into a different position was only
+  ever stored on the machine you did it on — the order lived in local browser
+  storage, where no sync path could reach it — so every other device kept the
+  old arrangement forever. It is now stored with the rest of your vault and
+  travels like anything else; resetting the order travels too. An order you
+  already made on this device is adopted on first launch rather than thrown
+  away, unless another device has since set one, which wins.
+- **Settings changes no longer wait for an unrelated edit before syncing.** The
+  same underlying fault held up everything stored as a setting: the sidebar
+  colour order, date and time formats, the toolbar layout, your publishing
+  target and profile. Each was saved correctly and then sat there, because
+  nothing told the sync engine there was anything new to send — it went out
+  only when some *other* change, like editing a note, happened to push it. That
+  made it look intermittent rather than broken. Settings now announce
+  themselves like every other change, and cross in about a second.
+- **A selected image shows it.** Clicking an image in a note gave you no sign it
+  was selected — the video player has always drawn a ring when you pick it, and
+  the image, which is all picture and has no caret to read, had nothing at all.
+  It now draws the same ring, on the picture's own edge rather than the full
+  width of the line, and on the placeholder if the image is still arriving.
+- **The window buttons on macOS sit on the same line as the title-bar icons.**
+  The red/yellow/green buttons were drawn two pixels above the row of icons
+  beside them, which is exactly the kind of misalignment you see without being
+  able to name it. They are now centred on the icons. The sidebar toggle also
+  gets room to breathe: it sat about six pixels from the green button and now
+  sits eighteen, so it no longer reads as crowding the window controls.
+- **Every theme is on the page; the theme list no longer scrolls inside a
+  scrolling page.** Settings → Appearance capped the theme grid at a little over
+  half the window height and gave it its own scrollbar, so you were scrolling a
+  small box inside a scrolling pane and the wheel went to whichever of the two
+  the pointer happened to be over. The grid now grows to its full height and the
+  settings pane scrolls it, like every other section.
+- **Tapping a phone search result opens that note, at the line it found.** On
+  the phone, picking a result from the new title-bar search moved to the editor
+  but left whatever note was already open sitting there — and picking a command,
+  a tag or a notebook ran the wrong one, whichever happened to sit at that
+  position in the unfiltered list. The overlay emptied the result list before it
+  read which row you had touched. It now reads the row first and clears
+  afterwards; the layer still disappears the instant you tap. A picked note
+  opens and scrolls to the match, as it does on the desktop.
+- **Checklists put the text next to the checkbox again.** Every row in a
+  checklist rendered its checkbox on its own line with the text underneath it,
+  in the editor on the desktop and on the phone. The stylesheet had a block of
+  checklist rules that had never matched anything: it was written for a custom
+  checklist component that was never built, while the rows are actually drawn by
+  the stock editor's own markup. The rows are now laid out as a line — checkbox,
+  gap, text — with the text wrapping under itself rather than under the box,
+  nested checklists indented, and a ticked row dimmed and struck through.
+- **The "Checklist" list type lost everything typed into it.** Choosing
+  *Checklist* (as opposed to *Simple checklist*) produced a list that showed no
+  rows at all, and the text in it was dropped on the way to storage — a
+  checklist saved by an earlier version came back empty, or as an empty bullet
+  list. Both halves are fixed — the rows render, and they survive both saving
+  and re-opening. Text that an earlier version already wrote away cannot be
+  brought back; the *Simple checklist* type was never affected.
+- **A note someone else trashed or archived turned your typing into duplicate
+  "Untitled" notes.** With a note open on this device and the same note trashed
+  or archived on another, the open editor quietly stopped being bound to it and
+  became a *draft*: every few seconds of typing forked a brand-new "Untitled"
+  note holding the whole body, and none of the edits reached the real note. The
+  tab now stays bound to the note, turns read-only, and says which it is — "In
+  trash" or "Archived" — with a one-click Restore or Unarchive. The tab is
+  deliberately not closed: closing it under the cursor would discard whatever
+  was being written, which is the same loss from the other side.
+
+- **A note trashed on another device stayed in All Notes.** The sync path
+  decided a note was still live by asking whether the database still returned
+  it — but a trashed note *is* still returned (the row is a tombstone, not an
+  absence), so a peer's trash was read as an ordinary edit and the note was put
+  straight back in the list. Trashing now replicates to the list on both the
+  sync path and the between-windows path; previously neither carried it.
+
+- **macOS packaging never ran: the notarization block was written in the previous
+  electron-builder's syntax.** electron-builder 26 made `mac.notarize` a plain
+  boolean; the `{ teamId: … }` object it replaced is not deprecated there, it
+  fails schema validation, so every `--mac` leg died in the config validator
+  before packaging started. It has been that way since notarization was wired,
+  because the next full release run is the first thing to read the block. The
+  team id moves to the environment, which is where 26 looks for it.
+
+- **The release build failed at the iOS bridge-frame gate.** The user's
+  diagnostic-logging flag (`__hyphaLoggingEnabled`, shipped in 0.12.0) is the
+  fifth non-bridge user script the shell injects into all frames, alongside the
+  `crypto.randomUUID` shim, the CPU probe and the two debug flags — but it was
+  never added to the gate's allowlist, so `release:local` refused every build
+  after it landed. It registers no handler and exposes no native capability;
+  only the allowlist was out of date, not the injection. The shell's own comment
+  said "four" and now says five, and names the file that has to agree.
+
+- **"Back up now" worked once and then seemed to do nothing.** On the phone the
+  first manual backup landed and the second changed nothing at all: the button
+  stayed enabled, tapping it produced no file and no message. Three things in
+  Backup & Export were each enough to cause that on their own, and all three are
+  fixed. The section never caught a failure, so when the platform refused to
+  write — an unreachable folder, a payload it turned down — the refusal vanished
+  and the button simply re-enabled itself; it now says what went wrong, in the
+  platform's own words. Every outcome, including "Backup saved", was printed at
+  the very bottom of the section, several screens below the button that caused
+  it, so on a phone it may as well not have been there; each message now appears
+  beside the control it belongs to. And the format picker (notes only / with
+  attachments) reset itself to "choose a format" every time you left the section
+  and came back, which on the phone is every time — so the second backup asked
+  for a format again, in a message you could not see. It remembers your choice
+  now.
+
+## [0.12.0] - 2026-08-19
+
 ### Changed
 - **Hypha's licence has changed, and Hypha is no longer open source.** It is now
   *source available* under the Hypha Source Available License 1.0. In plain
@@ -49,9 +638,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   new app and will ask for **Local Network** permission again the first time you
   sync.
 
+- **Automatic backups are a desktop feature now; on iPhone, backups happen when
+  you ask for them.** The schedule was never going to work on a phone and the
+  way it failed was the bad way — quietly. iOS suspends an app shortly after you
+  leave it, and a suspended app runs no timers, so "back up daily" only ever
+  fired if you happened to open Hypha and leave it open. You set a guarantee and
+  got a coincidence.
+
+  Nothing else about backups on iPhone changes. "Back up now" writes exactly the
+  same backup the desktop does, in both formats, to a folder you pick; both
+  restore paths work; the backup folder and the number of backups to keep are
+  still yours to set, because they apply to the backups you take by hand too.
+  The Backup screen now says why the schedule is gone rather than just dropping
+  it.
+
+- **A new app icon on both platforms**, drawn from the redrawn `hy` monogram.
+
 - **macOS 12 (Monterey) is now the declared minimum.** It was always the real
   floor, inherited from Electron; it just was not written down, so the installer
   would happily install onto a Mac the app then crashed on at launch.
+
+- **"Full offline mode" is gone; in its place is "Download attachments
+  automatically", and unlike its predecessor it does something.** The old
+  checkbox's value reached a parameter no syncer ever read — there was no
+  consumer of it anywhere, on either host, for its whole life — while the
+  behaviour it claimed to control ran unconditionally: every connection swept
+  the whole vault for attachments, so a phone joining pulled down every file in
+  it. The new setting is on by default and genuinely gates that sweep. Turn it
+  off and notes still sync in full; an attachment is fetched when you open it,
+  because "do not download files I did not ask for" is the policy and opening
+  one is you asking. Serving other devices, and deleting attachments you have
+  removed, are unaffected either way.
 
 ### Added
 - **macOS builds can now be signed and notarized.** With a Developer ID
@@ -70,6 +687,119 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   attachment filenames are stored in the clear, including inside a backup file.
 - **A list of the third-party components Hypha includes and their licences.**
   This was owed before and had never been written.
+
+- **Type `@today` in a note to link to that day's daily note.** The `@` menu that
+  links to another note now understands `@today`, `@tomorrow` and `@yesterday`,
+  and offers the matching daily note — creating it if it does not exist yet.
+  `@date` offers today plus a date picker, so any other day is two keystrokes
+  away. The rows appear as soon as the word is recognisable, so `@tod` is enough.
+
+- **Archive, Trash and Web Notes look like the notes list now, and their rows
+  open.** All three drew their own cramped list with actions that only appeared
+  on hover, and in Archive and Web Notes clicking a row did nothing at all. They
+  use the same row as the notes list, and clicking one opens it: read-only in
+  Archive and Trash, in the normal editor in Web Notes.
+
+### Fixed
+- **On iPhone, the on-screen keyboard covered the bottom of the note you were
+  typing in.** iOS does not shrink a web page's layout for the keyboard, so the
+  lower part of every screen — the note's text above all — was laid out behind
+  it. Text appeared where you could not see it, and the only way it came back
+  was the whole app sliding around under your finger. The app now ends exactly
+  where the keyboard begins, and the line you are typing scrolls back into view
+  when the keyboard opens over it.
+- **The `/` menu in the editor listed a code word beside every entry.** Typing
+  `/` at the start of a line opens a menu of formatting actions, and each row was
+  printing the internal *name* of its icon as text — "remove-formatting Clear
+  formatting", "list-ordered Numbered list". It now draws the icon, as the
+  toolbar always did.
+
+- **Sync settings put the master switch below everything it switches off.** The
+  "Enable sync" and "Full offline mode" options sat at the bottom, under the
+  whole list of paired devices. With sync off, every row above them is inert —
+  and you only found the switch that explained it after scrolling past all of
+  them. The options now come first.
+
+- **An archived note did not show up in Archive until you restarted the app.**
+  Archiving removed the note from All Notes immediately and reached your other
+  devices immediately, but the Archive screen itself only rebuilt its list when
+  you navigated to it fresh — so if you were already looking at it, or looking at
+  a second window, the note simply was not there. It appears at once now, whether
+  the archiving happened here, in another window, or on another device.
+
+- **Archived notes were fully editable.** "Archived" meant the note left the main
+  list and nothing more: a tab left open when you archived, or a link to an
+  archived note, gave you an ordinary editor that saved and synced every
+  keystroke. Archived notes are read-only now, like notes in the trash, with an
+  Unarchive button where the formatting toolbar used to be.
+- **A note could end up with its own text twice, permanently, on every device.**
+  A note's text lives in two places, and a note opened before its text had
+  arrived from your other device would convert the copy it had into the shared
+  document — producing a second copy of something that was already there. It is
+  data, not a drawing mistake: reopening the note or restarting the app kept it.
+  Three doors led to it and all three are shut. Opening a note in the seconds
+  after launch, before the app has finished re-connecting to your devices, no
+  longer counts as "nobody has this text". Two devices converting the same note
+  at the same time now produce a result that merges to one copy rather than two.
+  And a note whose text exists on no device — a web clip, an import, a daily
+  note made from a link — no longer sits waiting four seconds for a copy that
+  is never coming: the app now recognises when every device has answered "I do
+  not have it" and opens straight away.
+
+- **One day could end up with two daily notes.** The daily note reached from
+  the `/date` menu and the one on the Daily Notes screen were found by two
+  different routes that could not see each other's work, and each remembered
+  its answer. A daily note created in another window, or arriving from another
+  device, read as "there isn't one" — so a second was made, and afterwards the
+  link took you to one note while the list opened the other.
+
+- **Sync could stop between two paired devices until you restarted the one that
+  was refused.** After the device that owns the vault restarted, the other one
+  went on presenting the invitation it had already used up, rather than the
+  credential it had since been issued — so every reconnection was refused, for
+  ever, and nothing but relaunching the refused device cleared it. Two related
+  faults made the failure loud as well as permanent: a refused device was
+  re-dialled several times a second rather than held off, and the hold-off that
+  was added first only covered the side doing the refusing, leaving the refused
+  device dialling back in at the same rate.
+
+- **A packaged build still printed diagnostic logs.** The switch in Settings →
+  Updates → Logging only ever reached the app's main window. The three other
+  places that log — the desktop app's background process, the iPhone app's
+  native shell, and the two components that draw note content — had no switch
+  at all, so a released build wrote diagnostics regardless, and on iPhone those
+  lines were kept in the system log on the device. All four now follow the one
+  setting, which stays off in a released build; errors still print always.
+
+- **The *What's New* window showed a stale, built-in copy of the release notes.**
+  It fetches them from a public repository, and that repository was empty — no
+  branches at all — so the fetch had been failing for every installed copy of
+  Hypha since the source moved private. Nothing surfaced the failure: the app
+  quietly fell back to the notes baked in at build time, which is exactly why it
+  went unnoticed. The repository now carries the notes, and the fetch works.
+
+### Removed
+- **The "check for new versions" setting, which never checked anything.** The
+  setting existed, defaulted to on, and promised a daily check — but the code
+  that would have performed it had never been written, so turning it off changed
+  nothing and leaving it on got nothing. Updating still works as it always did;
+  only the setting that misdescribed it is gone.
+
+### Tooling / Dependencies
+- **Release credentials can live in a gitignored `.env`.** A signed and uploaded
+  release needs six App Store Connect and notarization variables, and a shell
+  export is lost the moment the terminal closes — discovering that after a
+  20-minute build is the failure this prevents. `.env.example` documents every
+  key with no values. A variable already set in the environment always wins, so
+  a stale line in the file cannot silently beat what was just typed.
+
+- **The version bump now cuts the changelog, and the public copies have a sync
+  step.** Bumping a version left the notes for it under `[Unreleased]`, which
+  the *What's New* window skips — so a new version would have appeared in the
+  app with nothing under it. The bump now cuts the section under the new version
+  number and refuses outright when there is nothing to cut. Separately, there is
+  now one command that syncs the public copies of the changelog and the privacy
+  policy, and a release checks them against it before it builds.
 
 ## [0.11.0] - 2026-08-18
 
@@ -1711,7 +2441,7 @@ iPhone.
   reminder, not at launch.
 
 ### Changed
-- **"Monographs" is now "Web Notes".** The Notesnook-inherited name is gone from
+- **"Monographs" is now "Web Notes".** The inherited name is gone from
   the whole tree — the sidebar entry, the `/web-notes` route, the command
   palette entries, the `WebNote` contract type, the `WebNotesFacade`, the
   `hypha://webNote/<id>` deep-link kind, and the `webNotes.*` translation keys.
