@@ -86,13 +86,18 @@ the layout has never been run on one. iOS comes through TestFlight, which
 expires builds after 90 days. The first build (0.13.0, build 579) is uploaded
 and accepted; TestFlight access is by invitation.
 
-**The iPhone build runs its peer-to-peer stack on a JavaScript engine it has
-never run on.** The networking that syncs your notes lives in a separate
-embedded runtime, and that runtime had to be swapped from JavaScriptCore to V8
-for 0.13.0 — Apple refuses to distribute the JavaScriptCore build, because it
-reaches Apple APIs that are not public. Everything previously measured about
-sync on a phone was measured on the other engine. If sync misbehaves on iOS,
-this is the first thing to suspect, and saying so is genuinely useful.
+**The iPhone build's peer-to-peer stack runs on a JavaScript engine that is new
+to it.** The networking that syncs your notes lives in a separate embedded
+runtime, and it had to be swapped from JavaScriptCore to V8 for 0.13.0 — Apple
+refuses to distribute the JavaScriptCore build, because it reaches Apple APIs
+that are not public.
+
+Phone-to-laptop sync **over the same Wi-Fi has been tested on the new engine**
+and works. What has not been tested on it: syncing over the **internet** rather
+than a shared network, attachment transfer, and how the phone behaves over hours
+of ordinary use — battery and warmth included. Everything known about those was
+measured on the old engine. If sync misbehaves, or the phone runs hot, this is
+the first thing to suspect, and saying so is genuinely useful.
 
 ---
 
