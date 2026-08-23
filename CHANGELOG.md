@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **The always-on relay is now one command to run.** Hypha syncs your devices
+  directly, which means both have to be awake at the same time — write on your
+  phone with the laptop shut and the laptop gets it whenever you next open it.
+  A relay is a third peer that is always awake, so that stops being a wait. It
+  is published as a container image with a compose file and a filled-in example
+  configuration on the releases page, so setting one up on a spare machine is
+  four commands rather than a build from source. It holds **ciphertext only**:
+  it joins your vault with no ability to read anything in it, and a stolen relay
+  disk yields sealed blobs. It is a convenience, not a backup, and it is
+  entirely optional — nothing about syncing changes if you never run one.
+
+### Changed
+- **The releases page no longer offers an iOS download.** It briefly carried an
+  `.ipa` that nobody could install, including the author: from 0.13.0 the iPhone
+  build is packaged in the format Apple accepts for TestFlight, which iOS
+  refuses to side-load at all. It was there to make the checksums file complete
+  and it only ever looked like a download that worked. iPhone installs come
+  through TestFlight; the checksums file now covers exactly what is published,
+  so verifying a download no longer fails on a file that was never there.
+- **What the phone runs its networking on changed, and it has now been tested
+  on a phone.** The peer-to-peer stack lives in a separate embedded runtime that
+  had to be swapped from one JavaScript engine to another for this release —
+  Apple will not distribute a build containing the old one. Sync between a phone
+  and a laptop on the same Wi-Fi is confirmed working on the new engine. Syncing
+  over the internet rather than a shared network, attachment transfer, and how
+  the phone behaves over hours of use are not yet re-tested on it;
+  `KNOWN-LIMITATIONS.md` says so plainly.
+
+### Fixed
+- **The test suite was failing at random, and none of it was the app.** The
+  headless browser driving the phone tests — the Chrome installed on the build
+  machine — quits by itself about thirty seconds after it starts, silently and
+  with no error anywhere. Every test running longer than that died at whichever
+  step happened to be underway, wearing whatever error fitted, so one cause
+  looked like a series of unrelated bugs in the app's own screens. Three
+  attempts at building this release died that way before it was identified. The
+  tests now run against a pinned browser that does not update itself underneath
+  them.
+- **A test had been checking the wrong place for months.** An earlier change
+  moved every "done" message in Settings out of a line at the foot of the
+  section and into a dialog, because on a phone that line was several screens
+  below the button you pressed. The test that checks backup and restore was
+  still reading the old spot, so it reported that restoring a backup printed no
+  confirmation — the confirmation was there, in the dialog, and nothing had run
+  the test since the change.
+
 ## [0.13.0] - 2026-08-21
 
 **This is the first build of hypha that anyone other than its author can
