@@ -5,9 +5,137 @@ All notable changes to Hypha are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+**Entries are SHORT — one or two sentences.** What changed, and what it means
+for someone using the app. No mechanism, no measurements, no reasoning about
+why the old behaviour was wrong: those belong in the commit message, which is
+where anyone asking "why" will look. Entries here are the release notes, and
+the desktop *What's New* window shows them verbatim to people who just want to
+know what is different. Earlier versions in this file are much longer; they are
+not the model.
+
 ## [Unreleased]
 
+## [0.14.0] - 2026-08-25
+
 ### Added
+- **Share into Hypha from any app.** A link becomes a web-clipped note on its
+  own; anything else asks — right there in the app you are sharing from —
+  whether it goes to today's daily note, an existing note or a new one. iOS does
+  not let a share sheet open Hypha, so the share is waiting for you the next
+  time you open it. Choosing an existing note is the one case that needs you to
+  switch over, because picking it means reading your notes.
+- **Two Lock Screen widgets on iPhone** — a calendar button that opens today's
+  daily note, creating it if the day has none, and a plus button that starts a
+  new one. Both also work as Home Screen tiles.
+- **Each vault can choose what it opens on** — where you left off, a view, a
+  notebook, a tag or a colour. Settings → Notes. The choice travels with the
+  vault, so your other devices follow it.
+- **On iPhone you can pin which vault opens when the app starts.** Settings →
+  Open on Launch. It still defaults to the vault you used last, and it stays on
+  this phone rather than syncing.
+
+### Fixed
+- **Long-pressing the + button now opens its menu on every screen**, not only
+  the notes list. "Clip web page" is reachable from anywhere as a result.
+- **The daily-note stream no longer jumps when you scroll up into older days.**
+
+### Changed
+- **Date headings in the daily-note stream are dimmed except the day you are
+  reading.** The day becomes the bright one as it reaches the upper quarter of
+  the screen, and its heading now reads as a date tile with the weekday beside
+  it.
+- **Search across all your notes is now ⇧⌘F** (Ctrl+Shift+F on Windows and
+  Linux). It used to be ⌥⌘F.
+- **⌥⌘F now opens find and replace inside the note you are in.** The replace
+  row is already open, so you can type both halves straight away.
+
+### Fixed
+- **A long press in the notes list no longer selects text.** It opened the
+  drawer and started a selection at the same time — sometimes highlighting the
+  whole screen, or the drawer's own text.
+- **Going back from a linked note returns you to the note you came from**, even
+  when you had been out to the notes list in between. It used to drop you in the
+  list instead.
+- **Tapping a date in Daily Notes now opens that day at the top of the screen**,
+  instead of a bar's height too high with its first lines behind the date.
+- **The date at the top of a day no longer flickers between two sizes** while
+  you scroll past it.
+- **On Windows and Linux, the minimise/maximise/close buttons follow your
+  theme.** They were drawn in white whatever the theme, so on a light theme they
+  were white on a light background.
+
+## [0.13.3] - 2026-08-24
+
+### Changed
+- **The bar at the top of every screen is solid now, and the strip behind the
+  notch is part of it.** It used to be invisible until you scrolled, so that
+  strip read as a grey band sitting above the bar.
+- **The back button is a chevron on its own**, in the bar's own colour. It used
+  to print the name of the screen behind it, in the accent, which read as the
+  bar's main action rather than its way out.
+- **The screen's name sits on the left of the bar**, lined up with the heading
+  below it, instead of centred.
+- **Collections leads with the app logo** instead of a "Collections" heading,
+  and the arrow across to your notes is gone — swipe across instead.
+- **Daily notes read as one page.** Each day's date is large on arrival, then
+  shrinks and holds at the top while you read that day. Days you have not
+  written in are a single line instead of a block, so about twice as many fit on
+  screen.
+- **A day's notebooks, tags, links and files are one row.** Tap it for the full
+  set. They used to be four sections per day, mostly saying "None".
+- **The daily notes editor runs the full width of the screen**, and the search
+  and new-note buttons sit closer to the corners.
+- **Daily notes is its own tab on the desktop**, named for the view instead of
+  showing a date. Browsing a week of days leaves one tab rather than seven, and
+  a day you have never written in now has a tab like any other — it used to open
+  with nothing selected in the tab strip and no way back to it.
+- **A day in the desktop daily-notes stream lines up with its own writing.** The
+  date, the line on a day you have not written in, and the day's summary row ran
+  the full width of the pane — and right to the edge of a narrowed tab, where a
+  single note keeps its margin.
+
+### Fixed
+- **The Join button was behind the keyboard** when unlocking or joining a vault.
+- **The formatting toolbar never appeared in daily notes.**
+- **A vault on a dark theme was unreadable while another vault was open on a
+  light one.** Windows whose themes clash now both trade the translucent glass
+  for a solid background until they match again, and Settings → Appearance
+  says so.
+- **Pin, star and shortcut icons were the wrong shade** in a vault whose theme
+  differed from the other open vault's.
+
+### Tooling
+- **The mobile sidebar smoke checks the header rather than the old headline**,
+  and now catches an app logo that fails to load or picks the wrong light/dark
+  variant — both of which used to render as nothing, silently.
+- **A probe measures the daily-notes stream against the editor's column** in a
+  running desktop window, so "the date lines up with the writing" is a number
+  rather than a look.
+- **A probe records which scroll wins when a daily note opens.** It asserts
+  nothing and is not a gate — it exists for an open report that the stream
+  sometimes lands at the end of a date instead of the start.
+- **A probe drives the daily notes tab in a real desktop window** — opening it,
+  quitting, relaunching, and checking the tab strip comes back whole.
+
+## [0.13.1] - 2026-08-24
+
+### Added
+- **Daily notes are one continuous page you scroll through, not one note at a
+  time.** Opening a day used to mean landing on that single note; getting to
+  yesterday meant going back to the date list and picking again. Now the editor
+  holds every day in order — scroll up for the days before, down for the days
+  after — and picking a date in the list scrolls to it rather than opening
+  another tab. Days you have not written in are there too, so a week you skipped
+  is a short scroll rather than a gap you have to navigate around; writing in
+  one creates that day's note exactly as before, on the first thing you type.
+  The arrow keys cross between days: press up at the top of a day and the caret
+  continues at the end of the previous one.
+
+  Days you scroll away from are **unloaded**, not merely hidden, and days you
+  have not written in cost nothing until you write in them. That is what keeps a
+  page holding a year of days from growing without limit — and on the phone it
+  is the difference between the app working and iOS shutting it down for using
+  too much memory.
 - **The always-on relay is now one command to run.** Hypha syncs your devices
   directly, which means both have to be awake at the same time — write on your
   phone with the laptop shut and the laptop gets it whenever you next open it.
@@ -20,6 +148,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   entirely optional — nothing about syncing changes if you never run one.
 
 ### Changed
+- **The iPhone app looks and moves like an iPhone app.** The chrome has been
+  rebuilt against the design iOS uses now, and the change is most obvious in
+  four places.
+
+  The bar at the top of every screen no longer sits above your notes — it floats
+  over them. Notes scroll underneath it and under the status bar, and the bar
+  itself is clear until something passes behind it, at which point it frosts
+  over and takes the screen's name into its middle. Screens with a big title
+  (Collections, Settings) now print that title in the page rather than in the
+  bar, so it scrolls away like the rest of the content.
+
+  **A new note is always one thumb away.** The `+` used to exist on two screens
+  out of thirteen; it is now a floating button in the bottom-right corner of
+  every screen, and it knows where you are — on Reminders it makes a reminder,
+  under the Tasks filter it makes a task. Press and hold it for the other ways
+  to start something, including clipping a web page.
+
+  **Search has its own button**, bottom-left, where your thumb already is. It
+  used to be the screen's title, which worked and nobody found. It opens as a
+  drawer that rises from the bottom with the search field resting on top of the
+  keyboard and the results filling the space above it — so the thing you type
+  into and the thing you tap are both within reach, instead of at opposite ends
+  of the screen.
+
+  **Swiping between screens now starts at the edges only.** Sliding between the
+  sidebar, your list and the open note used to be possible from anywhere, which
+  meant it competed with everything else a horizontal drag might mean — pulling
+  a row aside for its Archive and Delete buttons, placing the cursor in a
+  sentence, scrolling a wide table. Navigation now lives in a strip at the left
+  edge (back) and the right edge (forward), which is where iOS puts its own back
+  gesture, and everything else on the screen belongs to what is on it.
+
+  Alongside those: one animation curve instead of three, with the outgoing
+  screen sliding back and dimming behind the incoming one the way iOS does;
+  larger, more consistent corners on sheets and menus, defined by a hairline
+  rather than a shadow (which read as a smudge on the light themes); the iOS
+  type scale; and a buzz on the new-note button, which never had one. If you
+  turn on **Reduce Transparency** in iOS Settings the frosting is replaced by
+  solid colour throughout, and **Reduce Motion** drops the sliding.
+
 - **The releases page no longer offers an iOS download.** It briefly carried an
   `.ipa` that nobody could install, including the author: from 0.13.0 the iPhone
   build is packaged in the format Apple accepts for TestFlight, which iOS
@@ -37,6 +205,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `KNOWN-LIMITATIONS.md` says so plainly.
 
 ### Fixed
+- **The iPhone app was letterboxing itself, and painting two different
+  backgrounds.** Reported off a device: the notch area did not look like part of
+  the navigation bar, and there was a thin grey band across the bottom of every
+  screen. Both were the same mistake seen from two ends. The app reserved a
+  strip at the bottom for the home indicator and filled it with its own
+  background — where a native app simply lets content run underneath — and note
+  rows and the note editor painted a slightly *different* background from that
+  strip, so the seam had a visible edge. Content now reaches the bottom of the
+  screen, the last row is spaced clear of the home indicator instead of stopping
+  short of it, and every surface uses one colour. Measured before and after on
+  an iPhone 17 Pro: the strip and the rows were (22,24,29) against (15,17,21),
+  and are now identical.
+- **The iPhone UI test suite could pass against an app that had not started.**
+  The documented command asked Xcode to skip code signing, which costs the app
+  its Keychain entitlement — so it stopped at a "Startup failed" box, and the
+  test that checks the page reaches the top of the screen passed anyway, because
+  it compares two dark pixels and an error screen is dark. The flag is gone and
+  the reason is written beside the command. While confirming that, a second
+  thing came out: those tests only ever see the vault-unlock screen, because a
+  fresh install has no vault — one of them had claimed for its whole life to be
+  tapping the notes list. They still check what they were written to check; the
+  description was wrong, and now says so.
+- **The 0.13.0 desktop app would not start.** It opened a grey error box
+  ("Cannot find package 'libsodium-wrappers-sumo'") and went no further. One of
+  the encryption components the app is built on was never listed among the
+  things the installer had to include — it reaches the app indirectly, through
+  another part of the project, and everything that runs Hypha from source shares
+  a single pool of components, so it resolved correctly every time it was built
+  or tested and was simply absent from what got packaged. It is declared now.
+
+  Two things came out of looking for others like it. Twenty-six more components
+  used by build and test tooling turned out to be undeclared in the same way,
+  working only because something else in the project happened to pull them in —
+  all now declared. And **every release from here on launches the packaged app
+  before it can be uploaded**, which nothing had ever done: the checks that ran
+  before a release tested the code, never the finished application. That check
+  was written against the broken 0.13.0 build itself, so it is known to catch
+  this rather than assumed to.
 - **The test suite was failing at random, and none of it was the app.** The
   headless browser driving the phone tests — the Chrome installed on the build
   machine — quits by itself about thirty seconds after it starts, silently and
