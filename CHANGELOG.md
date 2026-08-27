@@ -15,6 +15,298 @@ not the model.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-08-27
+
+### Added
+- **A light and a dark app icon, plus a tinted one.** iOS picks whichever suits
+  your Home Screen, so the icon now lightens on a light Home Screen instead of
+  staying near-black, and tinted mode gets artwork made for it rather than one
+  the system guesses at.
+- **Choose what a vault opens on: the home screen, or a specific note.** Two new
+  options in Settings → Notes → "Opens on". A note is chosen by searching for it
+  rather than from a list, so it works in a vault of any size.
+
+### Changed
+- **The widgets wear the Hypha mark.** The Daily Note and New Note widgets
+  carry the app's own calendar and note glyphs instead of generic system
+  symbols, and the glyphs are larger — they were sitting small in their
+  circle on the Lock Screen.
+- **The iPhone home screen leads with tiles.** All Notes, Daily Notes, Tasks,
+  Web Notes, Archive and Reminders are now a two-column grid of cards at the top
+  of the screen, each with a coloured icon and a live count, instead of six
+  identical rows. The Daily Notes tile is a calendar face — today's day over
+  the month, with the weekday under it. The colours come from whichever theme
+  you are using.
+- **A new vault opens on the home screen.** Previously it opened on the notes
+  list, with no sign that there was anything to the left of it. Once you have
+  opened something, it goes back to where you left off as before.
+
+### Tooling
+- **Desktop releases are built and signed locally again.** A tag no longer
+  starts a GitHub Actions build, so a release carries macOS and iOS; the
+  Windows and Linux legs stay in the workflow and can be started by hand.
+
+## [0.16.0] - 2026-08-26
+
+### Added
+- **One relay daemon can now serve several vaults.** Join as many invites as you
+  like into a single `hypha-peer` data dir; each vault keeps its own identity and
+  its own storage, and one service runs them all.
+- **Notebooks and tags show when something inside them is unfinished.** A small
+  dot at the right of a sidebar row means a note in that notebook or tag — or in
+  anything nested under it — still has an unticked task.
+- **The sidebar remembers which notebooks and tags you left open.** Unfolding a
+  notebook with sub-notebooks, or a tag with sub-tags, now survives a reload
+  instead of collapsing back to the top level every time.
+- **Daily Notes opens ready to write.** On a Mac the cursor starts in today, and
+  the day you opened is given room on screen rather than sitting as one thin
+  line above the next day. On a phone the keyboard stays down until you tap.
+
+### Changed
+- **A relay daemon's storage moved into a folder per vault.** An existing data
+  dir is converted the first time the new version starts; back it up first,
+  because there is no way back to the old layout.
+- **The text colour and highlight buttons are a brush and a marker.** The
+  editor toolbar had two identical pen icons, one of which opened no colours;
+  that one is gone, and text colour now uses a brush instead of a letter "T".
+  On a phone both are available for the first time, each with its own swatches.
+- **The daily stream sits closer to the screen edge on a phone.** It had a
+  wider margin than an ordinary note; it is now slightly narrower than one.
+- **The sidebar no longer marks favourites twice.** The star on a notebook, tag
+  or colour row appears on hover instead of staying lit once the item is
+  favourited, and on iPhone it is gone from the rows entirely; the Shortcuts
+  section already lists everything you have favourited. Adding and removing a
+  favourite works exactly as before, from the row itself on a Mac and from the
+  row's long-press menu on a phone.
+
+### Fixed
+- **The relay daemon no longer asks for a passphrase before checking there is
+  anything to unlock.** On a machine that has never run `init`, `vaults`,
+  `status`, `run`, `prune` and `migrate` prompted first and only then reported
+  that no store exists.
+- **A relay daemon with no way to read its passphrase now fails instead of
+  exiting quietly.** Started with no terminal and no `HYPHA_PEER_SECRETS_PASSPHRASE`
+  — a misconfigured service file — it reported success while relaying nothing, so
+  nothing restarted it.
+- **A relay daemon joined to a shared vault now actually relays it.** It was
+  refusing every device unless the vault happened to be the default one, so the
+  relay sat in the room and nothing ever synced through it.
+- **Daily Notes opened in a different place every time.** The stream now lands
+  on the day you asked for, every time, and holds it there while the days above
+  finish loading.
+- **Clicking Daily Notes did not always show today.** From the sidebar it could
+  reopen whichever day you last browsed, and after closing the daily tab it did
+  nothing at all. It now opens today from either shell, however many times you
+  click it.
+- **Clicking an empty day did not put the cursor in it.** The "write something
+  for this day" row, the space around it, and a day still loading are all
+  places you can click to start writing.
+- **Tapping a day moved the page under you.** The day you tapped now stays
+  exactly where it was while its editor appears.
+- **Scrolling up and down disagreed about which day you were in.** The
+  highlighted day and the cursor now follow the scroll the same way in both
+  directions instead of sticking on the day you started from.
+- **Links between notes showed as "Untitled".** A linked note's title is
+  encrypted like everything else, and the code that loads links — both the
+  notes you link to and the ones linking back — never decrypted it, so every
+  link chip fell back to "Untitled" in any encrypted vault.
+- **The open-task dot is quieter, and it now shows in Shortcuts.** It is a
+  little smaller and takes the same green a note's task progress bar uses,
+  softened — one colour for one fact instead of two. Shortcut rows never had
+  the dot at all, so a notebook could be marked in the list below and unmarked
+  in Shortcuts; notebooks, tags and favourite notes up there now carry it too.
+- **Sub-notebooks were unreachable in the sidebar.** A notebook containing
+  other notebooks showed no way to open it, so everything inside stayed hidden
+  — while still being counted, which is why the notebook heading read higher
+  than the list. A newly made sub-notebook appeared only until the next
+  restart. Notebooks that contain others now show the expand arrow again,
+  whether or not they have been opened before.
+- **A notebook could go missing from the sidebar while still being counted.**
+  Putting a notebook in the trash left any notebook inside it with nowhere to
+  appear: the sidebar counted it but had no row to show it under, so the
+  notebook heading read one higher than the list. Those notebooks now move up
+  to the top level, where you can see and move them — and restoring the
+  original notebook puts them back inside it.
+- **A link to a note in the trash now says so.** The link stays — restoring the
+  note brings it back intact — and the chip carries a small trash icon and a
+  struck-through title instead of looking like a link to a note that is still
+  there.
+- **Deleting a note for good left its links behind.** Emptying a note out of
+  the trash removed the note but not the links pointing at it, so the notes
+  that linked to it kept a chip leading nowhere — and re-opening one of those
+  notes put the link back. Both halves are fixed: the links go with the note,
+  and a link in the text of a note is no longer revived when its target no
+  longer exists.
+- **Your phone reconnects in about 9 seconds after you unlock it, instead of
+  about 36.** While the screen is off the phone gives up its network connection
+  entirely, and it used to get back by announcing itself and waiting to be
+  found. It now also calls the devices it has actually talked to before,
+  directly, at the same time as it announces — so a note you write on your Mac
+  reaches your phone about half a minute sooner after you pick it up. Measured
+  on an iPhone over mobile data: 36.2 seconds before, 9.5 after.
+- **Two devices on the same network kept dialling each other over the internet
+  as well.** When your phone and your Mac can already see each other locally,
+  the second connection is redundant and was being closed and remade about
+  every 45 seconds, all day — measured at roughly 79 needless connections an
+  hour on each device. hypha now waits longer each time before trying again,
+  up to ten minutes, while still reconnecting immediately if the local link
+  really does go away.
+- **Importing from Standard Notes created no notes.** Import opened its own
+  connection to the vault, which is locked by definition — and since the
+  at-rest work a write into a locked vault is refused rather than quietly
+  stored unencrypted, so every note failed and the summary said it imported
+  zero. Import now writes through the vault this window already has open, or
+  unlocks the chosen one with this device's key, and says which vault to unlock
+  when it cannot.
+- **The desktop app would not start.** A change from the security work reached
+  the sync package through its main entry point, which pulls in code that only
+  runs on a server — in the app window that turns into an error before anything
+  is drawn. The app now imports only the piece it needs, and a test walks the
+  window's whole import graph so this cannot come back unnoticed.
+
+### Security
+- **The passphrase leaves fewer targets behind.** How expensive it is to turn
+  the passphrase into a key is now stored beside the vault's salt (so it can be
+  raised for new vaults without touching old ones), an invite link can be
+  issued without the material that made every link a passphrase-guessing
+  target, and a backup can be written device-bound with its credential sealed
+  inside. All three are built and verified; the stronger cost, the new link
+  form and the device-bound option are not yet switched on in the app.
+- **Sync no longer takes another device's word for it.** Data arriving from a
+  peer is checked against the expected shape before it is stored, a device
+  whose clock is more than an hour ahead is held until real time catches up
+  instead of overriding everyone's edits, an attachment is only deleted when
+  the deletion itself has synced, and device credentials now expire after
+  thirty days and are renewed automatically whenever the device meets one of
+  the vault owner's devices. A renewed credential is saved on the device, and
+  a used invite can no longer be un-used by another device's sync.
+- **A locked vault leaves no readable copy of your notes behind.** The search
+  index and the semantic index are now emptied when the app starts as well as
+  when the vault locks, so a crash or a force-quit no longer leaves them full;
+  the search index rebuilds itself after you unlock. Notes that were in the
+  trash when you first set a passphrase are now encrypted too, note-history
+  entries no longer store a plain fingerprint of their text, the app refuses to
+  open a vault file that turned out not to be encrypted, and nothing can be
+  saved in plain text while the vault is locked. Sealed values are now bound to
+  the note they belong to on every device.
+- **Sync discovery no longer reveals the vault to bystanders.** The LAN beacon
+  announces a hashed alias of the vault's sync topic instead of the topic
+  itself, and a device joining with an invite hands that invite only to the
+  vault owner's device, never to whoever connects first. A device on this
+  version and one on an older version will not find each other over the LAN
+  until both update; sync over the internet is unaffected.
+- **A note from another device is treated as untrusted.** Images hosted on
+  someone else's server are no longer fetched when a note opens — they show a
+  placeholder naming the host and a "Load image" button — unless you turn on
+  the new Settings → Global → Privacy → *Load external images in notes*. An
+  embedded web page in a note can no longer open windows or be granted
+  permissions such as location or camera, and a link that points at a network
+  share is refused rather than opened.
+- **Opening a local file from a link in a note now asks first**, whatever the
+  file type. Attachments you open from the app itself are unaffected.
+- **Developer tools are no longer in the menu of a shipped build.**
+- **The desktop app can no longer be used as a general-purpose Node runtime.**
+  The shipped build now refuses `ELECTRON_RUN_AS_NODE`, `NODE_OPTIONS` and
+  `--inspect`, verifies its own bundle before starting, and on Windows an
+  uninstall keeps your vault on disk.
+- **The macOS build is packaged with the Electron it was tested with.** The
+  0.15.0 build had shipped with a newer Electron than its database engine was
+  built for, so opening a vault failed; the version is now pinned and checked.
+- **On iOS, the app's own diagnostic output is written to the system log only
+  while Logging is turned on.** It used to be written regardless of the toggle.
+- Files hypha keeps beside the vault (`picked-dirs.json`, `app-state.json`, and
+  attachment blobs stored before 0.11.0) are now readable only by your account.
+- **Backups and exports are written readable only by your account**, including
+  files a previous backup left behind. Publishing to S3 now refuses anything but
+  the four request types it uses and stops reading an oversized reply instead of
+  buffering it; a passphrase-protected published page no longer shows the note's
+  title before the passphrase is entered; the What's New check no longer sends a
+  `GITHUB_TOKEN` from the environment; and note ids are drawn from the system's
+  cryptographic random source.
+- An internal security audit is published as `docs/SECURITY-AUDIT-2026-08-25.md`,
+  and SECURITY.md now says what it found and what is still open.
+
+### Tooling
+- **The published relay compose file now pulls `latest`.** It pinned `0.13.0`
+  and nothing bumped it, so anyone following the install instructions got an
+  image several releases behind. Images also carry the version as a label, since
+  the tag no longer says which one you have.
+- **`npm run peer` builds and runs the relay daemon from a checkout.** It also
+  puts the native SQLite addon back on the Node ABI, which `npm run dev` flips
+  to Electron's — without that the daemon fails to start after a desktop session.
+
+## [0.15.0] - 2026-08-25
+
+### Changed
+- **Semantic Vector Search is now one setting for the whole app**, not one per
+  vault. It has moved to Settings → Global → Search, adding a vault no longer
+  asks again, and your existing answer carries over — if you enabled it
+  anywhere, it stays on. Rebuilding and purging a search index stays per vault,
+  under that vault's new "Search index" section.
+
+### Fixed
+- **A tab or note dragged onto another vault's window is refused.** The window
+  you are dragging over says so while you hover it, and the tab flashes if you
+  drop anyway. It used to be accepted: the tab vanished from the vault that
+  owned the note and the other window opened one it could not read.
+- **Windows you closed stay closed.** Reopening a vault used to bring back every
+  detached window you had ever opened in it, more of them each time.
+- **Restarting reopens the vaults you had open, not every vault you visited.**
+  Switching vault inside a window left the old one marked open, so a single
+  window that had toured four vaults reopened as four windows.
+- **Edits made in one window now show up in the other.** With the same vault
+  open in two windows, typing in one — including in the daily-note stream —
+  appears in the other within about a second, without touching your cursor.
+- **A note created in one window appears in the other's list.** It used to stay
+  invisible there until the app was restarted, and a day written into in one
+  window's daily-note stream stayed an empty day in the other's.
+
+## [0.14.1] - 2026-08-25
+
+### Added
+- **Sharing into Hypha can choose the vault.** With more than one vault on the
+  phone, the share sheet asks which one first; with one, nothing changes.
+- **A notification when a share needs you.** Choosing "an existing note…"
+  posts a banner — tapping it opens Hypha at the note picker. Hypha asks for
+  notification permission after the first share lands.
+- **A shared link is clipped wherever it goes** — into today's daily note or
+  an existing note as an article with its source line, not as a bare link.
+
+### Changed
+- **Scrolling the daily-note stream puts the cursor in the day you land on**, so
+  it is ready to type in, and that day's date is the bright one. Picking a date
+  yourself keeps it highlighted and focused until you scroll it off screen.
+- **The share sheet is a real sheet**, in English and German: what is being
+  shared, the vault, the three destinations, and an "Added" confirmation. A
+  URL share with a single vault still clips silently.
+- **A waiting share can be discarded** from the in-app sheet; Cancel still
+  keeps it for next time.
+- **A single-note window can show the daily-note stream.** Drag the daily tab
+  onto one and it renders there. Opening one daily note in its own window still
+  shows just that day.
+
+### Fixed
+- **Cmd+D no longer leaves the daily-note tab flipping between two dates.** The
+  tab could get stuck jumping back and forth and would reappear every time you
+  closed it.
+- **Dragging a note window's last tab back to the main window works.** It used
+  to close the main window instead, leaving the note window alone in focus mode
+  with no tabs.
+- **Today's date is never dimmed** in the daily-note stream, whichever day you
+  have scrolled to — and it is still marked as today after midnight, without
+  reopening the app.
+- **A vault you join shows its real name**, not its identifier. The name arrives
+  with the first sync and the sidebar and Settings update without a restart.
+- **"Go to today" goes to today** in the daily-note timeline, even if the app has
+  been open since before midnight.
+- **The daily-note tab can be dragged out into its own window**, or onto another
+  window, like any other tab. It was the one tab a drag did nothing to.
+- **Closing the daily-note tab clears the day from the pane.** On a day with no
+  daily note yet, the stream stayed on screen after its tab was gone.
+- **Dragging a note out of its own window can no longer lose it.** Releasing the
+  tab just short of another window closed the window and left the note open
+  nowhere; it now stays where it was.
+
 ## [0.14.0] - 2026-08-25
 
 ### Added
