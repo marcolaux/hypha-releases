@@ -64,8 +64,13 @@ expect to tidy up.
 
 **macOS is Apple-silicon only.** No Intel build exists and none is planned.
 
-**There are no Windows or Linux builds.** The build configuration for them
-exists and is not exercised; do not read its presence as a promise.
+**Windows and Linux builds exist from 0.15.0, and nobody has run them on real
+hardware yet.** They are built by CI on GitHub's runners — Windows x64 as an
+installer and a portable `.exe`, Linux x64 as an AppImage and a `tar.gz` — and
+pass the same packaging checks as macOS, but no developer machine has opened a
+vault on either. **Windows is unsigned**: SmartScreen warns on first run
+("More info" → "Run anyway"). On Linux only the AppImage self-updates; the
+`tar.gz` is updated by replacing it.
 
 **Notarization is now done and checked.** 0.13.0 is signed with a Developer ID
 identity and notarized by Apple; `stapler validate` and `spctl` both pass on the
