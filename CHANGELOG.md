@@ -20,6 +20,8 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.17.1] - 2026-08-28
+
 ### Added
 - **Your always-on peer now keeps your attachments, not just your notes.** Add a
   file on one device and it reaches the peer straight away, so another device
