@@ -50,9 +50,11 @@ has been one Mac and one phone. Mac-to-Mac on the same network works; Mac-to-Mac
 across the internet has never been run by anyone. If you try it, please say what
 happened.
 
-**A note open in a torn-off window while it is deleted on another device** can
-leave you typing into a note that no longer exists, which then saves as a new
-"Untitled" note. Known, has a fix designed, not yet built.
+**A note deleted on another device while you have it open** goes read-only
+with a banner saying so, and the tab stays where it is. It used to leave you
+typing into a note that no longer existed, which then saved as a new "Untitled"
+note; that was fixed on 2026-08-19. The tab is deliberately not closed under
+your cursor — you can see what happened and restore the note.
 
 **Abandoning an "add vault" by closing the window** on the desktop can leave a
 prepared vault behind that nothing cleans up. Use the flow to completion, or
@@ -64,32 +66,33 @@ expect to tidy up.
 
 **macOS is Apple-silicon only.** No Intel build exists and none is planned.
 
-**Windows and Linux builds exist from 0.15.0, and nobody has run them on real
-hardware yet.** They are built by CI on GitHub's runners — Windows x64 as an
-installer and a portable `.exe`, Linux x64 as an AppImage and a `tar.gz` — and
-pass the same packaging checks as macOS, but no developer machine has opened a
-vault on either. **Windows is unsigned**: SmartScreen warns on first run
-("More info" → "Run anyway"). On Linux only the AppImage self-updates; the
+**There is no Windows or Linux build yet.** The release workflow carries both
+legs — Windows x64 as an installer and a portable `.exe`, Linux x64 as an
+AppImage and a `tar.gz` — but they run on GitHub's hosted runners, and no
+release has ever been built through them: every published version so far is
+macOS-only. They are expected from the first release built after that capacity
+is available again. When they arrive, two things will be true of them from the
+start: **Windows will be unsigned**, so SmartScreen warns on first run
+("More info" → "Run anyway"), and on Linux only the AppImage self-updates — the
 `tar.gz` is updated by replacing it.
 
-**Notarization is now done and checked.** 0.13.0 is signed with a Developer ID
-identity and notarized by Apple; `stapler validate` and `spctl` both pass on the
-app inside the published `.dmg` (`source=Notarized Developer ID`). So the first
-launch should NOT need a right-click → Open. If yours does, that is worth
-reporting — it would mean the staple did not survive the download.
+**Notarization is done and checked.** Every published build is signed with a
+Developer ID identity and notarized by Apple; `stapler validate` and `spctl`
+both pass on the app inside the published `.dmg` (`source=Notarized Developer
+ID`). So the first launch should NOT need a right-click → Open. If yours does,
+that is worth reporting — it would mean the staple did not survive the
+download.
 
-**Auto-update has never been observed working end to end.** Still true, and it
-cannot be tested yet for a structural reason: 0.13.0 is the first release, so
-there is nothing to update *from*. The feed is real now — `latest-mac.yml` sits
-beside the installers and resolves — but nobody has watched an installed copy
-find, download and restart into a newer one. The first person to see 0.13.1
-arrive by itself will be the first evidence either way. Until then, assume you
-may have to update by hand.
+**Auto-update has never been observed working end to end.** This is no longer
+for want of anything to update *from* — three versions are published (0.13.0,
+0.14.0, 0.17.0), each with a real `latest-mac.yml` beside the installers. Nobody
+has yet watched an installed copy find, download and restart into a newer one.
+The first person to see a new version arrive by itself will be the first
+evidence either way. Until then, assume you may have to update by hand.
 
 **iOS needs 16.4 or newer**, on an **iPhone** — there is no iPad build, because
 the layout has never been run on one. iOS comes through TestFlight, which
-expires builds after 90 days. The first build (0.13.0, build 579) is uploaded
-and accepted; TestFlight access is by invitation.
+expires builds after 90 days. TestFlight access is by invitation.
 
 **The iPhone build's peer-to-peer stack runs on a JavaScript engine that is new
 to it.** The networking that syncs your notes lives in a separate embedded
@@ -128,9 +131,18 @@ carry no thumbnail, and only an iOS device can generate one. Settings →
 Attachments has a backfill that fills them in; until you run it, on a vault from
 before then, expect gaps.
 
-**Attachment transfers do not resume.** An interrupted transfer restarts from
-the beginning. There is also no disk-space check anywhere before a transfer
-starts.
+**An interrupted attachment transfer resumes only if the other device is new
+enough.** Both ends have to understand it. Against an older device the
+transfer restarts from the beginning after a short false start of a couple of
+megabytes, and the same is true when an always-on relay is *forwarding* the
+transfer rather than serving it from its own copy. A transfer that would not
+fit on disk is declined before it starts, rather than filling the disk and
+failing part-way.
+
+**The always-on relay does not keep partial transfers.** If a transfer *to*
+the relay is interrupted it starts again from the beginning, because the relay
+cannot tell whether the bytes it is holding belong to anything you still have.
+Resuming *from* the relay works.
 
 ---
 
