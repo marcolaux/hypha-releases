@@ -20,6 +20,57 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.18.0] - 2026-08-29
+
+### Fixed
+- **A file added on the phone over cellular is now uploaded once**, to the
+  relay, and the laptop gets it from there. It was uploaded three times.
+- **A device that asks the relay for an attachment while it is still arriving
+  now receives it as soon as it has landed**, instead of at its next reconnect.
+- **Removing a device now disconnects it right away** on every device that
+  learns of the removal, instead of at its next reconnect.
+- **A large attachment one device cannot send is still fetched from another
+  device that can.** One "too large" answer used to stop the request for every
+  device until the app was relaunched.
+- **With two vaults open on the desktop, each window now lists only its own
+  vault's devices**, and a sync failure in one vault no longer flags the other.
+- **The relay refuses to join a second owner's vault under a context it already
+  serves.** Two people's default vaults share the name `local`; the second join
+  used to silently replace the first vault's keys and serve its data to the
+  wrong devices.
+- **An attachment two devices both hold — the relay and a laptop, say — is now
+  fetched from one of them at a time.** Both used to answer, and the second
+  transfer wrote into the first one's half-finished file.
+- **A device that joins a vault while the always-on relay or another member is
+  reachable now syncs with them once the owner has admitted it.** Before, the
+  two kept refusing each other until the app — or the relay — was restarted.
+- **Notes written on one device while it could only reach the laptop now reach
+  the always-on relay — and every device behind it.** They could be skipped
+  silently on the laptop's next connect to the relay. Rows older than a relay's
+  first join that had not reached it before this fix can still be skipped.
+- **Deleting an attachment from a note now updates the Settings → Attachments list
+  on the desktop.** A file you trashed from a note — and a trash you emptied —
+  kept showing in the open Settings window until it was closed.
+- **The desktop now asks whether to delete a file you took out of a note when no
+  other note uses it**, like the phone already did. And a removal made on one
+  device no longer prompts every other device once the note syncs.
+- **Daily notes: the day header no longer sits on the stream as a solid slab.**
+  It is now the same frosted surface as the pane around it.
+- **Phone: opening a file from a note no longer puts its name and controls under
+  the top bar.**
+- **Phone: swiping back from a file opened out of a note returns to that note**
+  instead of the notes list.
+
+### Added
+- **Settings → Sync: "Over cellular, send attachments only to the relay"** (on
+  by default; shown on the phone). Turn it off to send to every device
+  directly. Without a relay, attachments are always sent.
+
+### Changed
+- **The test harness now runs a laptop and a phone that reach each other
+  directly and through the relay at the same time** — the configuration the
+  2026-08-28 review found untested.
+
 ## [0.17.1] - 2026-08-28
 
 ### Added
