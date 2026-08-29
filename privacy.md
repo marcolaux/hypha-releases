@@ -4,7 +4,7 @@ title: hypha — Privacy Policy
 
 
 **hypha**
-Last updated: 19 August 2026
+Last updated: 29 August 2026
 
 <!--
   THIS FILE IS THE SOURCE. It is published at
@@ -42,7 +42,10 @@ Specifically, Hypha does not collect, transmit or store on any server:
 - your attachments, tags, notebooks or reminders;
 - usage, analytics, telemetry, diagnostics or crash reports;
 - advertising identifiers, device identifiers or IP addresses;
-- contacts, location, calendar or health data.
+- contacts, calendar or health data;
+- your location — with one exception you opt into, described under *Optional
+  features* below: a coarse position, sent to a weather service and to no one
+  else, never stored by the developer.
 
 Hypha has no user accounts. There is nothing to sign up for and nothing for the
 developer to hold.
@@ -94,6 +97,14 @@ is the only way data leaves your device:
   sent anywhere.
 - **Web clipping.** If you save a web page, Hypha fetches that page, and may
   fetch images it references, from the sites that host them.
+- **Weather in daily notes.** A daily note can record its day's weather. To do
+  that Hypha sends a position and a date to [Open-Meteo](https://open-meteo.com),
+  a weather service, and nothing else — no identifier, no note text. The
+  position is either a place you typed under Settings → Notes, or, if you
+  allow it, your device's location reduced to about a kilometre before it is
+  stored or sent. Nothing is sent until you have done one of those two things;
+  the switch beside them turns the feature off. Open-Meteo sees your IP
+  address, as any site you visit does.
 
 ## Permissions the app asks for
 
@@ -101,8 +112,13 @@ is the only way data leaves your device:
   Wi-Fi. Declining it means local sync will not work; everything else does.
 - **Camera** — only to scan the pairing code when you add a device.
 - **Microphone / Photo library** — only when you choose to attach something.
+- **Location** — only if you press *Use my location* under Settings → Notes,
+  and only at reduced accuracy. It is used for the weather line in daily notes
+  and for nothing else. Declining it leaves everything else working; you can
+  still type a place instead.
 
-None of these send data anywhere. They are used to put data into your vault.
+None of these send data anywhere except location, which is sent to the weather
+service described above. The rest are used to put data into your vault.
 
 ## Children
 
@@ -112,7 +128,9 @@ children.
 ## Third parties
 
 Hypha has no third-party SDKs, no advertising, no attribution frameworks and no
-analytics providers. It shares no data with anyone, because it holds none.
+analytics providers. The one third party it talks to on your behalf is the
+weather service above, if you use that feature; it receives a coarse position
+and a date, and the developer receives nothing.
 
 ## Your rights
 
