@@ -25,6 +25,23 @@ in the file**, and a host with no keychain slot for the backup key still writes
 which halves are still open, is in `BACKUP-CONFIDENTIALITY.md`. Treat a backup
 as sensitive.
 
+**Weather is the one feature that sends a position off the device.** A daily
+note's weather comes from Open-Meteo, which receives a position (a place you
+typed, or your device's location cut to two decimals — about a kilometre) and
+a date. The position is kept on the device only, in the app's own settings, and
+never written into a note; but it is a third party, and it sees your IP address.
+A position is refreshed in the background only when you have already granted
+location, and at most once a day; hypha never raises a location prompt except
+from the *Use my location* button in Settings. On iOS the position comes from a
+CoreLocation bridge in the app's own shell that has not yet run on hardware —
+the prompt, the reduced-accuracy grant and the "Allow Once" expiry are all
+unverified on a device. On macOS the desktop app asks Chromium, whose
+geolocation in Electron expects Google's network provider (which this build
+does not carry) and is reported to hang without answering; the app gives up
+after 8 seconds and falls back to the place you typed, so the weather is still
+recorded — but *Use my location* may simply not produce a position on a Mac.
+Since 2026-08-29.
+
 **Vault names are stored in the clear** in the local registry. Decided, not
 overlooked — but if you would name a vault something revealing, don't.
 
