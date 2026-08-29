@@ -20,6 +20,92 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-08-29
+
+### Added
+- **Daily notes record the weather.** A new daily note keeps its day's weather —
+  the sky and temperature when it was written, the day's high and low, and rain
+  or snow — shown in the day's header. It follows your device's location once
+  you allow that under Settings → Notes (*Use my location*, at reduced
+  accuracy), or a place you type there; the switch beside them turns it off.
+  Only a coarse position is sent, to Open-Meteo, and nothing is written into the
+  note but the weather itself.
+- **Every day in the daily stream has a ⋯ menu** — the same actions as a note in
+  the list, from the day's own header; a day with no note offers to create one.
+  On the desktop, right-clicking the header opens it too.
+
+### ⚠ Existing installs must start fresh
+
+The vault model changed and **profiles from 0.18 and earlier are not migrated**.
+Before launching this version: export anything you want to keep (Settings →
+Backup), then delete the app's data and set up again — create a vault on one
+device and join it from the others.
+
+- macOS: `~/Library/Application Support/hypha`
+- Windows: `%APPDATA%\hypha`
+- Linux: `~/.config/hypha`
+- iOS: delete and reinstall the app
+- Relay daemon: remove its `--data-dir` and run `hypha-peer init` + `join` again
+
+### Fixed
+- **In daily notes, the day you are writing in no longer changes as you
+  scroll.** Scrolling used to hand the caret, the toolbar and the timeline's
+  selection to whichever day passed a line near the top — differently going up
+  and down. Now the active day changes only when you click or tap into a day,
+  cross a day with the arrow keys, or pick a date; scrolling just scrolls.
+- **A daily note moved to the trash leaves the daily stream at once.** Its day
+  goes back to "Write something for this day…", nothing typed there brings the
+  old text back, and its weather line goes with it. Restoring it from the trash
+  brings the day back.
+- **In daily notes, the day header is no longer a solid band across the page.**
+  With transparency on, every day's date painted the pane's colour a second
+  time; now only the date holding at the top covers the text scrolling under
+  it, and with a lighter touch.
+- **On the phone, tapping a tag or notebook you already have open shows its
+  list again.** Going home and tapping the same tag a second time used to do
+  nothing; the same held for a note's notebook and tag chips.
+- **On the phone, going back from an attachment returns to where you opened
+  it** — the daily stream on the same day, a search, or the note — instead of
+  the notes list. A file opened from a note's Files footer now opens in place.
+- **On the phone, the home screen and the navigation bar are one colour.** The
+  bar used to sit a shade off the screen below it, in every theme.
+- **On the phone, the reminder editor no longer loses its form when the
+  keyboard comes up.** The title and description fields stay on screen and can
+  be typed into; Save and Cancel stay put.
+- **The reminder editor's Mode and Priority are icon toggles, side by side.**
+  Once / repeat / permanent and silent / vibrate / urgent each sit on one row
+  as glyphs, and read out by name with VoiceOver.
+- **Resizing a picture on the phone works under a thumb.** While a picture is
+  selected its corner handles are large enough to grab, a grab no longer turns
+  into a scroll, and dragging a left-hand corner no longer swipes back to the
+  list.
+- **Daily notes are named for their day everywhere** — the tab, the phone's
+  title bar and the omnibar now say "Saturday, 29 August" instead of "Untitled"
+  or the raw date. A daily note you have renamed keeps its name.
+- **The preview line under a note's title in the list no longer reads "No
+  additional text" after a restart.** It showed the first words of a note only
+  once you had edited it in this session; now it is kept between launches, in
+  the Archive list too.
+- **Joining a vault can no longer overwrite a vault this device already has.**
+  An invite naming a vault id this device holds for a different owner is refused
+  with an explanation, instead of replacing that vault's keys.
+- **"Add a vault" now asks whether the new vault should get the example notes.**
+  The first vault on a device always has them; a vault added later starts empty
+  unless you tick the box. A joined vault never gets them.
+
+### Changed
+- **There is no longer a special "local" vault.** Every vault — the first one on
+  a device and every one added later — is created, listed, named, switched to
+  and removed the same way. The vault switcher, the Settings groups, the
+  launch-vault picker and the import target all read one list.
+- **A first start creates a vault with its own identity**, the same way "Add a
+  vault" does.
+- **`hypha-peer migrate` is gone** along with the pre-multi-vault layout it
+  converted.
+- **The daily stream's scroll cost is now measured and gated** in the test
+  suite: how many days are kept live, and how often that is recalculated while
+  you scroll.
+
 ## [0.18.0] - 2026-08-29
 
 ### Fixed
