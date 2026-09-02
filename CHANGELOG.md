@@ -20,6 +20,404 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+### Changed
+- **A scanned page's text now appears under it, and you can correct it.** Scans
+  were already searchable, but the recognised text was invisible — so a word the
+  scanner misread was wrong in the note with no way to see it or fix it. It sits
+  under each page as ordinary text now, one page at a time.
+
+## [0.20.0] - 2026-09-02
+
+### Added
+- **Print a note, or export it as a PDF, from the File menu.** They act on the
+  note you are looking at, and Print is Cmd/Ctrl+P.
+- **Find follows the usual keys.** Cmd/Ctrl+G jumps to the next match and
+  Cmd/Ctrl+Shift+G to the previous one from anywhere in the note, and pressing
+  Cmd/Ctrl+F again puts the caret back in the find field with the query selected.
+- **Pin any notebook, tag, colour or note to the phone's home screen.** Long-press
+  it and choose *Add to tiles*; it sits beside the built-in tiles, with its count
+  (a note shows when you last edited it), and long-press removes it again. The
+  pins sync, so the same tiles appear on every device — and a pin whose item was
+  deleted simply disappears.
+- **Due dates now work on the phone.** Put the caret in a checklist item and
+  the formatting bar offers a due date, the same one the desktop has. The
+  Tasks view can also list each note's unfinished tasks under the note itself,
+  the overdue ones first and marked in red.
+- **See what changed while you were away.** Home has an Activity section
+  listing the notes your other devices edited since you last looked, newest
+  first — open one to read it, or mark everything seen. On the phone the same
+  list sits in the sidebar, under the tiles. It notices changes even to a note
+  you had open at the time.
+- **Ask for Touch ID before unlocking.** On a Mac, turn it on under Settings →
+  Encryption once you store the key in the keychain. Your passphrase keeps
+  working, and after a passphrase change you are asked for it once.
+- **Record a voice note on your phone, and hypha writes it down.** Tap the
+  microphone in the formatting bar, talk, tap Stop: the recording goes into the
+  note with the transcript underneath it, as ordinary text you can correct. The
+  transcription happens entirely on your phone — the audio is never sent
+  anywhere. If your phone has no speech model for your language, you get the
+  recording and hypha says it could not transcribe it.
+- **Scan a document on your phone, and search it later.** Tap the scanner in the
+  formatting bar to photograph a receipt, a letter or a page. hypha reads the
+  text off it and stores that text with the picture, so searching for a word on
+  the receipt finds the note — on your laptop too, not just the phone that took
+  it. Search results say when the match was inside a scan rather than in what
+  you typed.
+- **A Home screen, and "on this day".** hypha now opens on Home: today's note,
+  what is due, how many notes still have open tasks, and what you edited last.
+  Above them, the daily notes you wrote on this same date in past years — one
+  click away, and also shown at the top of today in the daily stream. **This
+  changes what a launch does:** unless you have chosen otherwise in Settings, a
+  window with nothing restored now opens on Home instead of All Notes.
+- **Export a note as PDF, or print it.** Both are in the note's right-click
+  menu; images in the note are embedded in the file, so it still shows them
+  years later with no network.
+- **hypha suggests tags while you write.** Click the tag box under a note and,
+  if the note has no tags yet, hypha offers the tags from notes most like this
+  one — click one to add it. It reads only your own notes, on your own device,
+  and you can turn it off in Settings → Notes.
+- **A due date is a link to that day's daily note.** Set one from the toolbar,
+  the slash menu, the right-click menu or the command palette — the caret in
+  one task or several at once — and the date appears inside the task as an
+  ordinary link, so it travels with the note to every device. Today's daily
+  note shows an Overdue section above its task list, and the Tasks view can
+  list each note's open tasks under the note itself, overdue first.
+- **Quick capture from anywhere.** Press Ctrl/Cmd+Shift+H — or pick Quick
+  Capture in the tray — for a small box that stays on top: Enter adds what you
+  typed to today's note, Cmd/Ctrl+Enter makes a new note from it.
+- **Templates can fill in the date for you.** Write `{{date}}`, `{{time}}`,
+  `{{datetime}}`, `{{weekday}}`, `{{title}}` or `{{date:DD/MM/YYYY}}` in a
+  template and every note made from it gets the real value, in the date and
+  time formats you chose in Settings. Anything else in braces is left exactly
+  as you typed it, so a template about another template language still works.
+- **Move through your notes with the keyboard.** The note list, Archive and
+  Trash now take the arrow keys: up and down walk the rows without opening
+  anything, Enter opens the one you land on, Space adds it to a selection,
+  Shift with an arrow extends that selection, and Esc clears it.
+- **Clip a web page from your browser.** Settings → Notes now shows a
+  bookmarklet you can save to your browser's bookmarks bar; clicking it on any
+  page opens hypha's clip dialog with that page already filled in.
+- **The References section shows unlinked mentions.** Notes whose text
+  contains the open note's title — but don't link to it — appear under the
+  backlinks, so a connection you wrote in passing can be found and made real.
+- **Callouts are real blocks.** A note, tip, info, warning or danger callout
+  — with its own colour, an editable title and a fold — can be inserted from
+  the slash menu, and an imported Obsidian `> [!note]` now arrives as one,
+  keeping its type, title and folded state instead of turning into a plain
+  quote. Exporting to Markdown writes the same syntax back.
+- **Pasted Markdown becomes formatting.** Copy plain text with headings,
+  lists, tasks, quotes, fences or tables — from Obsidian or anywhere — and
+  pasting it into a note creates the real structure; a paste inside a code
+  block stays literal. And the selection menu gains *Copy as Markdown*, which
+  keeps note links working when pasted back into hypha.
+- **Code blocks are syntax-highlighted.** Pick a language on a code block and
+  keywords, strings, numbers and comments take colours from your theme — on
+  the desktop and the phone, for all sixteen listed languages and their usual
+  aliases.
+- **A first start opens with hypha introducing itself** — the mark writes
+  itself, then five short slides on what it does for you, each with a small
+  animated scene, and the two permissions it can use (notifications for
+  reminders, location for the weather in daily notes), each explained before
+  it is asked for. It returns, for the new permission only, when a later
+  version adds one.
+- **After the first vault is created, a two-step tour points out the sync
+  status and the invite** that opens the vault on another device or shares
+  it with someone. Shown once per device.
+- **Notes can be exported as Markdown** — the whole vault from *Backup &
+  export*, or a single note from its menu, each note landing as a folder with
+  its attachments beside it and the notes it links to coming along.
+- **An Obsidian vault or any folder of Markdown notes can be imported** — wiki
+  links between imported notes become Hypha note links, and referenced files
+  become encrypted attachments.
+- **A new device can restore a backup before it has a vault.** The first screen
+  offers *Restore a backup* beside *Create* and *Join*: pick your backup folder
+  (or a single `.hypha` file), enter the passphrase the backup was taken with,
+  and the vault opens with your notes and attachments. If another device still
+  has the vault, join it from there instead — a restored vault is a fresh copy.
+
+### Changed
+- **Backup is two settings sections now.** *Backup & export* sits under each
+  vault and acts on that vault — back up now, restore, export to Markdown;
+  *Backups* stays under Global for the folder, the schedule and how many to keep,
+  which are the same for every vault on this device.
+- **Tooltips are hypha's own now** — prompt, themed and out of the way, instead
+  of the operating system's late grey bubble. The toolbar and the tab strip this
+  time round.
+- **Buttons respond to being held.** They dim while pressed, and the dimming
+  fades rather than snapping.
+- **Home opens notes beside itself.** Home is now a panel on the left with the
+  editor on its right, like every other list in the app — clicking a recent
+  note or an activity row opens it there instead of doing nothing.
+- **Home's reminder tile counts what is coming.** It said *Due today* and
+  counted only what fires before midnight, which on most days was nothing; it
+  now says *Active reminders* and counts every reminder still due to go off.
+- **Daily notes no longer carry a `#daily` tag.** The day itself is what makes
+  a daily note one, so the tag is gone from new days and hidden on the ones you
+  already have. Any other tag on a daily note still shows.
+- **The notes list header is one row.** Sort, direction and grouping moved into
+  a single ⋯ menu, the count says what it counts, and the Tasks view's
+  *Completed* and *Individual tasks* switches are chips in that same row — the
+  Tasks list used to be three rows of controls deep.
+- **The list remembers how you sorted it.** Sort key, direction and grouping
+  now survive a restart instead of resetting to newest-first each launch.
+- **A pinned shortcut's menu is the menu of the thing it opens.** Rename,
+  change icon, change colour — whatever the notebook, tag, colour or note
+  would offer on its own row, the shortcut offers too, on both the desktop
+  and the phone.
+- **Reminders open in a tab, like notes.** Clicking a reminder in the list
+  opens it beside the list and you edit it right there — no separate edit
+  window. The mode and repeat controls are segments now, the same look as the
+  phone's. The New button still opens its own dialog.
+- **The Tasks filter's options got their own rows.** "Completed" and "List
+  individual tasks" sat crammed into the filter pill (and overflowed it);
+  each is now a row of its own right under the filter, the same look as the
+  task rows in the list. The options left the phone's overflow menu too —
+  they are in the list itself, where you can read the whole label.
+- **A notes-only backup you take yourself goes where the scheduled ones go** —
+  `<backup directory>/<vault>/notes/` — and counts toward the same "keep last"
+  limit. With no directory set it still asks where to save.
+- **The "Back up now" format picker starts on "notes only"**, and on iPhone the
+  backup folder shows its folder name rather than a system path.
+- **The vault sits in a fixed bar at the bottom of the home screen**, the same
+  one Settings has, and it opens the same drawer — which now also adds a vault
+  and removes one, from either screen. The last-sync line under it is gone; the
+  sync dot in the bar above still shows that.
+- **Tapping the sync dot goes straight to the invite QR** — a role, an expiry
+  and the code, with nothing else in the way. Devices, peers and the last sync
+  time are in Settings → Sync.
+- **A daily note counts a task for a day when the task itself says so** — a
+  link to that day's note in the task's text, or the task living in that day's
+  note. Merely mentioning a date as plain text, or being created that day, no
+  longer counts; editing the task makes the auto-linker link the date again.
+- **Reorder the tiles on your phone's home screen.** Long-press a tile and
+  choose *Sort tiles*, then drag the tiles where you want them — built-in and
+  pinned tiles share one order, and it syncs to your other devices. Pinning
+  something now scrolls the grid to the new tile, which appears with a small
+  animation.
+
+### Fixed
+- **Switching vault from Settings stays in Settings.** On the phone it threw you
+  back to the home screen mid-task; the vault had switched correctly, you just
+  lost your place.
+- **"Back up now" and "Restore" act on the vault they are listed under.** They
+  used to sit under *Global* and follow whichever vault the Settings window was
+  last pointed at, with nothing on screen naming it — a restore could adopt
+  another vault's identity that way.
+- **A backup schedule with no folder says it will not run.** Choosing a cadence
+  before choosing a folder left a setting that quietly did nothing.
+- **Escape closes one thing at a time.** A dialog opened over a popover used to
+  take both away with a single press.
+- **A confirmation dialog starts on a button, and Tab stays inside it.** Deleting
+  something opens on *Cancel*, so an Enter that arrives a beat late no longer
+  presses "Delete permanently", and closing puts focus back where it was.
+- **Tabs say which note they hold.** Hovering a tab showed instructions for
+  dragging it instead of the note's name.
+- **A submenu no longer disappears on the way to it.** Moving diagonally from
+  *Tags* or *Notebooks* to the panel it opened crossed the row underneath and
+  closed it.
+- **The notes list's date headers are solid.** Notes used to scroll visibly
+  through them.
+- **The link menu no longer sits see-through over the paragraph underneath.**
+- **Tabs switch the moment you press them**, and a tab reached with Cmd+1-9 or
+  Ctrl+Tab scrolls into view instead of changing the editor with nothing visibly
+  happening in the strip.
+- **A tab's close button can be reached with the keyboard.** It stayed invisible
+  when focused.
+- **Dragging across tabs, menu rows and list headers no longer highlights their
+  text**, and those surfaces use the ordinary arrow cursor.
+- **The indexing badge and the right-hand panel hold still when your system asks
+  for reduced motion.**
+- **The note's right-click menu shows words, not key names.** Its two PDF rows
+  read `contextMenu.exportPdf` and `contextMenu.printNote`.
+- **Leaving a window open past midnight no longer strands it on yesterday.**
+  Home's *Today* tile opened yesterday's note and the date picker kept ringing
+  yesterday until the app was restarted.
+- **Clicking an "on this day" chip on Home opens that day.** It did nothing.
+- **A search that matches nothing says so.** The results panel used to vanish, as
+  if the field had been cleared.
+- **The detach-pane shortcut no longer opens the command palette** when there is
+  nothing in the pane to detach.
+- **An interrupted panel drag no longer wedges the window.** If the system took
+  the drag, the sidebar stopped animating for the rest of the session and the
+  split handle kept resizing on the next mouse move.
+- **The sidebar and notes-list slide is skipped when your system asks for reduced
+  motion.** It is an inline animation, so the app's reduced-motion rules could
+  never reach it.
+- **A slow drag and a quick flick are no longer the same gesture on the phone.**
+  A fast flick that barely moved used to spring back — panels, sheets and the
+  half/full drawer now go where you threw them, and a swipe that is nearly there
+  finishes faster instead of always taking the same quarter second.
+- **A list row, a menu row or a search result no longer flashes every time you
+  scroll past it.** The highlight waits for a finger that has actually stopped,
+  the way iOS does.
+- **Sheets, menus and the formatting bar keep clear of the notch when you turn
+  the phone sideways.** In landscape the camera housing used to sit over the
+  start of a menu row's label, and over undo and redo.
+- **The phone's formatting bar no longer appears under menus that have nothing to
+  do with the editor.** A long-press on a note, a notebook or a tag slid a
+  formatting strip in along the bottom of the screen behind the menu.
+- **A phone call or a notification pulled down mid-swipe no longer navigates.** A
+  gesture the system takes away is dropped instead of being treated as if you had
+  let go.
+- **A slow swipe on a list row no longer leaves it stuck half open.** Dragging a
+  row a few pixels and holding used to raise its menu over a row frozen sideways,
+  and it stayed there after the menu closed.
+- **The Dock icon and the tray work again after you have used quick capture.**
+  Once the capture box had been opened, closing the last window left the app
+  running with no way back into it — the Dock icon, the tray's *Show* and its
+  *New Note* all did nothing.
+- **Cmd+W does something in every window.** It closes the What's New window and
+  hides the quick-capture box instead of being swallowed.
+- **Cmd+S no longer hides the sidebar.** The sidebar and focus-mode toggles moved
+  to Cmd+Alt+S and Cmd+Alt+. — which is what you want from a save reflex in an
+  app that saves as you type.
+- **A window last used on a monitor you have unplugged opens back on screen.**
+- **A window closed in full screen reopens in full screen.**
+- **Reminder banners with details turned off say "Hypha".** They were titled
+  "hypha-desktop".
+- **A hypha:// link opens the note.** With the Settings, What's New or
+  quick-capture window in front, the link used to raise that window and go
+  nowhere.
+- **Opening Settings twice quickly no longer breaks the menu.**
+- **Outline lists keep what you type in them.** Picking *Outline list* used to
+  produce an empty block you could not type into, and an outline list already in
+  a note lost its rows when the note was saved or reopened.
+- **Copying a tag chip pastes a working tag.** A copied `#tag` used to paste as a
+  dead chip that had lost the tag it pointed at.
+- **The note picker highlights a row you can actually pick.** Typing another
+  character after arrowing down used to leave no row highlighted and Enter doing
+  nothing. Enter also no longer fires while you are confirming an input-method
+  candidate.
+- **Find's regex and case-sensitive switches now do something.** Both buttons lit
+  up when pressed but the search stayed a plain literal one.
+- **The slash, tag and note menus behave the same way.** Pressing a row no longer
+  drops the cursor out of the note or dips the phone's keyboard, clicking a row
+  runs that row rather than whichever one was highlighted, and arrowing down a
+  long list scrolls it instead of walking the highlight out of sight.
+- **The daily stream's footer stays closed until you open it.** A day's tags and
+  its *Add tag* box were showing on every day of the stream whether or not you
+  had expanded that day's details, jammed against the row above them.
+- **A day's footer is as wide as the day's writing.** Expanding a day's details
+  no longer throws its sections the full width of the pane.
+- **The empty space under the day you opened is somewhere to write.** It used
+  to sit below the day's closing rule doing nothing; it is now part of the
+  day's text area, so clicking it puts the caret at the end of the day.
+- **Popovers stay put above the keyboard.** The note picker, the date picker
+  and the link popover now place themselves in the space the on-screen
+  keyboard leaves. The link popover no longer vanishes the instant the
+  keyboard rises — it moves aside and stays open until you scroll the page
+  yourself.
+- **Renaming a colour works on the phone.** The colour list's Rename command
+  used to do nothing; now the name opens for editing right in the list — and
+  whatever you rename in the sidebar scrolls into view first, so it isn't
+  hidden behind the keyboard.
+- **Removing a notebook or tag from a note now updates that collection's open
+  list.** The note used to stay listed until you picked the collection again.
+- **The sidebar, lists, tab bar and title bar are easier to read in dark mode
+  with window transparency on.** They sat lighter than the window behind them
+  instead of darker, which washed out their text.
+- **A hypha:// link clicked while the app's window is closed no longer fails
+  silently** — it is remembered and opens when the window is back.
+- **PDF export and Print now work on notes with large images.** Documents over
+  a couple of megabytes used to be refused without a word.
+- **Removing a vault's key from the keychain no longer leaves Touch ID armed
+  over nothing.** A removed account kept prompting, and the settings toggle
+  kept saying the key was stored.
+- **The first quick capture of a session is no longer lost** when pressing the
+  shortcut had to open the app's window first: the text is held and delivered
+  once the window is ready.
+- **A task pasted within the same note no longer hides the tasks after it.**
+  The pasted copy kept the original's identity, which broke the note's task
+  rows from then on.
+- **With Touch ID turned on, the keychain option no longer shows as off**, and
+  a passphrase changed on another device now really does remove this machine's
+  stored key.
+- **A vault that crashes no longer keeps its due dates readable on disk.** The
+  task list's dates stayed in the file until the next proper lock; they are now
+  wiped at startup, before the vault can even be opened, and rebuilt on unlock.
+- **Search keeps working on vaults without a passphrase after the index
+  upgrade.** The one-time rebuild only ran when a vault unlocked with a
+  passphrase, so every other vault's notes stopped appearing in search until
+  each one was edited again.
+- **On a phone, the find bar fits the screen, the insert-date panel stays
+  above the keyboard, and every icon-only control has a name** for a screen
+  reader — including the attachment preview's zoom buttons and the colour
+  editor's swatches, which also stopped stretching into ellipses.
+- **The German interface says *Tresor* and *Schlagwort* throughout** instead
+  of mixing them with "Vault" and "Tag", the unpin action no longer reads as
+  "file away in a binder", and the owner role is an *Eigentümer*.
+- **Copy that reaches a phone no longer tells you to click** or to use the
+  "main window": hints, the find bar and the insert-date picker are neutral,
+  with keyboard shortcuts re-added only where a keyboard exists.
+- **A note opened from Archive, Trash, Reminders or Web Notes has a back
+  button that names that list**, the notes list shows its count like every
+  other list, and an alert's button says *OK* instead of *Confirm*.
+- **On a phone, selected text can be made into a link, tables can gain and
+  lose rows and columns, and text can be aligned** — all from the format bar,
+  which no longer assumes a right-click or a Tab key.
+- **A long-press opens the menus that used to need a right-click** — a past
+  day's in the daily timeline, backlink cards, and the daily note's task
+  list.
+- **The slash, @ and # suggestion menus now open above the keyboard**
+  instead of under it, behind the format bar.
+- **On a phone, a tapped image reveals its "Save to vault" button, the
+  colour you applied in a sheet shows its checkmark, and the note-link
+  picker's rows respond to taps** — which they previously did not.
+- **A trashed note can be read on the phone before you restore or delete
+  it.** The menu on a trash row now offers *Open*, which shows the note
+  read-only; a trashed file shows its name, type and size instead, and a
+  notebook offers no *Open*.
+- **The pin and shortcut markers are now the same colour everywhere** —
+  amber in light mode and the theme's yellow in dark, on both the desktop
+  and the phone, where they previously ignored dark mode entirely.
+- **The floating search and new buttons no longer sit on top of an open
+  drawer**, and no longer overlap the vault bar on the home screen.
+- **Backup settings say when a backup is not fully sealed.** A vault that has
+  only been opened from the keychain since August's sealed-backup format still
+  wrote backups with tag, notebook, reminder and attachment names readable, and
+  nothing said so. The section now says it, and says what fixes it: unlock with
+  your passphrase once.
+- **"Last backup" now updates after every backup** — with attachments,
+  scheduled, or notes-only — and no longer after a save you cancelled.
+- **A backup saved through the save panel is readable only by your account**,
+  like every other file hypha writes beside a vault.
+- **Swiping a note on the phone now asks before it deletes, and says what it
+  does** — "Move to trash" in the notes list and Archive, "Delete permanently"
+  in Trash, the same words the long-press menu uses.
+- **An invite link can be selected by hand on a phone** — the Select/Copy bar
+  appears on the code, the fallback for when the copy button fails.
+- **The phone's command list no longer offers commands that do nothing there** —
+  new window, sidebar, list, table of contents and focus mode are gone from the
+  omnibar, "Open in new window" is gone from attachments, and Reload no longer
+  appears on the vault unlock screen.
+- **Settings sections the phone had on the wrong side have moved** — Search is
+  per device (it downloads a model), Search index per vault, matching the
+  desktop.
+- **Web Notes on the phone no longer asks you to log in** — publishing writes to
+  your own S3 bucket, so there is no account, and a local-only user who has
+  published can reach their web notes from the phone.
+- **A note can be duplicated and a tag can gain a sub-tag from the phone's own
+  menus** — a note could previously only be duplicated from the multi-selection
+  menu, and a sub-tag only created from the tag row's hover button.
+- **Shortcuts on the phone show the open-task dot** — a notebook, tag or pinned
+  note in the shortcut row is dotted when it holds unfinished tasks, same as in
+  the tree.
+- **Settings toggles and the tree's expand chevron are easier to hit on a
+  phone** — both now meet the same touch size as the controls around them.
+- **The tray icon shows the hypha mark instead of an empty placeholder.** It
+  adapts to the menu bar's light and dark mode, and stays crisp on Retina
+  displays.
+- **Dark themes no longer paint a huge tiled hypha mark across the app's
+  background.** The intro's own faint mark also shows the right ink in dark
+  themes now.
+- **On the phone, the small title fades into the nav bar as a screen's large
+  title scrolls underneath it** — it never appeared before.
+- **The quick-capture window no longer shows the first-run welcome deck.** A
+  fresh install's capture box arrived under the whole intro.
+- **Importing from another account's vault works again when its key is in the
+  keychain** — with Touch ID armed it claimed the vault was locked instead of
+  asking.
+
 ## [0.19.0] - 2026-08-29
 
 ### Added
@@ -33,6 +431,11 @@ upgrade" warning was checked back in by hand afterwards.
 - **Every day in the daily stream has a ⋯ menu** — the same actions as a note in
   the list, from the day's own header; a day with no note offers to create one.
   On the desktop, right-clicking the header opens it too.
+- **The phone's pinned tiles and activity feed now appear at startup without
+  waiting for a sync.** The home screen loads before the vault is open, and
+  its first read used to answer "nothing" — with an error in the console —
+  until a later sync happened to run it again, which a vault on its own never
+  does.
 
 ### ⚠ Existing installs must start fresh
 
