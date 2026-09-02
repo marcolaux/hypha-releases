@@ -20,10 +20,23 @@ tag names, notebook names, reminder titles and descriptions, settings values,
 attachment filenames, MIME types and sizes all sat in the file as plain text,
 including in a backup taken while the vault was locked. Backup format **v2**
 seals all of that. Two things have not changed: the **vault credential is still
-in the file**, and a host with no keychain slot for the backup key still writes
-**v1**, which leaks everything the old format did. The full accounting, and
+in the file** — by decision (2026-08-30): a backup must restore anywhere with
+the passphrase alone, so the passphrase's strength is the backup's — and a host
+with no keychain slot for the backup key still writes
+**v1**, which leaks everything the old format did — as does a vault that has
+only ever been opened from the keychain since v2 landed (the wrap is written
+when you type the passphrase). Settings → Backup now says which of the two
+applies, and unlocking with the passphrase once ends the second. The full accounting, and
 which halves are still open, is in `BACKUP-CONFIDENTIALITY.md`. Treat a backup
 as sensitive.
+
+**A restored vault is a fresh copy, not the vault your other devices know.** A
+new device restores a backup from its first screen (*Restore a backup*, since
+2026-08-30) and gets every note and every attachment the backup held — but the
+backup carries no device secret, so the restored vault cannot rejoin the sync
+room the original was in. If another device still holds the vault, **join** it
+from that device's invite instead of restoring beside it; restore is for the
+case where no other device is left.
 
 **Weather is the one feature that sends a position off the device.** A daily
 note's weather comes from Open-Meteo, which receives a position (a place you
