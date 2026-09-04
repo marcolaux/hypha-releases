@@ -20,6 +20,25 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.20.2] - 2026-09-04
+
+### Fixed
+- **The app can update itself again.** "Install and restart" did nothing — the
+  download told the app it had succeeded while never handing the file to the
+  installer, so there was nothing to install. Updates are now fetched quietly in
+  the background and the titlebar's *Restart to update* actually restarts into
+  the new version.
+- **What's New no longer says you are up to date while showing you a newer
+  version's notes.** That window never checked; it only ever repeated its
+  starting state. It checks now, says "Checking…" until it knows, and offers the
+  update.
+- **A failed update check no longer reports "Up to date".** It keeps the last
+  answer, but says so — "Couldn't check for updates — last seen: up to date" —
+  instead of making a claim it could not verify.
+- **The release notes window stops jumping in front of you during a download.**
+  It was re-raising itself on every progress tick. It now opens once per
+  version.
+
 ## [0.20.1] - 2026-09-03
 
 ### Fixed
