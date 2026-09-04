@@ -20,7 +20,32 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.20.1] - 2026-09-03
+
+### Fixed
+- **The app no longer locks itself after 30 minutes you never asked for, or
+  jumps in front of what you are doing.** The auto-lock timeout in Settings →
+  Encryption was ignored — including *Never* — and a lock reloaded the window,
+  which brought it to the front.
+- **Settings no longer asks for your passphrase.** With Touch ID armed, opening
+  Settings landed on the unlock screen instead of the settings, and the switch
+  that turns Touch ID off was disabled in the one place it is offered. Settings
+  now opens as itself, with an *Unlock* button where it needs the key.
+
+### Added
+- **A *Lock vault now* command.** In the omnibar's command list (`>`), for the
+  moment you decide to walk away — it does exactly what the idle lock does.
+
 ### Changed
+- **Auto-lock is off unless you turn it on, and it now unloads your notes from
+  memory.** When it fires, every window on that vault locks — torn-off notes
+  included — and their pages are torn down, so the decrypted content is gone
+  rather than merely hidden. Getting back in always takes a gesture: your
+  passphrase, or a one-click keychain unlock (Touch ID where you have armed
+  it). Activity in any window of the vault keeps it open, reading included.
+- **On the phone, auto-lock now notices time you spent away.** It could only
+  count seconds while you were looking at it, and coming back from hours in
+  your pocket started the countdown over — so it never locked when it mattered.
 - **A scanned page's text now appears under it, and you can correct it.** Scans
   were already searchable, but the recognised text was invisible — so a word the
   scanner misread was wrong in the note with no way to see it or fix it. It sits
