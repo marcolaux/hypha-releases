@@ -20,6 +20,177 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.1] - 2026-09-06
+
+### Fixed
+- **A note you deleted can no longer come back as an "Untitled" copy of itself.**
+  Trashing the note you had open left the editor bound to it, and a write from
+  that pane could recreate the note — including one already emptied from the
+  trash, which returned with no title and its old text. Trashing, permanently
+  deleting and emptying the trash all hold now.
+- **On the phone, trashing the note you are reading takes you back to the list**
+  instead of leaving the editor on a blank "New note", and swiping back no longer
+  lands on a note you just deleted.
+- **Moving an archived note to the trash now updates every list at once** — All
+  Notes, Archive, Trash and any other open window.
+
+### Changed
+- **Emptying the trash now reclaims the note on all your devices, not just the
+  one you pressed it on.** Until now the other devices kept the note in their
+  own trash, with its full text, indefinitely.
+
+## [0.21.0] - 2026-09-05
+
+### Added
+- **Select a whole list with Cmd/Ctrl+A, and send a selection to the trash with
+  Backspace or Delete.** Both work from the notes list, Archive and (select-all
+  only) Trash, including when you got there by clicking a notebook, tag or
+  colour in the sidebar and focus never left it. Deleting still asks first, and
+  Delete does nothing in the Trash — emptying it keeps its own button.
+- **The desktop titlebar shows the vault you are in**, between the version and
+  the QR button. It updates when you switch vault, and on a vault you joined it
+  updates again when the owner's name arrives over sync.
+- **Drag a block by its grip.** Hovering any block — a paragraph, heading,
+  quote, code block, table, image, rule or list row — shows a handle in the left
+  margin; drag it to move that block anywhere in the note, including from one
+  list into another, where the row takes on the destination list's kind instead
+  of jumping out of it. A list row carries everything nested under it, and you
+  can drop in the margin without moving back over the text.
+- **Move a block with Cmd/Ctrl+Alt+Up/Down.** The keyboard version of the same
+  move: the list item the caret is in — with everything nested under it — or the
+  paragraph, heading, image or list it is in, one place up or down. It stops at the
+  ends of a list rather than lifting the item out; Tab and Shift+Tab are still
+  how you change level.
+
+### Changed
+- **The editor toolbar's move up / move down buttons are gone**, replaced by the
+  drag grip above. The keyboard shortcut is unchanged.
+- **There is one checkbox list instead of two.** The app had a second checklist
+  beside the task list; once due dates moved into the item's own text the two
+  were identical, so they are now one. Existing notes are converted as they
+  open, on every device, and nothing is lost — a converted note is the same list
+  with the same items, ticks and due dates. A customised toolbar keeps its
+  button.
+- **Text in the app's own interface no longer highlights when you drag across
+  it.** Menus, lists, the sidebar, settings and dialogs behave like an app
+  rather than a web page. Note content, anything you type into, and code and
+  file previews still select and copy as before. Phone unchanged.
+- **Enter now confirms a confirmation dialog**, and the confirm button is what
+  opens focused. The exception is the handful of actions that cannot be undone
+  — emptying the trash, deleting from it, removing a vault, deleting an
+  attachment, changing the passphrase, restoring stock themes — where Cancel
+  still opens focused and Enter will not perform the action. Escape always
+  cancels.
+- **The omnibar no longer slides under the version and QR button** when you
+  make the window narrow. It gets shorter instead.
+- **Desktop Settings shows one vault at a time.** Instead of listing every
+  vault's sections one after another, it opens on the vault you pressed Cmd+,
+  in and shows that vault's settings plus the device-wide ones — with a vault
+  picker at the top of the sidebar to change which. The phone has always worked
+  this way.
+- **The desktop editor toolbar now follows the phone's order.** Undo/redo
+  first, then block structure, inline formatting, block containers, and
+  everything that inserts — and it gained the five tools the phone had and it
+  did not: simple checklist, task due date, web link, audio/video and insert
+  date. Nothing was removed. If you have customised your toolbar you keep your
+  own layout; Settings → reset picks up the new one.
+- **The two link buttons are told apart.** Linking to another note now draws a
+  page rather than a second chain, and no longer appears twice.
+
+### Fixed
+- **Highlighted text is readable again.** Highlighting in a dark theme left
+  white text on a bright yellow band; the text on a highlight now takes its
+  colour from the highlight, so every swatch — and any colour you pick yourself
+  — meets the contrast standard.
+- **Adding an embed puts the cursor straight in the address field**, an embed
+  now fills the width of the note instead of stopping a little short, and its
+  resize corners sit on the edge where you can actually grab them.
+- **Embedded players actually run now.** An embedded page was walled off from
+  its own cookies and storage, so YouTube, Vimeo, Spotify and anything else that
+  keeps state loaded as a black rectangle — and YouTube additionally answered
+  *Error 153* because the frame sent no origin. Embeds still cannot open
+  windows, navigate away from the app, or reach anything in it, they are still
+  told nothing about which note they are in, and nothing is fetched until you
+  turn embeds on.
+- **YouTube, Vimeo and Spotify links now play inside the note.** Pasting a
+  video's page address used to give a blank box — those sites refuse to be put
+  in a frame on that address. The embed now points at the one they publish for
+  it, while the note still remembers the page you chose. An address those sites
+  will not show at all — a home page, a channel, a profile — is now declined by
+  the address field, which says so, instead of becoming an empty rectangle.
+- **Undo works on checklists again.** Making a checklist — Cmd/Ctrl+L, typing
+  `[] `, pasting one, or converting a list — was invisible to Undo, which
+  skipped past it and undid an earlier edit instead. Every way of making one is
+  now a normal undo step.
+- **Clicking the corner of an image no longer counts as editing the note.** A
+  click that moved nothing used to resize the image to the size it already was,
+  which marked the note edited and moved it up a list sorted by that. Only a
+  real drag changes anything now.
+
+### Added
+- **Put a web page in a note.** The toolbar's *Embed* button, `/embed` and the
+  command palette now insert one — type or paste an address and the page
+  appears in the note. Drag a corner to resize it, double-click a corner to put
+  it back. It is on the phone's format bar too.
+- **Settings → Global → Privacy → *Load embedded web pages in notes*.** Off by
+  default: an embedded page shows a placeholder naming the site with a "Load
+  page" button, and nothing is requested until you load it. Separate from the
+  external-images setting, because an embedded page is a whole site's code
+  running on your device every time you open the note.
+- **Import a Standard Notes backup folder.** Settings → Import reads the
+  encrypted backups the Standard Notes app writes on a schedule — pick the
+  folder, choose which backup when there is more than one, and enter your
+  account passphrase. Notes, nested tags, attached files, pinned and archived
+  states, note links and the original dates all come across, and anything that
+  was in the trash stays in the trash.
+- **`Cmd/Ctrl+L` for checkboxes.** Press it on a line to turn it into a
+  checklist item; press it again inside one to tick and untick it. It works in
+  both kinds of checklist.
+- **Tables can be wider than the editor.** *Table ▸ Wider than the editor* (in
+  the right-click menu, or the toolbar's table button) lets one table use the
+  full width of the tab and scroll sideways, its header row staying in view as
+  it does. Column widths are saved with the note either way.
+- **The relay daemon can remove a vault: `hypha-peer leave <context>`.** The
+  inverse of `join` — it drops that vault's secrets, its registry entry and its
+  stored ciphertext, and leaves the others alone. It does not revoke the
+  daemon's access; only the vault's owner can do that.
+- **Web clips get a tag.** Every page you clip is tagged `webclip`, and the tag
+  is set in Settings → Notes (leave it empty for none). The same tag is applied
+  to a page clipped from the phone's share sheet.
+- **Clicking a task takes you to that task.** Task rows in the notes list, and
+  the overdue and per-day rows in a daily note's footer, now open the note
+  scrolled to the line you clicked, with it briefly highlighted. A
+  *Copy link to block* link does the same.
+
+### Fixed
+- **An over-wide table no longer paints across the page.** Dragging a column
+  past the width of the text column now scrolls the table inside it, instead of
+  drawing over whatever sits beside the editor.
+- **The table row/column/header controls are reachable again.** Right-clicking
+  inside a table now offers them, whatever your toolbar looks like — and a
+  toolbar layout that arrived from another client gets the table button back.
+- **Clicking beside the text no longer jumps the cursor to the end.** Only a
+  click below the last line does that now — a click level with the middle of a
+  long note used to throw you to the bottom of it.
+- **The open note's footer now follows a notebook, tag or colour assigned from
+  anywhere else.** Dragging a note from the list onto a notebook — or assigning
+  from the row's right-click menu, the multi-selection menu, or the sidebar's
+  colour rows — left the chips in the open editor showing the old answer until
+  you switched tabs and back.
+- **"Link to note" from the toolbar opens a popover you can see.** It was being
+  laid out inside the 36px toolbar strip, which clipped it away entirely.
+- **"Link to note" with text selected now links that text.** It replaced the
+  selection with an `@` instead.
+- **"Synced N minutes ago" now moves while you are the one typing.** Paired
+  with a relay peer — which has nothing to send back — the sidebar only ever
+  re-read that time when a peer sent *us* something, so it froze at the moment
+  you connected and counted up from there while every save was going out fine.
+  The `• unsynced` marker was stuck the same way.
+- **Settings → Encryption showed "1 minute" for auto-lock on a vault that was
+  never locking.** The stored default matched none of the offered timeouts, so
+  the dropdown fell back to its first entry. It reads *Never* now, which is what
+  it was actually doing.
+
 ## [0.20.2] - 2026-09-04
 
 ### Fixed
