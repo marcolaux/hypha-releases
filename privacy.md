@@ -98,6 +98,18 @@ is the only way data leaves your device:
   sent anywhere.
 - **Web clipping.** If you save a web page, Hypha fetches that page, and may
   fetch images it references, from the sites that host them.
+- **External images, and web pages embedded in notes.** A note can point at an
+  image on someone else's server, or embed a whole web page. Both are off by
+  default, under Settings → Global → Privacy: until you turn one on, or press
+  the button on that particular image or page, nothing is requested. They are
+  listed apart from everything above because they are the only ones that are
+  not a single thing you asked for — loading them happens **every time the note
+  is opened**, and notes arrive from the people you sync with, so what gets
+  requested may be a site someone else chose. Turning either on tells the site
+  your device's network address and when you opened the note; an embedded page
+  additionally runs that site's own code on your device, inside a sandbox that
+  cannot reach your notes, open windows, or use the camera, microphone or
+  location.
 - **Weather in daily notes.** A daily note can record its day's weather. To do
   that Hypha sends a position and a date to [Open-Meteo](https://open-meteo.com),
   a weather service, and nothing else — no identifier, no note text. The
