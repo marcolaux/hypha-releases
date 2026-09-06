@@ -20,6 +20,48 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.3] - 2026-09-06
+
+### Changed
+- **On the phone, Daily Notes no longer keeps a list of days behind the stream.**
+  Going back from the stream now returns to the home screen instead of to that
+  list; scrolling the stream is how you reach another day.
+
+### Fixed
+- **The daily stream reopens when you quit inside it.** On the phone, "where I
+  left off" always came back to the last ordinary note instead; the stream now
+  returns, on today.
+- **The phone opens on whatever you left open**, not just on a note — a daily,
+  search or attachment tab used to come back to the notes list.
+- **Backspace after an unwanted Enter puts you back at the end of the previous
+  line**, instead of leaving you on a line below it or turning that line back
+  into a plain paragraph. Enter on an empty item still leaves the list. Task
+  lists and bullet lists alike.
+- **Text on a dark highlight is now light instead of near-black.** Highlighting
+  with indigo or violet left dark text on a dark band; those two are painted a
+  shade deeper now and carry white text. The colour you picked is what gets
+  saved, and every other swatch is unchanged.
+- **A text colour you choose stays readable on the page.** Amber text on a light
+  theme was all but invisible; a colour now darkens or lightens just enough for
+  the theme you are in, keeps its hue, and follows you when you switch themes.
+
+## [0.21.2] - 2026-09-06
+
+### Fixed
+- **A note you permanently deleted stays deleted even if another device sends
+  its text afterwards.** A late update from a device that had not yet seen the
+  deletion could quietly put the note's body back on disk.
+- **The activity feed now shows a note another device permanently deleted as
+  deleted**, rather than as an untitled note.
+- **A permanently deleted note can no longer be written back by the editor
+  that still had it open.** Closing that tab, or a late save, silently put the
+  note's text back on disk on a vault without a passphrase.
+- **On the phone, permanently deleting a note now also removes its search
+  vectors.** They used to stay until the app was locked.
+- **The relay keeps encrypted copies of permanently deleted notes until its
+  operator prunes by age** — documented in KNOWN-LIMITATIONS; your devices will
+  not take them back.
+
 ## [0.21.1] - 2026-09-06
 
 ### Fixed
