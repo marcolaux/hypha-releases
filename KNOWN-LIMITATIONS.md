@@ -86,6 +86,15 @@ typing into a note that no longer existed, which then saved as a new "Untitled"
 note; that was fixed on 2026-08-19. The tab is deliberately not closed under
 your cursor — you can see what happened and restore the note.
 
+**Permanently deleting a note does not remove it from a relay.** Your own
+devices reclaim the note's text when you empty the trash on any one of them
+(since 0.21.1), and refuse to take it back afterwards. An always-on relay is
+different: it stores encrypted envelopes it cannot read, so it cannot tell that
+one of them belongs to a deleted note, and it keeps them until its operator
+prunes by age (`hypha-peer prune`, or `run --auto-prune-age`, which is off by
+default). The content stays encrypted throughout, and no device will accept it
+back — but if you want deleted notes gone from a relay you run, turn pruning on.
+
 **Abandoning an "add vault" by closing the window** on the desktop can leave a
 prepared vault behind that nothing cleans up. Use the flow to completion, or
 expect to tidy up.
