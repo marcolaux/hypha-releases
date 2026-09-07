@@ -20,6 +20,20 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.5] - 2026-09-07
+
+### Fixed
+- **Ticking a task now completes the sub-tasks under it.** They stop counting
+  towards a note's progress bar, the day's open tasks and the task inbox — as
+  the editor already showed by striking them through. Existing notes catch up on
+  the next launch.
+
+### Changed
+- **A daily note's weather is the whole day's forecast.** The line shows the
+  day's sky, high, low and rain or snow, and no longer the temperature at the
+  minute the note happened to be created. A note made for a past day now names
+  the rain that fell.
+
 ## [0.21.4] - 2026-09-07
 
 ### Fixed
