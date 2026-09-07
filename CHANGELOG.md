@@ -20,6 +20,18 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.4] - 2026-09-07
+
+### Fixed
+- **A note no longer ends up with its whole body twice after another device
+  opened it before it could reach the daemon.** A device that had to show a
+  note from its text copy now drops that copy the moment the author's real
+  version arrives, and every other device drops it too.
+- **After switching vaults in the same window, connected devices show as
+  connected again.** The peer list used to say every device was disconnected
+  after a switch, and a Settings window opened later said the same; both now
+  show what is actually connected.
+
 ## [0.21.3] - 2026-09-06
 
 ### Changed
