@@ -105,15 +105,14 @@ expect to tidy up.
 
 **macOS is Apple-silicon only.** No Intel build exists and none is planned.
 
-**There is no Windows or Linux build yet.** The release workflow carries both
-legs — Windows x64 as an installer and a portable `.exe`, Linux x64 as an
-AppImage and a `tar.gz` — but they run on GitHub's hosted runners, and no
-release has ever been built through them: every published version so far is
-macOS-only. They are expected from the first release built after that capacity
-is available again. When they arrive, two things will be true of them from the
-start: **Windows will be unsigned**, so SmartScreen warns on first run
-("More info" → "Run anyway"), and on Linux only the AppImage self-updates — the
-`tar.gz` is updated by replacing it.
+**Windows and Linux builds ship, and nobody has run them.** Since 0.20.2 the
+release workflow builds Windows x64 (an installer and a portable `.exe`) and
+Linux x64 (an AppImage and a `tar.gz`) on GitHub's hosted runners, and both
+are on every release page. The author develops on macOS and has not launched
+either build on real hardware. Two things are true of them from the start:
+**Windows is unsigned**, so SmartScreen warns on first run ("More info" →
+"Run anyway"), and on Linux only the AppImage self-updates — the `tar.gz` is
+updated by replacing it.
 
 **Notarization is done and checked.** Every published build is signed with a
 Developer ID identity and notarized by Apple; `stapler validate` and `spctl`
@@ -122,12 +121,12 @@ ID`). So the first launch should NOT need a right-click → Open. If yours does,
 that is worth reporting — it would mean the staple did not survive the
 download.
 
-**Auto-update has never been observed working end to end.** This is no longer
-for want of anything to update *from* — three versions are published (0.13.0,
-0.14.0, 0.17.0), each with a real `latest-mac.yml` beside the installers. Nobody
-has yet watched an installed copy find, download and restart into a newer one.
-The first person to see a new version arrive by itself will be the first
-evidence either way. Until then, assume you may have to update by hand.
+**Auto-update was broken until 0.20.2, and has been watched working since.**
+Before that, the download reported success without ever handing the file to
+the installer, so *Restart to update* restarted into the same version. On macOS
+the whole loop — find, download, restart into the newer version — has now been
+seen end to end. On Windows and Linux nobody has seen it yet; the first person
+to will be the first evidence either way.
 
 **iOS needs 16.4 or newer**, on an **iPhone** — there is no iPad build, because
 the layout has never been run on one. iOS comes through TestFlight, which
