@@ -20,6 +20,82 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.7] - 2026-09-09
+
+### Added
+
+- **Any list row with rows under it can be folded away** — bullet, numbered and
+  checkbox lists alike. Hover the row and click the chevron beside its marker,
+  or press Cmd/Ctrl+`.`; a folded row keeps a visible mark, and the fold is part
+  of the note, so it stays folded on your other devices.
+
+### Changed
+
+- Cmd/Ctrl+Alt+Up and Down now move every block you have selected, not just the one the cursor is in, and keep the selection so you can press again.
+- **Any kind of list can now sit under any list row.** Put a bullet list under a
+  task, or a checklist under a numbered row — by dragging it there, by pressing
+  Tab, by picking a list from the toolbar, or by typing `- `, `1. ` or `[] `.
+  Dragging a row into a list of another kind no longer turns it into that kind.
+- **Picking a list style changes the rows you selected, and no others.** With
+  the cursor in a row it converts that row; select several and it converts those.
+- **Cmd/Ctrl+L makes the row you are in a task**, instead of ticking the task
+  row it happens to sit under.
+- **Lists are less deeply indented, and every kind lines up.** A bullet row, a
+  numbered row and a task row at the same level now start at the same place.
+- **The drag handle sits in the left margin for every row**, at any nesting
+  depth, instead of moving further into the text with each level.
+- **The Outline list is gone.** It was a numbered list under another name, and
+  the one thing it did differently was lose the numbers when a note was exported
+  to Markdown. Existing outline lists become numbered lists, with their rows and
+  nesting intact, the first time each note is opened.
+- **Deleting a notebook, tag or colour now asks what should happen to its
+  notes.** The dialog says how many there are and offers both answers: delete
+  the notebook and keep the notes (the default — it is what Enter does), or
+  delete it and move its notes to the trash. Deleting a notebook still leaves
+  any sub-notebooks in place, at the top level, with their own notes untouched.
+- **The question about semantic search is now part of the welcome wizard.** It
+  used to be a second full-screen dialog over the first screen, competing with
+  the wizard for the same moment; it is now the last slide of it, with the same
+  two answers. If you have used hypha before, the wizard comes back once with
+  that slide alone.
+
+### Fixed
+
+- **Changing light/dark from the Settings window now reaches the app's own
+  window properly.** The main window repainted itself but never told the app
+  which theme it was on, so while Settings was open the frosted-glass look
+  switched off everywhere, and closing Settings put the window chrome back to
+  the theme you had just changed away from until you reloaded.
+- **A window's theme could no longer take the whole app down with it.** The
+  calls that set a window's native chrome — the blur behind it, its background,
+  its caption-button colours — run whenever any window's theme changes, and one
+  of them failing used to end the app rather than that one window's tint. They
+  are now handled one by one, and anything that goes wrong is written to the log
+  instead of being lost.
+- **Deleting a notebook or tag now takes it out of Shortcuts too.** Pinning one
+  to the sidebar and then deleting it left the shortcut behind, and it came back
+  on every relaunch. Pinned colours were already handled; they still are.
+- **The confirmation for deleting a notebook told you the wrong thing.** It said
+  the notes inside were moved to the trash and that the sub-notebooks were
+  deleted too. Neither happened: the notes stayed in All Notes and the
+  sub-notebooks moved to the top level. The dialog now says what actually
+  happens, and lets you choose the other outcome for the notes.
+
+## [0.21.6] - 2026-09-08
+
+### Fixed
+- **The README and the Known-limitations page stopped claiming that auto-update
+  has never worked and that there is no Windows or Linux build.** Auto-update
+  works since 0.20.2, and Windows and Linux builds ship since the same version.
+
+### Tooling
+- **The documentation is checked against the tree.** A contract test reads the
+  README, the project file and the docs against the package manifest, the
+  package directory, the relay's command list, the release tags and the pass
+  index, and fails with the offending line. Closed work left the live
+  open-work file, release records for 0.19.0–0.21.5 are archived, and one
+  byte-encoding module replaces thirty-two hand-rolled copies.
+
 ## [0.21.5] - 2026-09-07
 
 ### Fixed
