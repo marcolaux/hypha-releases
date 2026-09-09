@@ -20,6 +20,21 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.21.8] - 2026-09-09
+
+### Fixed
+
+- **Quitting with several windows open brings every one of them back** — on one
+  vault or across vaults, each window with its own tabs, panes and position.
+  Before, only one window per vault came back, and closing a second window on a
+  vault could leave that vault out of the next start entirely.
+
+### Changed
+
+- **A new window (Cmd/Ctrl+Shift+N) opens empty** on the vault you pressed it
+  in, instead of copying the tabs of the window you came from. Close the last
+  window of a vault and open that vault again, and it comes back as you left it.
+
 ## [0.21.7] - 2026-09-09
 
 ### Added
