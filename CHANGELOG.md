@@ -20,6 +20,124 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-09-11
+
+### Added
+
+- **Re-opening a note puts you back where you were**: the cursor returns to where you left it, and if you were writing, you're back in the text.
+- **A day's tasks now appear in the daily-note stream**, under the day's writing
+  and above its footer — including on days you have not written anything in yet.
+  Tasks that already live in that day's own note are not repeated.
+- **Notebooks and tags can be moved.** Drag a row onto another to make it a child,
+  or between two rows to put it at that level; a notebook can also be moved from
+  its context menu. A notebook cannot be dropped inside itself.
+- **The sidebar selects several rows at once.** Cmd/Ctrl-click or Shift-click
+  notebooks, tags or colours, then use the context menu to delete or move the
+  whole selection in one go.
+- **Tables can calculate.** Type a formula into a cell — `=B2*C2`, `=SUM(D2:D9)`
+  — and the cell shows the result; click into it and you see the formula again.
+  German numbers work (`3,5` is three and a half, `1.234,56` is a thousand), and
+  so do `SUM`, `AVERAGE`, `MIN`, `MAX`, `COUNT`, `ROUND`, `IF` and the rest.
+  Insert or delete a column and the formulas follow the cells they point at.
+  Exports carry the calculated **values**, not the formulas: Markdown export,
+  Copy as Markdown, PDF and Print.
+
+- **The command palette can insert a template into the note you are already
+  writing.** "Insert template at top" prepends it; templates used to apply only
+  when a note was created.
+- **Vaults can have a colour.** Pick one when you create a vault, or later under
+  Settings → Appearance, where you can now also rename a vault. A vault with a
+  colour shows its name as a subtle coloured pill in the title bar. The name and
+  the colour follow the vault to your other devices.
+- **Every sidebar row and every settings section now has an icon**, on the desktop
+  and on the phone. The two used to disagree: the phone had glyphs, the desktop
+  had none. Shortcuts is marked with a bookmark; a star still means a favourite.
+- **Escape closes the Settings window**, and the What's New window too.
+- **The vault selector has a settings button.** On the desktop it opens
+  Settings → Appearance for that vault; on the phone it opens Settings.
+- **Write a sum and it works itself out.** Type `3 + 3 =` anywhere in a note
+  and the answer is written in after it. Backspace undoes it.
+- **The phone's vault bar has a button for today's note**, next to it.
+- **Picking a note to link now searches the way the omnibar does.** Typing `@`
+  — or `[[`, which the tour has always promised and nothing had bound — searches
+  inside your notes, not just their titles, and shows each hit with the matching
+  line beneath it. Before you type, it offers recent notes. The list keeps
+  itself clear of the on-screen keyboard and scrolls inside whatever room it
+  has.
+- **Eleven more themes, each with a light and a dark variant**: Solarized, Nord,
+  Dracula, One, Noctis, One Monokai, GitHub, SynthWave '84, Catppuccin, Gruvbox
+  and hypha Amethyst.
+
+### Fixed
+
+- **Deleting a notebook deletes the notebooks inside it too**, and restoring it
+  brings them back; a deleted sub-notebook no longer lingers in the sidebar or
+  comes back, and its notes no longer list it.
+- **Sub-notebooks stranded at the top level by an earlier delete go back under
+  their notebook** the first time the app starts after this update.
+- **Deleting several notebooks, tags or colours at once no longer says "the 1
+  notes".**
+- **`@today`, `@tomorrow`, `@yesterday` and `@date` work again in the note picker**, as you type.
+- **The note picker, the slash menu and the tag menu follow your theme.**
+- **An empty web embed no longer grabs the cursor when you reopen its note.**
+
+- **Deleting several sidebar rows at once no longer leaves one behind.** A
+  selected notebook whose parent was folded away was silently dropped from the
+  delete, and a row the app failed to delete looked exactly like one it had
+  deleted. Every selected row is now deleted, and if one cannot be, the app says
+  so and names it.
+
+- **Opening your notes is no longer slower in a big vault.** The list asked the
+  database about every note's tags and colour one note at a time, so the wait
+  grew with the library — about two thirds of a second at 1 200 notes, and
+  several seconds (occasionally fifteen) at 5 000. It now asks once for all of
+  them: a tenth of a second at 1 200, a third of a second at 5 000.
+- **Making a note is no longer slower in a big vault.** Every new note quietly
+  re-read and re-checked the whole library first, so the bigger the library the
+  longer it took — noticeably so past a few hundred notes, and badly past a
+  thousand. Creating a note now costs the same whatever size your vault is.
+- **A task you give a due date now shows up on that day in the daily stream
+  straight away.** It only appeared after something else happened to refresh the
+  list, which on most days was never — so the day's tasks looked as though they
+  had not been built yet.
+- **A web page embedded in a note no longer takes the keyboard when you open the
+  note.** Some pages grab the focus as they load, and everything you typed went
+  into the page instead of your note. Clicking the page, or tabbing to it, still
+  works as before.
+- **A note's title now lines up with the text underneath it.** On a wide pane the
+  title started well to the left of the first line it names.
+- **A text selection stays visible when you switch tabs or panes.** It was never
+  lost, but the highlight disappeared, so it looked like it was.
+- **Notebook rows in the sidebar line up with the tag and colour rows.** They sat
+  one step further left than every other section.
+- **Search results no longer repeat a note's title as its snippet.** A note with
+  no body text showed its own title twice — once as the heading of the result,
+  once as the line underneath it — in the search results tab and in the omnibar's
+  dropdown.
+- **Cmd/Ctrl+W now closes the window when no tab is open.** With every tab
+  closed the shortcut did nothing at all.
+- **A pane you have scrolled back to the top stays there.** Leaving its tab and
+  returning pulled it back down to wherever you had been reading before.
+- **Selecting text near the bottom of a short pane no longer races the note to
+  the end.** Dragging a selection into the lower part of a stacked pane scrolled
+  it away at speed; the empty space below the last line is unchanged.
+
+### Changed
+
+- **The menu-bar icon is now just the hypha hand** — the three-fingered flick
+  that grows out of the mark — instead of the whole monogram, which was a
+  smudge at menu-bar size.
+- **The note you have open in the list no longer has a border around it.** The
+  keyboard cursor still shows a ring while it is on a row you have not opened.
+- **Settings has left the sidebar.** It is the gear beside the vault name now,
+  on the desktop and on the phone. Cmd/Ctrl+, the app menu and the command
+  palette open it as before.
+- **Choosing a theme takes one click**; the themes you use are shown above the
+  full list, which no longer moves when you pick one.
+- **The title bar dims when its window is not in focus**, the way a macOS toolbar
+  does, so it is clear which window you are typing into.
+- **The transparency setting is explained in one line** instead of three.
+
 ## [0.21.8] - 2026-09-09
 
 ### Fixed
