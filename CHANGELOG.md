@@ -24,22 +24,20 @@ upgrade" warning was checked back in by hand afterwards.
 
 ### Changed
 
-- The desktop app has a new shell. The note list and the editor sit together in
-  one rounded card, inset from the window, with the title bar and sidebar on the
-  surface behind it.
-- The editor you are writing in is the darkest surface in a dark theme and the
-  brightest in a light one, so the note in front of you stands apart from the
-  list and from any split pane you are not using.
-- The sidebar, the note list and the tab strip are denser: shorter rows, smaller
-  type, and round icon buttons.
-- Sidebar sections are a plain label with a caret on the right, and their
-  contents now line up with every other row instead of being indented.
-- The note open in the editor is marked in the list with an accent outline, and
-  notebook and tag colours read more strongly against the list.
-- Menus, popovers, tooltips and dialogs share one appearance instead of several
-  slightly different ones.
-- The window is no longer blurred behind its own content, which removes a
-  per-frame cost on every surface that had nothing behind it to blur.
+- **The desktop app has a new look.** The note list and the editor sit together
+  in one rounded card, inset from the window, with the title bar and sidebar on
+  the surface behind it.
+- **The note you are writing stands out.** The active editor is the darkest
+  surface in a dark theme and the brightest in a light one, so it separates from
+  the list and from any split pane you are not using.
+- **The sidebar, note list and tabs are denser** — shorter rows, smaller type
+  and round icon buttons — so more fits without feeling crowded.
+- **Sidebar sections are simpler**: a plain label with a caret on the right, and
+  their contents line up with every other row instead of being indented.
+- **The note open in the editor is marked in the list** with a coloured outline,
+  and notebook and tag colours read more strongly against it.
+- **Menus, popovers, tooltips and dialogs share one appearance** instead of
+  several slightly different ones.
 
 ## [0.22.0] - 2026-09-11
 
