@@ -20,6 +20,29 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.23.1] - 2026-09-13
+
+### Added
+
+- **hypha has a website.** One page, in English and German, with a clickable
+  mock of the desktop app, the reasons it exists, and the downloads.
+
+### Fixed
+
+- **A note no longer doubles on a phone that opened it before the daemon
+  answered — even when you kept typing into the same line on the desktop.**
+  The phone's stand-in copy of the note now retires by lineage (the desktop's
+  autosave records which state its text came from) instead of by matching the
+  text word for word.
+- **Body edits made on a phone reach the other devices.** A body edit that
+  died on a flaky cellular link, or was made while the daemon was out of
+  reach, is now re-offered when the connection comes back: every device and
+  the daemon confirm each body update, and only unconfirmed edits are re-sent.
+  The desktop also keeps its open notes registered across a sync restart.
+- **No more "delete these files?" for an image a peer just added.** The
+  attachment check compares against what the editor shows, not against a
+  content row that may be ahead of it.
+
 ## [0.23.0] - 2026-09-12
 
 ### Changed
