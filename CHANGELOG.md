@@ -20,6 +20,36 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.23.3] - 2026-09-14
+
+### Added
+
+- **The relay now appears in your device list, and can be revoked there.** An
+  always-on Server was the one device the app never showed, so there was no way
+  to see it or remove it. New ones are listed as soon as you invite them; a
+  relay you already run gets an **Add to devices** button beside it in
+  Settings → Sync.
+- **Tap a device's fingerprint to see its full key, and copy it.** The short
+  form is for comparing at a glance; the full key is what you match against
+  what the relay prints.
+- **`hypha-peer vaults` now prints each vault's device fingerprint**, in the
+  same form the app shows, so you can tell which row in Settings is the relay.
+
+### Changed
+
+- **A device is written the same way everywhere.** The app, the relay's
+  terminal output and the activity feed used four different abbreviations of
+  the same key; they now all read `AB12CD…EF34`.
+- **`hypha-peer leave` accepts the vault either way** — as an argument or as
+  `--context` — and resolves an unambiguous prefix, telling you what it
+  resolved to.
+
+### Fixed
+
+- **`hypha-peer leave` and `prune` no longer run while the relay is running.**
+  Both say to stop the daemon first and neither checked, so `leave` would
+  report success while pulling an open database out from under a writer.
+
 ## [0.23.2] - 2026-09-14
 
 ### Changed
