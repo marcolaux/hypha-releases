@@ -20,6 +20,28 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.23.2] - 2026-09-14
+
+### Changed
+
+- **The "Daemon" device role is now called "Server".** The same thing — an
+  always-on machine that keeps your devices in sync when they are not awake at
+  the same time, holding your notes encrypted and never able to read them —
+  with a name that says what it does. Relays already joined keep working; only
+  the wording changed.
+
+### Fixed
+
+- **A freshly split editor pane fills the width again.** Splitting a pane whose
+  divider you had already dragged left a blank strip down the right-hand side
+  of the window, until you dragged a divider again and it corrected itself.
+- **An invite can no longer be accepted by the wrong kind of device.** A Server
+  invite is now refused by a desktop or a phone, and the relay refuses anything
+  that is not a Server invite. A relay that joined with a Member invite started
+  up, relayed notes and looked healthy — while never being offered a single
+  attachment. If you have one in that state, re-join it with a Server invite
+  and revoke the old device.
+
 ## [0.23.1] - 2026-09-13
 
 ### Added
