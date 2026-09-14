@@ -57,6 +57,25 @@ prunes by age (`hypha-peer prune`, or `run --auto-prune-age`, which is off by
 default). The content stays encrypted throughout, and no device will accept it
 back — but if you want deleted notes gone from a relay you run, turn pruning on.
 
+**Revoking a device is not instant everywhere.** Revoking is a row in the
+vault's own device list, and it works by replicating: every device that receives
+it refuses the revoked one from then on. A relay cannot act on it: the row
+reaches the relay inside an encrypted envelope it stores and forwards without
+being able to read. So a revoked device can still reach a relay you run, and
+sync through it, until its own credential expires. That is 30
+days at the outside, and usually much less. Your other devices refuse it
+immediately. If you need the cut to be immediate, stop the relay (or
+`hypha-peer leave` that vault on it) as well as revoking.
+
+**A device that has not met an owner device for 30 days stops being admitted.**
+Credentials are issued with a 30-day life, and only a device holding the owner
+key renews them; meeting another member does not. So a phone that syncs only
+with a laptop that is not an owner device will, after 30 days, be refused by
+everything. This is not a lockout and nothing is lost: the next time it does
+reach an owner device, that device renews it on the spot — even after the
+credential has expired — and it resumes. The limit exists on purpose. It is what
+makes revocation take effect on a device you can no longer reach to tell.
+
 ---
 
 ## Platforms
