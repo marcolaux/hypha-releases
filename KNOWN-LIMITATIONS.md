@@ -67,6 +67,15 @@ days at the outside, and usually much less. Your other devices refuse it
 immediately. If you need the cut to be immediate, stop the relay (or
 `hypha-peer leave` that vault on it) as well as revoking.
 
+**A revoked owner device still holds the owner key.** Revoking a device that
+was added as an Owner takes away its place in the device list, and from then on
+its writes to that list — adding or revoking other devices — count for nothing
+on every other device, even if they arrive later through a relay. But the owner
+key itself is a copy it keeps: until key rotation exists (it does not), that
+device can still mint invites and sign credentials with it. Treat an owner
+device you no longer trust as a reason to rebuild the vault, not only to
+revoke.
+
 **A device that has not met an owner device for 30 days stops being admitted.**
 Credentials are issued with a 30-day life, and only a device holding the owner
 key renews them; meeting another member does not. So a phone that syncs only
