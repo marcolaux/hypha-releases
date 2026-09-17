@@ -20,6 +20,132 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.24.1] - 2026-09-17
+
+### Added
+
+- The relay (`hypha-peer`) adds and removes vaults while it runs. `join` from
+  another shell or container is served within a few seconds, `leave` has the
+  running relay release just that vault, and the other vaults are never
+  interrupted — no `down`, no restart. A relay started before any vault is
+  joined waits for the first one.
+
+### Changed
+
+- The gradient background and following the system's light or dark appearance
+  are now the defaults. A vault where you never chose either will change;
+  anything you picked yourself stays as it is.
+- The animated background drifts a little faster.
+- The quick-note box preselects the vault you were last working in, every time
+  it opens — from the tray too, where it used to fall back to the first vault
+  in the list.
+- When the window is narrow the search dropdown takes the window's width
+  instead of shrinking with the search field.
+
+### Fixed
+
+- A quick note for a vault with no open window could be lost while that window
+  was still starting. It now waits until the window is ready, and a note that
+  cannot reach today's page is kept as a note of its own rather than dropped.
+- In a narrow window the block grip sits in the margin beside the text
+  instead of on top of its first letters.
+- Selecting text by dragging no longer pauses when the pointer crosses the
+  block grip.
+- The vault tiles in the sidebar have the same side padding as the rows around
+  them.
+- The vault name's coloured pill in the title bar has its padding back; the
+  name no longer touches the pill's edge.
+- Relay: a vault joined while the relay was running could be silently erased
+  from its secret store the next time the relay renewed a credential.
+
+## [0.24.0] - 2026-09-16
+
+### Added
+
+- Middle-click a link to another note to open it in a tab without leaving the
+  one you are in; shift-click opens it in its own window. A plain click still
+  places the cursor and shows the link's options.
+- Click the vault name in the title bar to switch vaults from a small popover.
+  Each vault there can also be opened in a new window, and a new vault can be
+  added.
+- Every window — the main one, a second vault's, a torn-off note or pane —
+  can now be resized down to 480×320. They used to stop at 800×600.
+- A window narrower than 800px hides the vault name, the version and the
+  visualizer button from its title bar and shows a thin border in the vault's
+  colour instead; under 750px the omnibar's shortcut hints go too.
+- Make a window narrower and its panels step aside on their own: the sidebar
+  first, then the notes list. Widen it and they come back in the same order.
+  The two title-bar buttons light up while a panel is hidden, and pressing
+  either in a window too narrow grows the window until both panels fit.
+- Quick Capture is a proper glass popover now — rounded, blurred, no window
+  controls — placed near the top of the screen you are on. It also opens on
+  its own panel every time; with a keychain-unlocked vault it could show the
+  whole app squeezed into the little box.
+- With more than one vault, the Quick Capture box shows a row of vault tiles
+  and sends the text to the one you pick, preselected to the vault you were
+  working in. A vault with no window open gets one.
+- The Quick Capture shortcut (⇧⌘H, Ctrl+Shift+H elsewhere) is shown in the
+  File menu, the tray and the capture window, and can be changed in
+  Settings → Notes.
+- Links to other apps — `message://`, `things://`, `obsidian://` and the like
+  — now paste over selected text as links, offer the same Open / Edit /
+  Remove options as any link, and open the app they name. hypha asks before
+  the first open of each kind of link; tick the box to stop it asking for that
+  kind.
+- A link to another note can be re-aimed: its edit option is now "Change
+  note…" and opens the usual note search instead of showing a raw URL.
+- Settings → Appearance → Background offers a subtle gradient wash behind the
+  app, tinted from your theme's colors, and an "Animated" variant that drifts
+  slowly like a lava lamp. The drift pauses while the window is hidden or not
+  the one in front, resumes when you switch back, and stays still when your
+  system asks for reduced motion.
+- On the phone, any notebook, tag or note can be pinned as a home-screen tile
+  from its own long-press menu. It no longer has to be a shortcut first.
+
+### Fixed
+
+- Right-clicking a link in a note shows the editor's context menu alone. It
+  used to open the small link popover underneath it as well.
+- Selecting text by dragging out of the note — into the sidebar or past the
+  editor's right edge — keeps selecting to where the pointer is. It used to
+  freeze, or beside a task list vanish, the moment the pointer left the note.
+- With window transparency on, the glass keeps a hint of your theme's color
+  in light themes too; it used to be a neutral grey.
+- The menu-bar tray icon shows less arm and more hand.
+- The vault tiles in the desktop sidebar are painted softer. The tiles in
+  Settings, the Quick Capture box, the title-bar popover and the phone keep
+  their full colour.
+- Each sidebar section — Shortcuts, Notebooks, Tags, Colors, and Activity on
+  the phone — remembers whether you folded it, per vault and per device.
+- The phone's sidebar sections now look like the desktop's: a plain label with
+  the disclosure arrow after it, no leading icon, and rows that start flush
+  under the heading.
+- A pane showing exactly one tab hides its tab bar. Split the editor into two
+  or more panes and every pane shows the bar again, so the toolbars line up.
+- Arrow keys inside the daily stream's footer pickers for notebooks and tags,
+  and inside the editor's slash, `@`, `[[` and `#` menus, no longer also jump
+  the stream to a neighbouring day.
+
+- A device the owner revokes now says so and stops syncing, instead of looking
+  healthy while it silently never syncs again. Affected phones in particular.
+- A task's row in the daily stream no longer repeats the day's date beside it —
+  the date is the heading right above the row.
+- Switching vaults is one click. The sidebar, the phone's vault bar and the
+  Settings window all show a dock of vault tiles — the vault's colour, its
+  initial inside it — instead of hiding the list behind a menu or a dropdown.
+  The tiles scroll when there are many, and the settings button stays beside
+  them.
+- On the phone, today's note has its own button beside the "new" button in the
+  floating dock. It is no longer on the vault bar.
+- Swiping up on the phone's vault bar now grows the bar itself into the vault
+  drawer, following your thumb the whole way, and its row of vault tiles fades
+  out as the full list arrives. It can be dragged back down again.
+- Three bottom sheets — sync, share and the trash preview — can be dragged down
+  to dismiss. They each showed a drag handle that did nothing.
+- Vault tiles start in alphabetical order and can be dragged into your own.
+  The order travels to your other devices per vault, as each one is next
+  opened there.
+
 ## [0.23.3] - 2026-09-14
 
 ### Added
