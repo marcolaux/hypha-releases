@@ -93,6 +93,11 @@ makes revocation take effect on a device you can no longer reach to tell.
 
 **Windows and Linux builds are tested** occasionally 
 
+**On the desktop, each vault now runs in its own background process, and that is new in this version.**
+Every window of a vault talks to that vault's process instead of opening the vault itself. If
+something about opening, editing or syncing a vault behaves worse than before, please report
+it. The previous mode, where each window opened the vault itself, has been removed.
+
 ---
 
 ## Features that are present but incomplete
