@@ -20,6 +20,80 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.2] - 2026-09-21
+
+### Changed
+
+- Importing from Standard Notes now asks before it writes anything. If the
+  backup holds notes that exist in more than one version — the conflicted
+  copies Standard Notes keeps when it cannot merge an edit — you choose which
+  version to keep; the others are imported into the trash, linked to the one
+  you kept.
+- A Standard Notes import now checks the backup first and tells you if it is
+  incomplete, naming the attachments it refers to but does not contain. A full
+  Standard Notes backup can be cut short by the account hitting a rate limit,
+  and this is the point at which that is worth knowing.
+- A Standard Notes import no longer creates tags for `#words` written inside
+  note bodies — in Standard Notes those are text, not tags, and inventing a tag
+  for each one could double or treble your tag list. A `#word` that names a tag
+  you already have still files its note under it, including when the tag is
+  nested. You can still opt in to creating the rest, and the review step says
+  how many that would be.
+- The end of a Standard Notes import now lists everything that did not come
+  across, by name and with a reason, instead of one "{n} items were skipped"
+  sentence. The list can be saved to a file. It holds titles and filenames only,
+  never the contents of a note.
+- There is now one Standard Notes import card instead of two. The card that
+  read a decrypted export folder is gone: the backup folder importer reads what
+  Standard Notes produces on its own and brings across more — tags and their
+  nesting, pinned and archived, note links and the original dates.
+
+## [0.98.0] - 2026-09-20
+
+### Changed
+
+- On the desktop, the keys that open a vault are now held only by that vault's
+  background process. A window never receives them, so code running in a window
+  (for example from malicious synced content) can no longer read them.
+- On the desktop, each vault now runs in its own background process. Opening
+  more windows no longer restarts sync, two windows on one note edit together
+  live, and a crash in one vault cannot take the others down.
+- Automatic backups now also cover vaults that have no window open, and
+  importing into a vault other than the one on screen works again in this mode.
+- Switching vault now reloads the window onto the vault you picked (on the
+  phone too) instead of swapping it underneath the running app. It takes a
+  moment longer, and a whole family of "still showing the previous vault's
+  devices / settings / sync status" bugs goes with it. Settings stays on the
+  section you were on.
+- The phone's sync session is now built by the same core the desktop will use
+  for its per-vault background host. No visible change.
+
+### Fixed
+
+- Creating or removing a vault in one window now updates the vault switcher in
+  every other open window straight away, instead of only after a reload.
+- Opening a note while the vault is still locked now says the vault is locked,
+  instead of reporting an error that looked like a damaged database.
+- "Force unlock" can no longer clear a vault's journal files at the moment
+  another window is opening that vault.
+- After a crash, edits made right after reopening a vault can no longer be
+  ordered before edits made just before the crash.
+- Picking another vault in the Settings window no longer disconnects the
+  devices of the vault your main window is on. They used to stay disconnected
+  until that window was reloaded.
+- With two windows open on two different vaults, each window's device list now
+  shows only its own vault's devices. The lists used to merge, and a refusal
+  from one vault could stop the other vault's sync. The remembered device lists
+  are reset once: devices that are offline reappear when they next connect.
+- "Open in new window" for a tab, a pane or an attachment, and the Touch ID
+  toggle in Settings, now act on the vault of the window you are in — with two
+  vaults open they could act on the other one.
+- Closing the window that was keeping a vault in sync no longer leaves your
+  other window on that vault showing every device as disconnected — it takes
+  the connection over.
+- Reloading the app's first window can no longer land it on a different vault
+  that another window had been using.
+
 ## [0.24.1] - 2026-09-17
 
 ### Added
