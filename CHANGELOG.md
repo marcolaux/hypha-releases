@@ -20,6 +20,28 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.3] - 2026-09-21
+
+### Added
+
+- Every list now remembers its own sort order, grouping and filters. A tag, a
+  notebook, a colour, All Notes, Tasks, the Archive and the Trash each keep
+  their own, and the choice travels to your other devices with the vault. The
+  list's ⋯ menu has a Reset that puts one list back the way it started.
+- Lists can be filtered to notes that have tasks, or only to notes with tasks
+  still open — and "Tasks first" lifts those notes to the top without changing
+  the sort you picked. Pinned notes stay above everything, as before.
+- A new sub-tag or sub-notebook starts out showing what its parent shows. You
+  can change it afterwards and the parent is left alone.
+- The Archive and the Trash have a ⋯ menu for the first time, with their own
+  sorting. The Trash sorts by when something was deleted.
+
+### Changed
+
+- The "also show files" switch on a tag, notebook or colour list now belongs to
+  that list and is remembered. It used to be one switch shared by every
+  collection, and it forgot itself every time you reopened the app.
+
 ## [0.98.2] - 2026-09-21
 
 ### Changed
