@@ -63,12 +63,23 @@ Claiming precisely matters more here than claiming strongly.
   plaintext — a "do you have this exact file" oracle for anyone who can see a
   frame or list the directory. Ciphertext addressing exists and is not yet the
   default.
-- **Anything that can run code in the note window** — a renderer XSS — can read
-  the database key and the vault key out of the OS keychain through the same
-  bridge the app uses. The window is the crypto boundary; a compromise of it is
-  a compromise of the vault at rest, not only while it is unlocked. That is why
-  synced note content is treated as untrusted input (external images are not
-  fetched without your say-so, embeds cannot open windows or take permissions).
+- **Anything that can run code in a window** — a renderer XSS — can read every
+  note the vault's API hands that window while the vault is unlocked, which is
+  all of them. On desktop it can no longer read the keys themselves: since
+  §4km each unlocked vault's keys live in its own background process (the
+  Vault Host), which gets the database key and the vault key from the OS
+  keychain through the main process, and the main process refuses a window
+  both. So an XSS cannot carry the database key off to decrypt the file later,
+  and after a lock it cannot decrypt without the passphrase — **unless you
+  turned on "remember the key in the keychain"**, in which case it can ask the
+  host to unlock from the keychain, as the app does (turn on biometric unlock
+  to put a fingerprint in front of that). What a window still holds: this
+  device's signing key and, on the owner's device, the owner key and the room
+  secret — enough to invite or revoke devices as this device, not to decrypt
+  anything. On iOS the WebView is the host, so none of this separation exists
+  there. That is why synced note content is treated as untrusted input
+  (external images are not fetched without your say-so, embeds cannot open
+  windows or take permissions).
 
 **What has not been established**
 
