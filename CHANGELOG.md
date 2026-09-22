@@ -20,6 +20,39 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.5] - 2026-09-22
+
+### Fixed
+
+- Importing a Standard Notes backup now keeps the images in Super notes,
+  including images inside tables and list items. Some were silently dropped.
+- An indented list in an imported Super note no longer gets an extra empty
+  bullet above it.
+- A Standard Notes backup import now brings in every attachment. Files that no
+  note used go into one note called "Standard Notes — unlinked attachments".
+
+## [0.98.4] - 2026-09-22
+
+### Added
+
+- On iOS 17 or later, the Daily Note and New Note widgets can now be pinned to
+  one vault, or ask which vault to serve each time you tap them. Choose when
+  placing the widget: a pinned tile shows its vault's name and never asks
+  again, and if that vault has been removed, tapping the tile lets you choose
+  a vault instead of writing into the one that happens to be open.
+
+### Fixed
+
+- Clipping a page from Safari on the iPhone now opens the clip dialog with the
+  page's address already filled in. It used to arrive empty.
+- A notebook created in one window now appears right away in the notebook
+  picker of every other open window, instead of only after that window is
+  reopened.
+- Tapping the list or task-list button in a note that was only just created
+  now leaves the cursor inside the new list, instead of below it.
+- Selecting text by dragging across the checkboxes or fold marks of a list no
+  longer stalls the selection until the pointer moves away from them.
+
 ## [0.98.3] - 2026-09-21
 
 ### Added
