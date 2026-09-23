@@ -1,9 +1,8 @@
 # Installing Hypha
 
-Hypha is a beta. It is a real notes app holding real notes, and it is also
-software that has never been installed by anyone outside the person who wrote
-it. Read [Known limitations](KNOWN-LIMITATIONS.md) before you put anything in it
-that you would be upset to lose, and **keep your own backups**.
+Hypha is a beta. It is a real notes app holding real notes. Read
+[Known limitations](KNOWN-LIMITATIONS.md) before you put anything in it that you
+would be upset to lose, and **keep your own backups**.
 
 > **This is a beta**, and the procedure below was written and checked long
 > before it was ever walked by a stranger — so if a step does not match what you
@@ -21,39 +20,12 @@ Intel Macs are not supported and there is no Intel build. This is deliberate,
 not an oversight.
 
 1. Download `hypha_mac_arm64.dmg` from the latest release.
+2. Open the `.dmg` and drag Hypha to Applications.
+3. Open Hypha from Applications.
 
-2. **Verify what you downloaded.** Download `SHA256SUMS.txt` from the same
-   release, put it beside the `.dmg`, and run:
-
-   ```sh
-   shasum -a 256 -c SHA256SUMS.txt
-   ```
-
-   You want `OK` on the line for your file. `FAILED` means the download is
-   corrupt or has been altered — do not open it. (Lines for files you did not
-   download will say `No such file`; that is fine.)
-
-3. Open the `.dmg` and drag Hypha to Applications.
-
-4. **The first launch needs a right-click.** Double-clicking will show
-   *"Hypha" cannot be opened because Apple cannot check it for malicious
-   software.* That is Gatekeeper.
-
-   Whether you see this depends on the build. The notarization credentials are
-   now in place, so a release build **should** be signed and notarized — but no
-   published build has ever exercised them, so treat a Gatekeeper prompt as
-   possible rather than as a bug.
-
-   Instead: **right-click** (or Control-click) Hypha in Applications →
-   **Open** → **Open** in the dialog. You only have to do this once.
-
-   If macOS refuses even after that, it is usually the quarantine flag:
-
-   ```sh
-   xattr -d com.apple.quarantine /Applications/Hypha.app
-   ```
-
-   Only run that on a build whose checksum you verified in step 2.
+If macOS says Hypha cannot be opened, see
+[If macOS refuses to open it](#if-macos-refuses-to-open-it) at the end of this
+page.
 
 **What to expect on first run:** Hypha will ask for permission to find devices
 on your local network. That is how it syncs to your other devices directly,
@@ -131,8 +103,8 @@ docker compose run --rm peer join "hypha://invite/…"
 docker compose up -d
 ```
 
-The invite comes from the desktop app: **Settings → Sync → Devices**, choosing
-the **Server** role. **The inviting device has to be online while you run
+The invite comes from the desktop app: **Settings → Sync → Add a device**, for
+a relay. **The inviting device has to be online while you run
 `join`** — the two complete a live handshake, because there is no server to
 redeem a token against.
 
@@ -155,9 +127,11 @@ password to recover.
 - **First device:** you choose a passphrase, and it encrypts the vault. If you
   forget it, the notes are gone. Nobody can reset it. Write it down somewhere
   safe — a password manager, or paper.
-- **Second device:** you pair it with the first by scanning a code. The two
-  devices then sync directly to each other, over Wi-Fi when they are on the
-  same network and over the internet when they are not.
+- **Second device:** on the first device, open **Settings → Sync → Add a
+  device**. On an iPhone, open the code with the Camera app; on a Mac, paste
+  the invite link. The new device then asks for the vault's passphrase. The two
+  devices sync directly to each other, over Wi-Fi when they are on the same
+  network and over the internet when they are not.
 
 Sync needs both devices to be running. There is no server holding a copy while
 one of them is asleep.
@@ -190,3 +164,34 @@ to run it on anything else, or to run unreleased work.
 [`README.md`](README.md) has the steps: Node.js 22 or newer, `npm install`,
 then `npm run dev` for the desktop app or
 `npm run package:mac --workspace apps/desktop` for an installable build.
+
+---
+
+## If macOS refuses to open it
+
+**The first launch may need a right-click.** If double-clicking shows
+*"Hypha" cannot be opened because Apple cannot check it for malicious
+software*, that is Gatekeeper. A release build should be signed and notarized,
+but no published build has exercised that end to end yet, so the prompt is
+possible rather than a bug. **Right-click** (or Control-click) Hypha in
+Applications → **Open** → **Open** in the dialog. You only have to do this once.
+
+If macOS refuses even after that, first **verify what you downloaded.**
+Download `SHA256SUMS.txt` from the same release, put it beside the `.dmg`, and
+run:
+
+```sh
+shasum -a 256 -c SHA256SUMS.txt
+```
+
+You want `OK` on the line for your file. `FAILED` means the download is corrupt
+or has been altered — do not open it. (Lines for files you did not download will
+say `No such file`; that is fine.)
+
+With the checksum verified, clear the quarantine flag:
+
+```sh
+xattr -d com.apple.quarantine /Applications/Hypha.app
+```
+
+Only run that on a build whose checksum you verified.
