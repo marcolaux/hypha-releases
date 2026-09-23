@@ -20,6 +20,142 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.7] - 2026-09-23
+
+### Changed
+
+- A vault with no second device now says "Only on this device" in the
+  sidebar instead of "Never synced", and clicking it explains why nothing is
+  syncing and offers "Add a device…". A vault with devices reads "Synced ·
+  2 devices · 5m ago".
+- "Add a device" asks whose device it is — Mine, Someone I trust, or an
+  always-on relay — instead of a list of role names. Your own device is the
+  first answer and needs no extra confirmation; every invite now says the
+  other device will also ask for the vault's passphrase, and how to join
+  from an iPhone or a Mac.
+- A new vault now starts with three short notes (Start here, How I organise,
+  Add a device) that describe the app as it is today, instead of nine tour
+  notes that pointed at Settings screens which no longer exist. Their
+  checkboxes now show up in the Tasks view straight away, and they are
+  searchable from the first minute.
+- The always-on device that keeps your others in sync is now called a Relay
+  everywhere — in the app, on the website and in the README — instead of
+  Server in one place and Daemon in another. The website no longer promises
+  Face ID unlock, which the phone does not have yet.
+- The install guide now starts with the three steps most people need —
+  download, drag to Applications, open — and keeps the checksum and
+  quarantine commands for the rare Mac that refuses. It also says how a
+  second device really joins: scan on an iPhone, paste the link on a Mac,
+  then type the vault's passphrase.
+- The unlock screen now shows the vault's name, the create screen says a
+  passphrase needs at least 4 characters, and a vault created without a name
+  is called "My notes" instead of a string of letters and numbers. When
+  creating, joining, restoring or unlocking fails, it now says so in one
+  plain sentence instead of a technical error.
+- The first-run introduction is now three short slides — hello, write, sync
+  — and no longer asks for notification or location permission before you
+  have a single note. hypha asks for notifications the first time you save a
+  reminder, and for your location only when you press "Use my location" in
+  Settings.
+- A toast, with Undo, instead of a question. Moving notes to the trash or
+  the archive no longer asks first, from any menu, the Backspace key, the
+  tab menu, the Archive screen or a swipe on the phone. A toast says what
+  happened, and Undo puts the notes back, reopening the note you had open
+  and keeping your selection. Permanent delete and Empty trash still ask.
+- Adding photos no longer stops you with a dialog. Large images are
+  compressed by default, and the toast offers "Keep originals" for that
+  drop. Whether to keep the originals of iPhone photos and camera raws is
+  now a switch in Settings → Attachments. Backups, imports, exports and
+  "Copied" report on a toast too.
+- Devices have names. Every device list — the sync popover, Settings → Sync,
+  the revoke question — now reads "Marco's iPhone" or the Mac's name instead
+  of twelve hex characters; the key is one hover or one disclosure away. A
+  device names itself from what your Mac or iPhone is called.
+- On the iPhone, the sync sheet now says that only the vault you have open
+  syncs, when you have more than one.
+- On the Mac, closing hypha's window no longer stops sync: the app stays in
+  the menu bar and keeps this Mac reachable by your other devices while it
+  is awake. "Keep syncing when the window is closed" in Settings → Sync
+  turns it off.
+- Creating a vault now asks only for a name and a passphrase, and a bar
+  under the passphrase shows how strong it is — a short one is still allowed,
+  and the bar says it is fine for trying hypha out. Each new vault gets its
+  own colour automatically; you can change it in Settings → Appearance.
+- After you create a vault, hypha shows your passphrase once, asks you to
+  confirm that nobody can reset it, and offers to pick a backup folder so
+  your notes are copied every day. On the iPhone it tells you where to back
+  up by hand instead.
+- A shorter editor toolbar. It shows the twelve tools you reach for while
+  writing: undo and redo, headings, lists, tasks and due dates, bold, italic,
+  link, image, table and today's date. Everything else is still there under
+  the "More formatting" buttons beside them, and a toolbar you customised
+  stays as you set it.
+- The phone's format bar keeps the everyday tools in reach. Headings, lists,
+  tasks, bold, italic, links, images, tables and today's date stay in the
+  bar, and everything else opens from a "More" button as one sheet.
+- Joining a vault on the iPhone now has a "Scan code" button beside the
+  invite field: point the camera at the code on your other device and the
+  invite is filled in. Until now only the Camera app could read it.
+- A device that joined a vault and is waiting for the owner's device now
+  sees a screen that says so — "Waiting for the vault owner", with what to
+  do — instead of being asked for its passphrase again.
+- On an iPhone with Face ID, hypha can ask for Face ID before it opens your
+  vault, and the unlock button says "Unlock with Face ID". The switch is in
+  Settings → Encryption. (Landing in a following release: the switch on the
+  phone's Settings screen itself.)
+- A new vault now opens on Home with a short "Getting started" card: write
+  your first note, add your phone or another Mac, choose a backup folder,
+  and bring notes from another app. Each item ticks itself off when it is
+  done, and the card disappears once you are through it.
+- A blank new note now shows the three keys worth knowing — / for blocks,
+  # to tag, @ to link a note. The vault tour's sharing step now says how
+  each device joins: scan the code on an iPhone, paste the link on a Mac,
+  then type the vault's passphrase.
+- Sync now speaks in your devices' names: "Synced with Marco's iPhone" in
+  the sidebar, and when nothing is connected, "Marco's iPhone is not awake.
+  It will catch up the moment it is." The first time a device connects and
+  catches up, a toast says so; when a sync fails, a toast says that too, and
+  that hypha will retry.
+- Favourites and Keep at top. What the app called shortcuts are now
+  favourites: they show in the sidebar. Pinning is now "Keep at top", which
+  keeps a note at the top of the list it's in. Hovering the star or the pin
+  in a list says which is which.
+- On the iPhone, a new vault's home screen now shows the same "Getting
+  started" card as the Mac, with "Add a device" opening the sync sheet and
+  the backup item opening Backup & export.
+- Settings in plain words. Search is one "Search by meaning" switch that
+  says what it downloads, plus a "Rebuild search index" button, with the
+  technical details one click away. Language is a device-wide setting now,
+  and Storage and Encryption are called "Free up space" and "Passphrase &
+  lock". Web Notes and the Publish button appear once publishing is set up,
+  or once a note is already published.
+- A Help menu, and shortcuts you can see. Help lists the keyboard shortcuts,
+  opens "Start here", and links to the known limitations and to where you
+  can report a problem. The command palette now shows each command's
+  shortcut next to it.
+- Reminders in plain words. Priorities are Quiet, Normal and Urgent, and the
+  rarely used "only on this device" and "paused" switches sit under "More".
+  An empty Reminders list now explains that a reminder is a notification at
+  a time you pick, and that a due date belongs on a task.
+- One note map. The right sidebar now lists related notes, most related
+  first, instead of drawing a second small map. The full note map groups
+  notes "by closeness" or "into a fixed number" — the technical names moved
+  into the buttons' tooltips.
+- No engine words in the interface. A new check keeps database and crypto
+  terms out of everyday copy, except in the few places that are about them
+  (search details, publishing's storage settings, recovery screens). Unused
+  attachments are now called "unused" rather than "orphaned".
+
+### Fixed
+
+- The iPhone app no longer crashes after a while with sync running. A
+  timing gap inside the peer-to-peer runtime could call a callback that had
+  just been cleared; hypha now guards that call itself, and no longer waits
+  for a runtime update.
+- The language menu no longer offers "Pseudo (dev)", a developer tool that
+  had been shipping in every build. A device that was already set to it
+  keeps the entry until you pick another language.
+
 ## [0.98.6] - 2026-09-23
 
 ### Changed
