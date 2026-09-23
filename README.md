@@ -104,7 +104,7 @@ are CRDT structure, not stored markup:
 <img src="docs/screenshots/desktop-editor.png" alt="A note open in the hypha editor, showing headings, a list and a blockquote" width="700">
 
 Devices are paired to a vault by scanning or pasting a `hypha://invite` token —
-there is no account to sign into. Roles are Member, Owner or Daemon:
+there is no account to sign into. Roles are Member, Owner or Relay:
 
 <img src="docs/screenshots/desktop-sync.png" alt="The 'Add a device to this vault' dialog, showing a role picker, a QR code and an invite link" width="820">
 
