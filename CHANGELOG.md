@@ -20,6 +20,31 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.6] - 2026-09-23
+
+### Changed
+
+- A vault with a passphrase opens faster, and is usable right after it unlocks
+  instead of a few seconds later. Large vaults with many notes and files feel
+  this most.
+- The notes list loads thumbnails and previews for the rows you can see, and
+  the rest as you scroll, instead of all of them at once.
+- Typing in a note that holds a checklist no longer re-saves every task on
+  each pause; only a changed task list is written.
+- A second window of the same vault (Settings, a torn-off note) no longer
+  repeats the vault's unlock work.
+- The vault dock stays at the bottom of the sidebar however long the notebook
+  and tag lists get. Update and indexing status now appear under it, in place
+  of the sync status while they last, instead of in the title bar.
+- The "Initialising database…" dialog no longer covers the window at startup.
+- Semantic search is on by default, and the Search settings now rebuild or
+  clear the index for every vault.
+
+### Fixed
+
+- Semantic search finds notes you have not edited yet in a vault with a
+  passphrase. Before, a note turned up only after it had been changed.
+
 ## [0.98.5] - 2026-09-22
 
 ### Fixed
