@@ -20,6 +20,57 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.0] - 2026-09-24
+
+### Added
+
+- The editor moves smoothly: when you add, remove, paste or move a line, the
+  lines around it glide into place instead of jumping, and new lines fade in.
+  Ticking a task gives its checkbox a small pop. Turn on "Reduce motion" in
+  your system settings to switch it off.
+- On a Mac, Windows or Linux, the text cursor glides to its new position
+  instead of jumping, and blinks only while you pause.
+- Dragging a block by its grip while several blocks are selected moves all of
+  them. The block you are dragging stays dimmed in place until you drop it.
+- Screen readers name each task's checkbox after the task, in the app's
+  language.
+
+### Changed
+
+- In the daily stream, the find bar and the suggestions appear only on the
+  day you are working in.
+- When someone else moves a block while you type in the block next to it,
+  your text now stays where you typed it.
+
+### Fixed
+
+- Text typed into an empty day of the daily stream was lost if the day
+  scrolled out of view within half a second.
+- Closing a note straight after typing could leave its search entry and
+  preview out of date.
+- On the desktop, a line typed right after the app reopened a note sometimes
+  never reached your other devices.
+- Syncing a note with several large attachments could stall every transfer
+  until the app was restarted.
+- Renaming a notebook, tag or color reset its pin, its description and its
+  creation date.
+- In dialogs, pressing Enter while a button had focus confirmed the dialog.
+  Enter now confirms only from a text field.
+- Switching quickly between notes or filters could briefly show the previous
+  note's tags, color, history or share link.
+- Changing the passphrase of one vault locked the windows of your other
+  vaults. Links, quitting and drag-and-drop kept working only as long as the
+  first window stayed open.
+- A phone that another device had refused kept retrying about once a second,
+  draining the battery.
+- The arrow keys in the note-link field at the bottom of a daily-stream day
+  could jump to another day.
+
+### Security
+
+- Updated the editor library to fix two published vulnerabilities in how it
+  handles note content.
+
 ## [0.98.9] - 2026-09-24
 
 ### Changed
