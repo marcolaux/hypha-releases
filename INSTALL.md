@@ -31,11 +31,15 @@ page.
 on your local network. That is how it syncs to your other devices directly,
 without a server. If you decline, the app still works; sync over Wi-Fi will not.
 
-**Updates.** Hypha checks for updates and will offer to install them. If a build
-turns out not to be notarized, each update is signed with a different identity,
-so macOS asks you to re-grant local-network permission after updating — expected,
-not the app misbehaving. Auto-update has also **never been observed working end
-to end**; see [Known limitations](KNOWN-LIMITATIONS.md).
+**Updates.** Hypha checks for updates and will offer to install them. From
+0.98.9 the Mac updates through Sparkle: if the app was installed by an
+administrator and you run it from a standard account, macOS asks for an
+administrator password when you press *Restart to update* — that is the
+update installing, not the app misbehaving. If a build turns out not to be
+notarized, each update is signed with a different identity, so macOS asks you
+to re-grant local-network permission after updating. A copy older than 0.98.9
+that "updated" and came back on the same version needs one fresh install from
+the DMG; see [Known limitations](KNOWN-LIMITATIONS.md).
 
 ---
 
