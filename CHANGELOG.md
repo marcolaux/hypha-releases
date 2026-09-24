@@ -20,6 +20,31 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.8] - 2026-09-24
+
+### Fixed
+
+- A device that joined on an owner invite ("Mine") while the inviting Mac was
+  running now stays connected. It used to be refused on the first
+  reconnection and both sides then waited for a restart.
+- On a Mac, "Ready to install" now means the update really is ready; while
+  macOS is still unpacking it the button says "Preparing update…". Before
+  offering the restart, hypha checks that it can replace itself from this
+  account and location, and says what to do when it cannot (an app installed
+  by an administrator and run from another account, opened from the disk
+  image, or not yet moved out of Downloads). Until now such a Mac restarted
+  into the old version without a word.
+- hypha now writes a log file, `main.log` in the app's log folder (on a Mac,
+  `~/Library/Logs/hypha`). The updater always writes there; with diagnostic
+  logging on in Settings → Updates, so does everything else, including sync.
+
+### Tooling
+
+- `release:local` read the packaged app's fuses through a colour-aware regex:
+  with `FORCE_COLOR` set, `electron-fuses` coloured its lines and every fuse
+  was reported wrong while every one was right. The read-out is stripped of
+  ANSI before it is matched.
+
 ## [0.98.7] - 2026-09-23
 
 ### Changed
