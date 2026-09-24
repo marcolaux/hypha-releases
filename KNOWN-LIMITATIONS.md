@@ -93,6 +93,15 @@ makes revocation take effect on a device you can no longer reach to tell.
 
 **Windows and Linux builds are tested** occasionally 
 
+**macOS auto-update changed engines in 0.98.9 and has not yet been watched on a
+client's Mac.** Until 0.98 the update was applied by Squirrel, which — when the
+app folder was not writable by your account — restarted into the old version
+without a word. Since 0.98.9 Sparkle applies it and asks for an administrator
+password in that case instead. The switch itself, and the password prompt on a
+standard account, have been proven on the developer's Mac only; a copy older
+than 0.98.9 that came back on the same version after "updating" needs one fresh
+install from the DMG.
+
 **On the desktop, each vault now runs in its own background process, and that is new in this version.**
 Every window of a vault talks to that vault's process instead of opening the vault itself. If
 something about opening, editing or syncing a vault behaves worse than before, please report
