@@ -20,6 +20,16 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.98.9] - 2026-09-24
+
+### Changed
+
+- On a Mac, updates are now installed by Sparkle instead of Squirrel. When
+  the app folder is not writable by your account, macOS asks for an
+  administrator password on "Restart to update" instead of restarting into
+  the old version. A copy older than this one that came back on the same
+  version after updating needs one fresh install from the DMG.
+
 ## [0.98.8] - 2026-09-24
 
 ### Fixed
