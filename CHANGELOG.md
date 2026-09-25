@@ -20,6 +20,44 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.1] - 2026-09-25
+
+### Added
+
+- Press Enter in a note's title to start a new first line. If the note already
+  begins with an empty line, the cursor goes there instead. Backspace in that
+  empty line removes it and takes you back to the title.
+- Drop a block onto a list item or task to make it a child: while dragging,
+  move the pointer to the right, over the item's text. Move it back to the
+  left to take a block out of a list.
+- On a Mac, Windows or Linux, when the editor toolbar is too narrow for all
+  its buttons, press and drag it sideways to reach the rest. The history,
+  colour and outline buttons now stay at its right end.
+
+### Changed
+
+- Dragging a block is steadier: the drop line no longer flickers between two
+  places, the block always lands where the line shows, and the dragged block
+  is see-through so the line stays visible.
+- The block grip can be reached in a narrow editor by moving the pointer in
+  from the pane's left edge.
+- Notes lists on the desktop show two lines of preview text instead of one.
+- The bar below a note starts with its color, labelled "Add color" when it has
+  none, then its notebooks and tags, separated by thin dividers. On the phone
+  each of them gets its own line.
+- With transparency on, the notes list and editor panes you are not typing in
+  let the window's background show through.
+
+### Fixed
+
+- Selecting an image highlighted the whole width of the editor, not just the
+  image.
+- A numbered item dragged into a task list turned into a bullet.
+- Tooltips near the edge of the window could run off screen, or break a word
+  into one letter per line.
+- The headers of Archive, Trash and Web Notes wrapped onto two lines in a
+  narrow list.
+
 ## [0.99.0] - 2026-09-24
 
 ### Added
