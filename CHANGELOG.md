@@ -20,6 +20,32 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.2] - 2026-09-25
+
+### Added
+
+- Archived and trashed notes open in a read-only tab of their own, one per
+  note, marked with an archive or trash icon and an italic title. "Unarchive
+  to edit" or "Restore to edit" turns the tab into a normal note.
+- Archive, Trash and Web Notes show your tabs and panes beside the list, like
+  every other screen.
+
+### Changed
+
+- Clicking a published note in Web Notes opens it beside the list instead of
+  switching to All Notes.
+- Clicking a notebook in the Trash says it has no preview instead of doing
+  nothing.
+
+### Fixed
+
+- A tab's in-note search, undo history and scroll position were lost after
+  switching to the daily notes, a search tab or another screen in the sidebar
+  and back.
+- Clicking a task in the daily notes now scrolls to it and highlights it,
+  including tasks with subtasks and tasks written in another day's note.
+- Going back to the daily notes returns you to where you were reading.
+
 ## [0.99.1] - 2026-09-25
 
 ### Added
