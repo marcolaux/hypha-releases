@@ -20,6 +20,21 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.3] - 2026-09-26
+
+### Fixed
+
+- Turning a sub-list item into a task, bullet or numbered item no longer
+  splits the list around it: the items before and after stay where they were,
+  with no extra gap, and numbering carries on.
+- Removing the list from a sub-list item (its list button again, or Backspace
+  at its start) turns it into a paragraph under its parent item instead of
+  moving it out of the list; toggling the list on that paragraph makes it an
+  item again.
+- Pressing Enter on an empty task under a bullet item now moves it out one
+  level instead of deleting it, and Mod-L on a paragraph inside a task makes it
+  a task rather than ticking the parent.
+
 ## [0.99.2] - 2026-09-25
 
 ### Added
