@@ -20,6 +20,23 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.4] - 2026-09-28
+
+### Fixed
+
+- On the phone, the Due date button on a task (the alarm clock) sets the due
+  date again, and offers "Pick a date…".
+- On the phone, Indent and Outdent sit on the formatting bar itself instead of
+  behind the More button.
+- The text cursor jumps straight to another line or a clicked spot instead of
+  gliding there; it still glides one character at a time while you type.
+- A note can be scrolled while its vault is syncing; it no longer jumps back
+  under your finger each time an update arrives.
+- Tab on the empty line just below a task or bullet list nests it as a new row
+  under the last one, instead of deleting the line.
+- On the phone, sheets, drawers, dialogs and popups no longer reach under the
+  status bar and the notch, with or without the keyboard up.
+
 ## [0.99.3] - 2026-09-26
 
 ### Fixed
