@@ -20,6 +20,28 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.5] - 2026-09-28
+
+### Added
+
+- On the desktop, the editor toolbar can be rearranged: hold ⌘ (Ctrl on
+  Windows and Linux) and drag an icon to move it. ⌘-click a "…" button to see
+  its tools as icons you can drag onto the toolbar, and drop an icon on a "…"
+  button to put it back inside. The layout is the same in every vault;
+  right-click the toolbar to reset it.
+- Typing # in a note now offers notebooks and colors as well as tags, and can
+  create any of the three on the spot. The pick is assigned to the note and
+  shown as a chip in the text.
+
+### Fixed
+
+- After pressing Return, the text cursor appears on the new line straight
+  away, instead of sitting a few pixels too high and then jumping down.
+- Unfolded notebooks and tags in the sidebar, and the notebook order you set,
+  stay as you left them in each vault when you switch between vaults.
+- YouTube videos play in the installed desktop app and on the phone, instead
+  of showing "Error 153".
+
 ## [0.99.4] - 2026-09-28
 
 ### Fixed
