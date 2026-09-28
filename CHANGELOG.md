@@ -20,6 +20,14 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.6] - 2026-09-28
+
+### Changed
+
+- On the desktop, when the sidebar or focus-mode button made a narrow window
+  wider to show the sidebars, pressing it again to hide them puts the window
+  back to the size you had — unless you resized it in between.
+
 ## [0.99.5] - 2026-09-28
 
 ### Added
