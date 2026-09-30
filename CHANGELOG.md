@@ -20,6 +20,13 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.8] - 2026-09-30
+
+### Fixed
+
+- Changing a web link with "Edit link…" saves the new address; after
+  clicking the link, Save used to keep the old one.
+
 ## [0.99.7] - 2026-09-30
 
 ### Added
