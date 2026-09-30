@@ -20,6 +20,40 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.7] - 2026-09-30
+
+### Added
+
+- Notebooks, tags and colors in the sidebar show how many notes they hold, and
+  a check mark when those notes have open tasks. Hover over a row to see how
+  many tasks are open; click the check mark to open that list showing only the
+  notes with open tasks, each task listed under its note. The number beside a
+  section heading is gone.
+- A list filtered to notes with tasks can list each task under its note, not
+  only the Tasks view.
+- The daily notes stream lists the notes that link to each day, under the
+  day's tasks.
+- Settings shows the name of the vault you are editing.
+- On the desktop, reopening the app returns to the list you were in — a
+  notebook, tag or color — not only to your open tabs.
+
+### Changed
+
+- The task marker in the daily notes' list of days matches the sidebar's.
+
+### Fixed
+
+- The ring around the current vault is no longer cut off in the sidebar, in
+  Settings, in the quick-capture window and on the phone.
+- The vault switcher in Settings lines up with the rest of the column.
+- Names in the sidebar are no longer cut short to make room for buttons that
+  only appear on hover.
+- Clicking a task in the daily notes stream opens its note at the task, also
+  when that note had been open before.
+- With weather set to "This device", each daily note takes the weather where
+  it is written, instead of a location up to a day old.
+- Settings sections no longer sit inside an extra empty frame.
+
 ## [0.99.6] - 2026-09-28
 
 ### Changed
