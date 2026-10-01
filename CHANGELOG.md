@@ -20,6 +20,35 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.9] - 2026-10-01
+
+### Added
+
+- On the phone, a Block button on the format bar turns the current block into
+  another kind, moves, duplicates or deletes it, and continues below it.
+- Callout is on the phone's format bar, and Heading 1–3 are in the slash menu.
+- "Toggle transparency" in the command palette, and a "Dim unfocused panes"
+  setting (on by default) that fades the panes you are not working in.
+
+### Changed
+
+- The notes list and the editor panes sit on two separate cards.
+
+### Fixed
+
+- Copying into an app that only takes plain text keeps lists, checkboxes and
+  indentation, puts one blank line between blocks, and copies tables as rows,
+  tags as `#tag`, and files and embeds by name or address.
+- Selecting a notebook, tag or colour in the sidebar no longer highlights All
+  Notes as well, and a selected notebook or tag shows its icon in the accent
+  colour like the rows above.
+- On the phone, a tap selects an image or file, Backspace deletes it, and a
+  long-press opens a menu for it.
+- The phone's code-language picker and callout header are easier to tap.
+- Notebook, tag and colour counts in the sidebar update however a note is
+  filed, renamed or duplicated, and duplicating a note keeps its notebook, tags
+  and colour.
+
 ## [0.99.8] - 2026-09-30
 
 ### Fixed
