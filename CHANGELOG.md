@@ -20,6 +20,27 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.10] - 2026-10-02
+
+### Changed
+
+- Automatic backups are one setting, with an "Include attachments" switch.
+  Attachments are stored once and shared by every backup, so including them
+  does not multiply their size.
+- Backups are kept by day, week and month: by default the last 7 daily, 4
+  weekly and 6 monthly. Your old "keep last" number becomes the daily count.
+- The first slide of the introduction writes the faint hypha mark behind the
+  greeting, instead of a second, black one in front of it.
+- In light mode, an editor pane you are not working in is a little lighter,
+  closer to the one you are.
+
+### Fixed
+
+- Selecting text by dragging no longer stops while the pointer passes over a
+  task checkbox or a list's fold arrow.
+- Half-copied attachment files left in the backup folder by an interrupted
+  backup are cleaned up after a day.
+
 ## [0.99.9] - 2026-10-01
 
 ### Added
