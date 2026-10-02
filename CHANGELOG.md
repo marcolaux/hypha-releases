@@ -20,6 +20,21 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.11] - 2026-10-02
+
+### Changed
+
+- Linking is one feature: the link button opens one picker that finds notes
+  and also takes a web address. Type a URL and press Enter to link it, with or
+  without selected text.
+- "Edit link" opens the same picker, with the link's address already filled
+  in, so a link can point to a note or a web page.
+
+### Fixed
+
+- With two panes side by side, ⌘⇧V (paste as plain text), ⌘F and the toolbar
+  now act on the pane you are working in, not on the daily notes beside it.
+
 ## [0.99.10] - 2026-10-02
 
 ### Changed
