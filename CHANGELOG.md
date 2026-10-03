@@ -20,6 +20,30 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.12] - 2026-10-03
+
+### Added
+
+- Give a note a page style: a background picture or colour, a document colour,
+  text colour, cover image, divider style, font and a wide page. Open it with
+  the palette button at the right of the toolbar (on the phone, from the note's
+  menu). Save a look as a style to reuse it, and pick one in Settings → Notes as
+  the default for new notes. Block colorize now lives in the same panel.
+- An Unsorted list gathers the notes that have no notebook, tag or colour yet.
+
+### Changed
+
+- Keep dragging a sidebar's edge past its smallest width to hide the sidebar,
+  and further still to turn on focus mode. The left sidebar can also be
+  narrower than before.
+- Rearrange the editor toolbar by holding an icon: the icons jiggle, drag them
+  where you want them, and press Done.
+- A note's notebooks and tags now sit under its title, with a circle beside the
+  title to pick the note's colour, which tints the top of the page.
+- A note's footer is now as wide as its text instead of the whole pane.
+- All Notes leaves daily notes out; turn on "Show daily notes" in its list
+  options to bring them back.
+
 ## [0.99.11] - 2026-10-02
 
 ### Changed
