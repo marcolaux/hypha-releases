@@ -20,6 +20,101 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.13] - 2026-10-05
+
+### Added
+
+- Android: a first experimental build is attached to the release as an APK to
+  install by hand. It runs the phone app, but it is early: files, sharing,
+  notifications, scanning and local-network sync are missing, and syncing with
+  other devices is untested.
+- A notebook's overview page (Folders sidebar) is laid out in two columns:
+  whiteboards and notes on the left, open tasks on the right. Notes show as
+  cards that wear their page style — colour as the border, cover on top, paper
+  colour and font on the card — or as the list you know; switch in the page's
+  header. A filter bar narrows the page by tag, colour, type, tasks, marks,
+  date or page style, and the page remembers it. Not yet tried on an iPad.
+- Whiteboards: copy, cut, paste and duplicate shapes (⌘C / ⌘X / ⌘V / ⌘D, a
+  right-click menu, and a Duplicate button), also between boards and windows;
+  the arrow keys nudge the selection (Shift for bigger steps); and zoom
+  controls in the bar with ⌘+ / ⌘− / ⌘0. A board only reacts to the keyboard
+  while it is focused. Not yet tried in the running app.
+- The sidebar can be used from the keyboard: the arrow keys move between rows,
+  → and ← open and close folders and tags, and it is announced as a tree to
+  screen readers. Tab now stops once in the list instead of on every row.
+- On the phone, a long-press on a style in the page-style panel opens its menu
+  (set as default, rename, delete, save a copy). Not yet tried on a device.
+- A second sidebar layout, "Folders" (the chevron beside the title bar's
+  sidebar button, Settings → Appearance → Sidebar, or "Switch sidebar layout"
+  in the command palette): every notebook opens to the
+  notes inside it, right in the sidebar, and the notes-list column goes away.
+  Clicking a notebook opens a generated overview of it in a tab — sub-folders,
+  open tasks, and its notes grouped by type, tag or date. Archive, Trash,
+  Tasks, Reminders, Home and All Notes open as tabs too, and Daily Notes shows
+  only the stream. Per vault, on this device; desktop only so far — not yet
+  tried on an iPad.
+- Built-in page styles: sixteen ready-made looks in the page-style panel under
+  "All styles" — papers (Cotton Paper, Kraft, Blueprint, Dot Grid, Night
+  Paper, Typescript), Reading Room, Green Lamp, Glass Table, Frost, Hologram,
+  Foil, Brass & Leather, Greenhouse, Moss & Sun and Island Journal. Apply one
+  like a saved style, make it the default for new notes, or save a copy to
+  change it. Not yet tried in the running app or on a phone.
+- Page styles gain textures for the background and the document, an accent
+  colour for links and checkboxes, a card style (raised, flat or glass), a
+  cover band, three more dividers and five fonts that look the same on every
+  device (Literata, Fraunces, Space Grotesk, JetBrains Mono, Nunito).
+- The tab bar and the editor toolbar stay readable over a page-style
+  background that is the opposite of the theme: a dark background under a
+  light theme gets light labels and icons, a light one under a dark theme gets
+  dark ones. Not yet tried in the running app.
+- A note's cover shows behind its entry in the notes list, blurred and faded
+  so the title and snippet stay readable. Not yet tried in the running app.
+- iPad: Hypha now runs on iPad with the desktop layout — sidebar, notes list
+  and editor side by side, tabs and split panes. In portrait or a narrow
+  window the sidebar and the list slide in over the note. Not yet tried on a
+  real iPad.
+- Whiteboards in notes: insert one from the slash menu or the toolbar's More,
+  double-click it to draw. Pen, highlighter, eraser, shapes, arrows and typed
+  text, with undo; two devices editing the same board merge. Copying a
+  whiteboard copies the drawing, and a note's version history restores it.
+- A whiteboard's text is searchable. Typed text always; handwriting on
+  macOS 27 and iOS 27, where the system recognises it on the device. A toggle
+  under the block shows the text, and "Insert as text" puts it into the note.
+- Whiteboard notes: a note whose page is the board, with the usual title, tags
+  and notebooks above it. Find (Cmd/Ctrl+F) searches the text on the board.
+- A "New note" button above Home in the sidebar; its arrow offers a new
+  whiteboard or a web clip. On the phone, long-press the dock's button. With
+  the sidebar hidden, a "+" in the title bar does the same.
+- Type `@remind` in a note to set a reminder for it. A short confirmation
+  appears whenever a reminder is created.
+- Google Maps links can be embedded, including short share links.
+- Paper colours for page styles: white bond, cotton, legal pad, kraft,
+  blueprint and more. A new "Ruled" paper; on ruled, dotted and squared paper
+  the text sits on the lines.
+
+### Changed
+
+- A page style with a document colour and no text colour now picks a text
+  colour that is readable on that document, instead of the theme's.
+- The editor toolbar: tooltips show keyboard shortcuts, the whiteboard has its
+  own button, and the date button is gone — type `@` and choose "Pick a date…".
+- A reminder made from a note is described by the selected text or the current
+  line instead of a link.
+- The "+" in the notes list moved to the sidebar's "New note" button.
+
+### Fixed
+
+- Coming back to a note's tab puts it where you had scrolled straight away,
+  rather than after the note has been re-read — on a busy vault it could sit
+  at the top meanwhile, and stay there if you touched the scroll wheel.
+
+- Opening a note on the phone and scrolling at once no longer jumps back and
+  forth.
+- Changing a note's style preset keeps a cover image you chose.
+- Duplicating a note copies its whiteboards' drawings; the copy used to show
+  the picture over an empty board.
+- Escape closes find-in-note while the cursor is in the text.
+
 ## [0.99.12] - 2026-10-03
 
 ### Added
