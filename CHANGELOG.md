@@ -20,6 +20,66 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.15] - 2026-10-05
+
+### Added
+
+- Whiteboard notes: a "Board text" sidebar (the text button at the end of the
+  board's toolbar) shows the text typed on the board, the handwriting read
+  from it, and the word count of both. Reading handwriting has not been tried
+  in the released app yet.
+- Generated pages: select notes like files — ⌘/Ctrl-click adds or removes one,
+  Shift-click takes a run, and dragging from empty page draws a rectangle
+  around the ones you want. Right-click or drag the selection to act on all of
+  it. (⌘-click used to open a note in a background tab there; that is the
+  middle mouse button now.)
+- A folder on a notebook's page has the sidebar's menu on right-click: open in
+  a new tab, new note or whiteboard in it, new sub-notebook, favourite, keep at
+  top, rename, move, icon and delete.
+- With "Include the notes in sub-folders" on, each note from a sub-folder says
+  which one it is in.
+- Daily Notes: each day lists the reminders due on it, by time — one-off
+  reminders on their day, repeating ones on every day they fall on from today.
+  A row opens the reminder's editor over the stream.
+
+### Changed
+
+- A whiteboard note's canvas starts right under its notebooks and tags, and
+  the footer's word count — which counted the hidden text and always said 0 —
+  moved into the Board text sidebar.
+- Generated pages (a notebook's overview, Tasks) have less empty space at
+  their left and right edges.
+- Clicking a folder on a notebook's page opens it in the same tab, and back and
+  forward step through the folders you went through. ⌘/Ctrl-click or the
+  middle button opens it in a new tab.
+- Phone: back and forward go to the screen you saw before and after, wherever
+  that was — a note opened from the home screen goes back to the home screen,
+  not to All Notes. The left and right edge swipes follow the same history, on
+  every screen. Not yet tried on a device.
+- Android: the system back gesture goes back inside the app, and only leaves
+  it from the first screen. Not yet tried on a device.
+- A toolbar you had rearranged gains the whiteboard button (between image and
+  table) and loses the calendar button; dates go in through the link picker,
+  which offers "Pick a date…" before you type.
+- The Reminders list shows when a repeating reminder is next due instead of
+  the day it was created for.
+
+### Fixed
+
+- A note's colour runs across the whole pane, behind an open right sidebar,
+  instead of stopping at the sidebar's edge and leaving the tab bar half
+  coloured.
+- A coloured whiteboard note shows its colour behind the tab bar, like any
+  other note.
+- The suggestions under "+ Notebook" and "+ Tag" below a note's title open
+  above the note's text again; they appeared behind it and could not be
+  clicked.
+- Dragging a text selection into a list's bullet, number or checkbox column
+  selects to the start of that line and no longer flickers.
+- Escape closes the in-note search also while the caret is in the text.
+- A repeating reminder is armed again when you come back to the app; on the
+  phone it could stay silent after firing once in the background.
+
 ## [0.99.13] - 2026-10-05
 
 ### Added
