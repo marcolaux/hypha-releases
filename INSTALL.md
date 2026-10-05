@@ -43,13 +43,15 @@ the DMG; see [Known limitations](KNOWN-LIMITATIONS.md).
 
 ---
 
-## iPhone
+## iPhone and iPad
 
-**Requirements: iOS 16.4 or newer, on an iPhone.**
+**Requirements: iOS / iPadOS 16.4 or newer.**
 
-There is no iPad build. The app was designed and tested on a phone and has
-never been run on an iPad, so shipping it there would be a guess — see
-`apps/mobile/ios/project.yml`'s `TARGETED_DEVICE_FAMILY`.
+The same app runs on both. An iPad gets the desktop layout (sidebar, notes
+list and editor side by side, tabs, split panes); an iPhone gets the
+one-panel-at-a-time phone layout. The iPad layout has been run in the
+simulator only — no iPad hardware has been available — so expect rough edges
+there, and see `docs/IPAD-DESIGN.md` §6 for what is known to be missing.
 
 The iOS build is distributed through **TestFlight**. You need an invitation —
 ask for one at the address in [SECURITY.md](SECURITY.md), or use the public
