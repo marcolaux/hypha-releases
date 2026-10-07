@@ -35,7 +35,13 @@ recorded — but *Use my location* may simply not produce a position on a Mac.
 
 **There is no recovery for a forgotten passphrase.** None. Nobody can reset it,
 including the author, because nobody else has anything to reset. This is the
-direct cost of there being no server.
+direct cost of there being no server. What there is: a device that keeps the
+vault's key in its keychain keeps the passphrase beside it, and Settings →
+Passphrase & lock → Show passphrase reads it back — behind Touch ID on a Mac
+that has it and Face ID / Touch ID on an iPhone, and **without any prompt on a
+Mac that cannot prompt and on Android**, where the spike's keychain bridge has
+no biometric gate at all. A device that never kept the key (the opt-in off, a
+Linux desktop without a keyring) has nothing to show.
 
 **The cryptography has not been independently audited.** It uses standard
 primitives — libsodium, Argon2id, XChaCha20-Poly1305, Noise-XX, BLAKE2b — rather
