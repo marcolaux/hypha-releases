@@ -20,6 +20,39 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.17] - 2026-10-07
+
+### Added
+
+- Live cursors: when a note is open on more than one device, you see where
+  each of the others is typing, as a coloured caret labelled with the
+  device's name. Each device keeps its colour everywhere.
+- Text in pictures and words in recordings: a picture's text is read, and a
+  recording is transcribed, on the device itself — nothing leaves it. The
+  text is shown under the picture or recording, and global search finds it.
+  A picture also gets a one-line description as its caption. Where the
+  language pair is installed, a translation is added beside the original.
+
+### Fixed
+
+- iPhone: hypha could crash a few seconds after opening, or on returning to
+  it from the Home Screen, while it was syncing. Two threads were changing
+  the sync connection's state at the same time; they now take turns.
+
+### Changed
+
+- First start: the introduction now runs straight into setting up — one
+  question per screen — and hypha makes the new vault's passphrase for you:
+  six words, shown once; "I've saved it" is what creates the vault. There is
+  no name or passphrase to type on a first start, and no form with three
+  modes; joining from another device and restoring a backup each have their
+  own screens. The strength bar now lives where a passphrase is still typed,
+  in Settings → Passphrase & lock.
+- A device that keeps the vault's key in its keychain now keeps the passphrase
+  too: Settings → Passphrase & lock → Show passphrase shows the six words
+  again, after Touch ID or Face ID where the device has it. It is what you
+  type on the next device.
+
 ## [0.99.15] - 2026-10-05
 
 ### Added
