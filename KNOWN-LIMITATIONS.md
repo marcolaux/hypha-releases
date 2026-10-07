@@ -37,11 +37,22 @@ recorded — but *Use my location* may simply not produce a position on a Mac.
 including the author, because nobody else has anything to reset. This is the
 direct cost of there being no server. What there is: a device that keeps the
 vault's key in its keychain keeps the passphrase beside it, and Settings →
-Passphrase & lock → Show passphrase reads it back — behind Touch ID on a Mac
-that has it and Face ID / Touch ID on an iPhone, and **without any prompt on a
-Mac that cannot prompt and on Android**, where the spike's keychain bridge has
-no biometric gate at all. A device that never kept the key (the opt-in off, a
-Linux desktop without a keyring) has nothing to show.
+Passphrase & lock → Show passphrase reads it back. On a Mac and an iPhone that
+read always asks the device owner first: Touch ID / Face ID, falling back to
+the login password or the passcode. A Mac or iPhone that cannot ask at all
+(no password, no passcode) refuses. **Windows, Linux and Android show it
+without a prompt** — Electron has no OS prompt to show there, and the Android
+spike's keychain bridge has no gate yet. Copy puts the words on the clipboard
+for one minute: on a Mac marked concealed so clipboard managers skip them, on
+an iPhone for this device only. The words leave the screen after a minute or
+when the window loses focus. A device that never kept the key (the opt-in off,
+a Linux desktop without a keyring) has nothing to show.
+
+Keeping the words at all is the same bet Anytype makes (it keeps the recovery
+phrase in the keychain on every platform). It adds little for someone who can
+already read this device's keychain — the vault key sits next to it — but six
+words are easy to photograph and open every device and backup until the
+passphrase is changed. That is why the display is gated, not the storage.
 
 **The cryptography has not been independently audited.** It uses standard
 primitives — libsodium, Argon2id, XChaCha20-Poly1305, Noise-XX, BLAKE2b — rather
