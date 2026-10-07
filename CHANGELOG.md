@@ -20,6 +20,91 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.18] - 2026-10-07
+
+### Added
+
+- People: the devices in a vault are grouped into named people. When you add
+  a device, Hypha now remembers whose it is (yours, someone already in the
+  vault, or someone new) and shows devices grouped that way in Settings →
+  Sync, where you can rename a person or move a device. Live cursors carry
+  the person's name and colour instead of the device's.
+- Chat: every vault has a conversation everyone in it can read. Send
+  messages with formatting, reply, react, edit, delete for everyone, attach
+  pictures and files, mention someone with @, and see who is typing and who
+  has read what. On your own it is a "Notes to self" inbox. Notifications
+  name the sender but never show the text.
+- Comments: select text in a note and comment on it. The highlight follows
+  the text as the note changes on any device, threads live in a sidebar on
+  the desktop and a sheet on the phone, and a thread can be resolved and
+  reopened.
+- Adding a device: the moment the other device joins, the invite shows a
+  checkmark with its name and closes. The name field for a new person is
+  labelled, and the invite refreshes on its own as you change the answer.
+- Chat: type @ to mention a person or link a note from the same picker, and
+  [[ to link a note. A note link in a message opens the note. @ mentions a
+  person inside a note too, once the vault has more than one person.
+- Chat: pin messages to a bar under the header, set a room-wide timer so new
+  messages disappear after a day, a week or four weeks, delete a message for
+  yourself only, pick from more reactions, and open a shared file from its chip.
+- Comments: a note with unread comments shows a comment glyph and count in
+  the notes list and on its card, next to its task progress, and the notebook
+  or tag holding it gets a dot. Opening the note's comments clears it on all
+  your devices; reading the chat does not. A comment in the chat opens its
+  thread.
+- Search finds chat messages and comments. A result opens the chat scrolled
+  to the message, or the note with that comment thread open. Pictures and
+  recordings sent in the chat get their text read on your device, shown under
+  the bubble and searchable, like pictures in a note.
+- Chat: if other people see you under your computer's name, the chat offers
+  to set your name.
+- Chat: a message with a link shows a preview card with the page's title,
+  description and picture. Your device fetches it when you send; the
+  recipients' devices never do. Settings → Privacy turns it off.
+- Dividers: click a divider to select it, and a text selection running
+  through one shows it selected.
+- Daily notes: /time inserts the current time, or a timestamp that links to
+  today's note; the daily stream shows each block that links to a day.
+- Editor toolbar: right-click the toolbar to rearrange it, as the long press
+  does.
+
+### Fixed
+
+- An unfocused pane no longer frosts the note card over a page background.
+- iPhone: an open note's title appears in the nav bar only once the title
+  itself has scrolled out of view, instead of twice on screen.
+- The search field keeps its place in the title bar when the sidebar is
+  hidden on a narrow window.
+- The text and highlight colour submenus show "Custom…" without scrolling.
+- Undo and Redo keep working after a note is opened on more than one device;
+  opening a note is no longer an undo step.
+- Tab on a list row that has children indents that row alone.
+- Resizing the window, the sidebar or a split keeps the text you were
+  reading at the centre of the view.
+- Text pasted from a browser, Mail or Word no longer overrides the page
+  style's font.
+- A pane dragged into its own window takes its overview, archive and task
+  tabs along.
+- A window reopened from the dock comes back at its last size and place.
+- Show passphrase asks the device owner first wherever it can; Copy is
+  concealed and expires.
+
+- Chat: a message sent right after creating or joining a vault could appear
+  as written by an unnamed device, including to its own author. Messages are
+  now always attributed to the device that signed them.
+- Chat on iPhone: messages are now signed on the phone too, so they no longer
+  show as unverifiable on other devices, and your own messages never carry the
+  "could not verify" mark. The bottom bar no longer covers the message field,
+  and the @ picker fits the screen.
+- Chat: pressing Enter right after the chat opened with an unsent draft, or
+  right after starting an edit, could send nothing.
+- "Where I left off" on a locked vault no longer loses the list you had open
+  when the app was unlocked after launch.
+- Text recognition no longer reads a picture or recording twice: a read that
+  finishes after you close the note, or before you quit, is kept for the next
+  time the note opens. Pictures still waiting in line are skipped when their
+  note closes, and the temporary copy made for reading is removed when you quit.
+
 ## [0.99.17] - 2026-10-07
 
 ### Added
