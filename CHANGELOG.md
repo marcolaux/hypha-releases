@@ -20,6 +20,15 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.21] - 2026-10-09
+
+### Fixed
+
+- iPhone: sharing into an existing note no longer leaves you stuck in search. "An existing note…" opens the note search every time, clearing the search field no longer closes it, and once you back out you get the share options (with Discard) instead of the search again.
+- iPhone: the share sheet now says a notification will appear, instead of "we'll send you a notification".
+- Picking a note from search: clearing the search field no longer cancels the pick.
+- iPhone: the calendar button in the dock has its glass fill again, and stays visible with Reduce Transparency on.
+
 ## [0.99.19] - 2026-10-08
 
 ### Added
