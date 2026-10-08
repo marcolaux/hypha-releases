@@ -20,6 +20,36 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.19] - 2026-10-08
+
+### Added
+
+- PDFs: select text in a PDF and keep it as a coloured highlight. "Copy reference" pastes a chip into any note that quotes the passage with its page; clicking it opens the PDF at the highlight.
+- PDFs: a PDF attached to a note expands into a viewer right in the note, with a height you can drag. Pinch (or ctrl+scroll on a trackpad) zooms the PDF in the note and in its tab.
+- Vaults can have an icon — one from Hypha's icon set or an emoji — shown in the vault dock and switcher instead of the first letter. Pick it when naming a new vault or in Settings → Appearance.
+- Settings → Sync shows each person as a card with their devices inside it; Revoke and the full key moved into each device's ⋯ menu.
+- Right-click Trash in the sidebar to empty it.
+- Opening a trashed file shows a preview of the file, not just its details.
+- iPhone: the screens follow iOS 26's Liquid Glass look — no top bar, floating glass controls, floating sheets and inset groups. The dock puts chat beside search, and the calendar button shows today's date.
+
+### Fixed
+
+- iPhone: Back always returns to the screen you came from (it could land on All Notes or the daily notes instead).
+- iPhone: the edge swipe works on a PDF, Back from a PDF goes to where you opened it, and scrolling the daily notes no longer fills the Back history.
+- iPhone: a PDF highlight reference in a note opens on one tap.
+- Moving the chat into a tab gives its column back to the list you had before.
+- A second window on a synced vault shows the connected devices instead of "No devices".
+- iPhone: the screen no longer jumps up and snaps back when the keyboard opens; chrome moves with the keyboard.
+- iPhone chat: the composer's text, placeholder and bubbles share one size, the pill sits right above the keys, the expanded field fits the screen and animates, and its controls are thumb-sized.
+- iPhone search: the drawer is as tall as its content, has a visible handle, and its field sits on the keyboard; headers no longer repeat "Exact matches" for message hits.
+- iPhone Settings: text fields stay above the keyboard.
+- iPhone: bottom sheets end just above the keyboard instead of leaving a strip, and cover the keyboard's rounded corners.
+- Chat restored from a backup can be found by search right after unlocking.
+
+### Changed
+
+- Restoring a backup made by a newer version of Hypha now says so and suggests updating, so nothing it holds goes missing unnoticed.
+
 ## [0.99.18] - 2026-10-07
 
 ### Added
