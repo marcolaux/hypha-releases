@@ -20,6 +20,43 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.22] - 2026-10-09
+
+### Added
+
+- Settings → Editor → "Format at the selection" (desktop, on by default). Selecting text shows a small bar over it — bold, italic, underline, strikethrough, link, highlight, Turn into, Comment and ⋯ — a `+` beside a block's grip opens the insert menu, a click on the grip opens the block menu, and the toolbar above a note goes away: undo, redo, Find, Remind and the note tools sit at the end of the tab strip instead. Right-click either toolbar, or the bar over a selection, to switch between this and the classic toolbar.
+
+- The slash menu lists what to insert first — headings, lists, a table, an image… — and the text marks after, under two small labels; it also opens after a space mid-line, not only at the start of one. Undo, redo and clear formatting are no longer in it.
+- The Keyboard shortcuts dialog, the command palette and the toolbar tooltips now read one list of the editor's keys, and the dialog shows every bound one (headings, lists, quote, code block, highlight, subscript, indent…).
+- The strip's three "more" buttons are named for what they hold: More structure, More text formatting, More blocks. The table-of-contents button has a glyph of its own.
+- On the phone, a note's ⋯ menu has Find in note and Add / Change / Remove cover. An empty whiteboard says "Tap to draw" there.
+- A code block has a tools row: the language, Wrap (long lines fold instead of scrolling sideways) and Copy.
+- Hover a table and a `+` on its right and bottom edges adds a column or a row at the end.
+- A selected picture shows a row under itself: align left, centre or right, a caption (a line under the picture, which is also its alt text in a Markdown export) and Open. On the phone the long-press menu has the same align and caption rows.
+- A new note's toolbar is there before the first keystroke.
+- While text is selected the footer counts it: "12 of 115 words".
+- On the phone, a `+` after Undo and Redo opens an Insert sheet — Photo, Media, Table, Whiteboard, Embed, Quote, Callout, Code block, Divider, Date, then Scan and Record — so the format bar keeps the writing tools and the ⋯ keeps text formatting. A tapped link's popover has 44px rows and Copy link.
+- Page style → Font has Text size (S, M, L, XL) and Line height (Tight, Normal, Loose) for a note and for the daily notes stream.
+- Settings → Editor → Smart punctuation (on by default on the desktop): typing two hyphens makes a dash, three dots an ellipsis, straight quotes become curly. Not inside code; the phone's keyboard does this on its own.
+- Rest the pointer on a link to a note and a small card shows its title and first line.
+- A heading that has blocks under it can be folded: a chevron before it hides the section until the next heading of the same level, and the heading shows how many blocks it holds.
+- The daily notes stream takes a page style: one look for all of its days, each day drawn as a sheet. Each day can also have its own cover, set from the day's ⋯ menu.
+- A note's title row has an "Add cover" button beside its colour circle (on hover).
+- The page-style panel has a "No style" button beside "All styles", so a styled note or stream goes back to plain in one click.
+- On the phone, the daily stream has its own ⋯ beside the sync dot: Go to today, Page style, and Daily notes settings.
+- Typing `@` in a chat message or a comment can create the note you typed, as it does in a note.
+- A table nobody has resized sizes its columns to what they hold, instead of splitting the width evenly.
+- The note toolbar's Publish button is a globe icon; it is tinted while the note is published.
+- In the classic layout, the chat's tab has a sidebar button beside its ×: it closes the tab and puts the chat back in the list column.
+
+### Fixed
+
+- ⌘. folds a list item and no longer also toggles superscript.
+- Typing right after a link no longer extends it: a space or a word typed at the link's end is plain text, and the link is exactly the text it was put on.
+- Pasting a URL over selected text that is itself a URL replaces it, instead of linking the old address to the new one.
+- A note linked to a day only through an open task is listed once on that day, under its tasks, not also as a "Linked to this day" row.
+- The daily stream's toolbar is as wide as a note's, not the whole pane.
+
 ## [0.99.21] - 2026-10-09
 
 ### Fixed
