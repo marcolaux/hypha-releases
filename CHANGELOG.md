@@ -20,6 +20,16 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.23] - 2026-10-13
+
+### Changed
+
+- Settings → Editor → "Format at the selection" is now called "Compact mode", and the right-click switch reads "Use compact mode". Same setting, and your choice is kept
+
+### Fixed
+
+- Publishing a note from the desktop did nothing: the page could not be rendered in the vault's background process, so every publish failed and the failure was never shown. Publishing works again, and a publish now says "Published — link copied" or names why the bucket refused it
+
 ## [0.99.22] - 2026-10-09
 
 ### Added
