@@ -20,6 +20,32 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.26] - 2026-10-23
+
+### Added
+- On the phone and iPad, a note's notebooks, tags and links are edited in a drawer: tap the notebooks, the tags or the links under the title to open it — add from a field with suggestions, swipe a row left to remove, tap a row to go there. The pills under the title stay small and carry no ×.
+- A text-size setting for notes: Settings → Appearance → "Text size in notes" steps the body from 13 to 24 px, with a live preview. It applies to every note on the device; the title, the headings and a note's own Small–Extra large page-style step now scale with it, and lined paper (ruled, dots, squares) scales its line with the text. The phone starts at 17 px, the Mac and iPad at 16.
+- Note types can have properties that link to other notes or to people — a project's parent, its related notes, who leads it. Pick a note from search or a person from your vault; the link shows the note's current title, opens it with a click, and says when the note was archived, moved to the trash or deleted. Turn on "Allow several" to link more than one.
+- Projects have four new properties: Lead and People (from your vault's people) and Parent and Related (other notes). Owner and Team stay as they were. A note that other notes point to through a property lists them under "Referenced in properties" at its foot.
+- Rollups and formulas. A rollup counts or sums what linked notes hold — a project's sub-projects, their estimates added up, the share of their tasks done, the latest due date. A formula works with a note's own properties in the same language as table formulas, such as `DAYS({Due}; TODAY())`. Both are worked out when shown and never stored, and they sort and filter in tables like any other property. Archived notes, notes in the trash and templates are not counted.
+- The note map has a Links view: your notes laid out by the links between them, which works without search by meaning. Links made through note properties are drawn too, dashed and coloured per property, and each can be switched off in the legend. The sidebar's Connections view shows the open note's neighbourhood, one or two steps out. Links already in your notes are recorded once in the background after the update, and a Markdown import now records the links it makes.
+
+### Fixed
+- On the phone and iPad, task checkboxes, the collapse toggles of lists and headings, and the × on a property chip are big enough to tap, and a tap near one no longer places the cursor instead. Property fields on the phone no longer zoom the page when you edit them.
+- Swiping a note row on the phone follows your finger: a short drag springs back, a flick opens the actions, swiping back or scrolling the list closes them. Before, any swipe snapped fully open.
+- Every control on the phone's home, lists, nav bar and vault bar is at least 44 px; a touch-size check now runs with the phone smokes.
+- In a table formula, `IF` no longer evaluates the branch it does not take: `IF(B1=0; 0; A1/B1)` shows 0 instead of `#DIV/0!`. Table formulas also learned `TODAY`, `DAYS`, `CONCAT`, `&`, `LEN` and `ISBLANK`.
+- A property changed on another device or in another window now shows in tables, filters and type counts right away, instead of after the list next reloads.
+
+### Changed
+- A tap on a task checkbox (and ⌘L) now ticks and unticks it on every platform. To mark a task cancelled, use the Block sheet on the phone or the right-click menu on the desktop.
+- Standing notices at the top of today's daily note are compact rows in the day's own column instead of full-width cards: one line each, with Done as a check button. From three notices on, two show and "+N more" opens the rest.
+- Templates are now their own kind of note: they no longer show up in All Notes, notebooks, tags, search, the map or your tasks, and live under Settings → Templates. Notes you had tagged "template" are converted automatically and the tag is removed.
+- Each note type can name a template. New notes of that type start from its text and property values, and "Edit default values" in the type editor opens it.
+- The default templates and where notes from a template are filed moved from Settings → Notes to Settings → Templates.
+- Exporting to Markdown now includes your templates, in a Templates folder.
+- On the Mac, every vault now keeps syncing in the background by default, so your other devices reach it while hypha sits in the menu bar. A vault where you turned "Keep this vault syncing in the background" off stays off.
+
 ## [0.99.25] - 2026-10-23
 
 ### Added
