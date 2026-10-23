@@ -41,12 +41,18 @@ Claiming precisely matters more here than claiming strongly.
 
 - **Everything that is not a note.** Tag names, notebook names, reminder titles
   *and* descriptions, settings values, attachment filenames, MIME types, sizes
-  and plaintext hashes are stored **in the clear**. Only notes are sealed.
+  and plaintext hashes are stored **in the clear** inside the database file
+  (which is itself keyed). Only notes, chat messages, comments and what a file
+  was read as (a picture's description, the text read off a picture or out of
+  a PDF) are sealed.
 - **Vault names**, which sit in the clear in the local registry. This was a
   decision, not an oversight.
-- **A backup file**, which carries all of the above in the clear plus the vault
-  credential. Treat a backup as sensitive even though the notes inside it are
-  encrypted. `docs/BACKUP-CONFIDENTIALITY.md` is the full accounting, taken by
+- **A backup file** carries the vault credential (it must restore on any
+  device with the passphrase, so the passphrase's strength is the backup's).
+  A device that can keep a backup key in its keychain writes the rest as one
+  sealed body (format v2); a device that cannot still writes the older format,
+  with all of the above in the clear. Treat a backup as sensitive even though
+  the notes inside it are encrypted. `docs/BACKUP-CONFIDENTIALITY.md` is the full accounting, taken by
   exporting a vault and reading the bytes rather than by reading the code.
 - **Metadata about your activity** — how many notes you have, when they changed,
   how big your attachments are — is visible to anything that can read the
@@ -57,12 +63,16 @@ Claiming precisely matters more here than claiming strongly.
   the vault locks and rebuilt after unlock. Until the lock — including after a
   crash or a force-quit — a copy of every note's text is in that file, protected
   by the database key (kept in the OS keychain) and not by your passphrase.
-  Being fixed; see `docs/SECURITY-AUDIT-2026-08-25.md`.
-- **Attachment names on the sync wire and in a relay's blob store** are, for
-  attachments stored before ciphertext addressing landed, a hash of the file's
-  plaintext — a "do you have this exact file" oracle for anyone who can see a
-  frame or list the directory. Ciphertext addressing exists and is not yet the
-  default.
+  Both are cleared when the vault locks and again at every start of a sealed
+  vault, so after a crash the stale copy lasts until the next launch
+  (`docs/SECURITY-AUDIT-2026-08-25.md`, lane D).
+- **Attachment names on the sync wire and in a relay's blob store** are a
+  hash of the file's plaintext — a "do you have this exact file" oracle for
+  anyone who can see a frame or list the directory. On disk every device names
+  new blobs by their ciphertext hash (§4ak); addressing them by ciphertext on
+  the WIRE exists but stays off by default (`VITE_HYPHA_ATT_CIPHER_ADDRESSING=1`
+  at build time — one variable for the renderer, main and the vault host since §4oy)
+  until every device in a vault runs a build that can read it.
 - **Anything that can run code in a window** — a renderer XSS — can read every
   note the vault's API hands that window while the vault is unlocked, which is
   all of them. On desktop it can no longer read the keys themselves: since
@@ -88,14 +98,17 @@ Claiming precisely matters more here than claiming strongly.
   Noise-XX) rather than invented ones, and that is a much weaker statement than
   "audited". Nobody outside this project has reviewed how they are composed.
   An internal audit on 2026-08-25 (`docs/SECURITY-AUDIT-2026-08-25.md`) found
-  real problems in how they are composed — among them, that the context
-  binding (AAD) designed for every sealed field is not yet switched on, that
-  the passphrase KDF runs at libsodium's *interactive* cost while its verifier
-  travels in backups and invite links, and that a joining device shows its
-  invite to any peer that connects. Those are open and listed there with the
-  rest; do not read "standard primitives" as "composed correctly".
-- **The desktop-to-desktop path over the internet is unproven.** Everything to
-  date has been one Mac and one phone.
+  real problems in how they are composed. Several are fixed since — the
+  context binding (AAD) is on for every sealed field, and a joining device no
+  longer shows its invite to a peer that has not proven it is an owner — but
+  not all: the passphrase KDF runs at libsodium's *interactive* cost (a
+  measured choice: the moderate cost took 16 s per unlock on a phone) while
+  its verifier still travels in backups and invite links. The audit document
+  carries the status of each; do not read "standard primitives" as "composed
+  correctly".
+- **Where sync has been run end to end.** A Mac and a phone have synced over
+  the LAN, the DHT and a relay, and two Macs on one LAN and across the
+  internet.
 
 ## Passphrases and recovery
 
