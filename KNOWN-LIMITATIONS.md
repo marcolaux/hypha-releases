@@ -159,7 +159,7 @@ makes revocation take effect on a device you can no longer reach to tell.
 
 **Background sync of a vault you have not opened is Mac-only and needs its
 key in the keychain.** With "Keep this vault syncing in the background" on
-(Settings → Sync, off by default), the Mac opens that vault when hypha starts,
+(Settings → Sync, on by default since 0.99.26), the Mac opens that vault when hypha starts,
 with no window. It unlocks it from the keychain without asking, so while it
 runs it holds the vault's keys exactly as an open, unlocked vault does
 (`docs/DESKTOP-AT-REST.md` §8). What it does not do:
@@ -250,10 +250,32 @@ Activity Monitor or Task Manager therefore shows several hypha processes.
 
 ## Features that are present but incomplete
 
+**An older build of Hypha shows your templates as ordinary notes.** Templates are now a kind of note rather than a note tagged "template", and an app from before that change does not know the kind: on it they appear in All Notes, in search, on the map and in the tasks list, and its Templates list is empty because the tag is gone. Update every device. A template made on an older build still arrives as a tagged note and is converted the next time the newer build syncs.
+
+**An older build of Hypha cannot show note and person properties, rollups or formulas, and can misread a saved filter on
+them.** A property that links to other notes or to people, a rollup and a formula are new: an app from before them shows
+the property as "Empty" and never changes it, so nothing is lost. But a saved view that filters on such a property with
+"is empty", "is not empty", "is" or "contains" is read by the older app as if the property were always empty, so that
+view shows every note or none there. Update every device.
+
+**Rollups do not count archived notes, and a note that cannot be opened stops them.** A rollup reads the notes in your
+list; an archived one, one in the trash and a template are left out (its tooltip says how many). When a note's
+properties cannot be read (the vault is locked, or a note's data is damaged), a rollup that might include it shows "—"
+rather than a total that leaves it out. A rollup cannot add up its own value down a whole tree of notes (a
+project's total over every level of sub-projects): a property that reads itself shows `#CYCLE!`, and a chain of more
+than eight rollups and formulas reading one another shows `#NUM!`.
+
 **A few Markdown constructs still paste as their raw text.** Footnotes (`[^1]`), headings underlined with
 `===` or `---`, code indented by four spaces, and inline `$math$` are not converted when Markdown is
 pasted or imported, and a `[[wiki link]]` pasted from another app becomes its plain text (there is no
 note to point it at). Paste them into a code block, or retype the heading with `#`.
+
+**The note map's Links view draws the links Hypha has recorded, which are not exactly the `[[links]]` in your notes.** A link added
+only from a note's footer is drawn though it is not in the text, and a link you removed from the footer stays removed even if the
+text still holds it. Links already in your notes are recorded once, in the background, the first time a vault is opened and
+unlocked after the update, so a large vault fills in over a minute or so. Notes that are archived or in the trash are left out
+of the map. A link you removed on one device can come back from another device that had not yet received the removal when it
+recorded your notes' links, the same way opening a note that still contains the link would bring it back.
 
 **Moving a table row or column while someone else is typing in it can lose their text.** Yjs has no "move": a moved row is
 deleted and written again, so words a peer types into the row you are moving, in that same moment, are
