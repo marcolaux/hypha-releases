@@ -43,6 +43,32 @@ the DMG; see [Known limitations](KNOWN-LIMITATIONS.md).
 
 ---
 
+## Windows
+
+The Windows build is **unsigned** and tested only occasionally — see
+[Known limitations](KNOWN-LIMITATIONS.md).
+
+1. From the latest release, download the installer (`.exe`), or the
+   `_portable.exe` if you want to run Hypha without installing it.
+2. Run it. Windows SmartScreen warns about an unrecognised app because the
+   build is not signed: choose **More info → Run anyway**.
+
+The installed copy checks for updates and offers to install them.
+
+## Linux
+
+Three forms, all unsigned and tested only occasionally:
+
+- **Flatpak** (updates through `flatpak update` or your software center):
+  ```bash
+  flatpak install --user https://hypha.miniml.net/flatpak/hypha.flatpakref
+  ```
+- **AppImage**: download it, `chmod +x` it, run it. It checks for updates itself.
+- **`tar.gz`**: unpack and run the `hypha` binary inside; it does not update
+  itself.
+
+---
+
 ## iPhone and iPad
 
 **Requirements: iOS / iPadOS 16.4 or newer.**
@@ -122,6 +148,16 @@ relay's identity, so **back it up** — losing it means re-inviting the relay
 (your notes are unaffected; they live on your own devices). And it accumulates
 ciphertext forever unless you set `HYPHA_PEER_AUTO_PRUNE_AGE`; the example file
 explains the trade-off.
+
+**Reaching the relay by address (optional).** By default your devices find the
+relay over the internet's peer network or on your own Wi-Fi, which can take a
+while. Start the relay with `--listen 127.0.0.1:8443` (or set
+`HYPHA_PEER_LISTEN`) behind a web server that terminates TLS with a real
+certificate, then enter its address — `wss://relay.example.com`, no path — and
+pick the relay under **Settings → Sync → Relays** on a device that holds the
+vault's owner key. Every device of the vault then also dials that address.
+**Phones need `wss://`**: a plain `ws://` address works from a Mac or PC only.
+`apps/peer/deploy/README.md` has the proxy example and the limits.
 
 ---
 
