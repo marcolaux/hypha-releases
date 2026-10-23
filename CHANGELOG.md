@@ -20,6 +20,43 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.25] - 2026-10-23
+
+### Added
+
+- Note types: Movie, Book, Recipe, Project and types you make yourself, each with its own properties under the title. A web clip gets its type, details and cover from the page
+- Saved views on every list: Cards, List, Table, Board and Calendar, with filters, sorting and columns you can edit in place. The Tasks page has a Board and a Calendar too
+- Bookmarks (formerly colours) also mark highlighted passages in notes and PDFs, and a bookmark lists everything it marks
+- A select property's choices can have colours, shown on chips, in tables and on board columns
+- Search finds pictures and PDFs by name, by what they show and by their text, and every file has an Info panel. Search by meaning needs no download any more and works on the iPhone
+- Photos keep the date and place they were taken, and the place is searchable
+- Tasks: priorities (type !, !! or !!! at the end), and a cancelled state
+- Notices: a reminder that stays on today's daily note until you mark it done. A Quiet reminder arrives without a sound; an Urgent one breaks through a Focus on the iPhone
+- iPhone notifications for chat, comments and mentions, even while hypha is closed (Settings → Notifications; needs a relay that forwards them). The app icon counts unread messages
+- The desktop notifies you of comments on notes you took part in and of mentions, per vault (Settings → Notifications). Select several messages to copy or delete them together
+- Summary of the day (Apple Intelligence): a short summary of what you wrote, under today's daily note, written on your device
+- Quick capture on the iPhone: the Action button, Control Center or the Lock Screen record, type or photograph straight into today's note. Or tell Siri "Note in hypha"
+- See who else is in a note, and a "Here now" list in the vault menu
+- Mac: keep a vault syncing in the background from the menu bar, with no window open
+- Sync: add a relay's address so every device connects to it directly, and rotate the owner key after you revoke a device
+- Relay operators: hypha-peer serves many vaults on one port, with storage quotas and notifications forwarded through Apple
+- Tables: the header row stays in view while you scroll, a Full width option, and handles to move, insert and delete rows and columns
+- Copy link to note, from the note menu and the command palette
+- Spelling suggestions on the desktop, and "Search the web" for selected text
+- Sidebar: rest the pointer on the window's left edge to bring a hidden sidebar back; each note type and Attachments get a row of their own
+
+### Changed
+
+- Pasted Markdown arrives formatted; raw Markdown stays only in code blocks
+- "Turn into" changes only the list items you selected
+- The sidebar names what you have not made yet in one line: "No favourites, notebooks, tags or bookmarks yet"
+- The question about the summary of the day is a small card under today's note instead of a pop-up
+
+### Fixed
+
+- Undo puts the cursor back where it was
+- Many smaller fixes to lists, tables, the chat, comments, search and the iPhone app
+
 ## [0.99.23] - 2026-10-13
 
 ### Changed
