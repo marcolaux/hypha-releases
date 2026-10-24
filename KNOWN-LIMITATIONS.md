@@ -118,6 +118,13 @@ immediately. If you need the cut to be immediate, stop the relay (or
 device is the exception: its credential never expires, so for it you rotate
 the owner key (below), which cuts it off a relay at once.
 
+**Inviting a removed phone or computer again does not bring it back cleanly.** A
+relay you removed and invite again comes back on its own, as a new device. A
+phone or computer does not yet: the device that invites it lets it back in under
+its old, revoked identity, and your other devices go on refusing it. To bring
+one back, remove it from the vault on that device as well, and add it again as
+a new device.
+
 **A revoked owner device still holds a copy of the owner key — rotate it.**
 Revoking a device that was added as an Owner takes away its place in the
 device list, but the owner key itself is a copy it keeps, and with it the
@@ -374,6 +381,15 @@ scanned PDF has no text layer, so nothing is read out of it.
 throughout.** Search by meaning embeds a file's description and the first
 ~5,800 words of its text; the rest of a long document is still found by its
 words. Like notes, files are embedded by a desktop and synced to the phone.
+
+**Word forms are found by simple endings, not by grammar.** "Word forms &
+parts" removes a common ending from what you type (-n, -en, -e, -er, -s and a
+few more) and looks for words that begin with or contain what is left. So
+"kartoffeln" finds "Kartoffel", "Kartoffelpüree" and "Süßkartoffel". An
+irregular form is not found: "ging" does not find "gehen". A short word can
+match more than it should: "Mütter" also finds "Mutti". Only a word's 64 most
+common longer forms are searched as word parts. A search that uses AND, OR,
+NOT or NEAR, or has more than 12 words, shows exact matches only.
 
 **A photo's place has a name only once an iPhone or iPad has seen it, with
 location on.** The place a photo was taken is named by Apple's geocoder, sent
