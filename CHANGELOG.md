@@ -20,6 +20,15 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.29] - 2026-10-24
+
+### Added
+- A note's cover picture can be moved in its band and opened. Hover the cover and choose Reposition (or right-click it; on the iPhone and iPad use the note's ⋯ menu, on the iPad also a long press on the picture), then drag the picture up or down — or use ↑/↓, Shift for bigger steps — and Save position; Esc or Cancel keeps the old one. The position syncs with the note and shows the same way in the daily stream and in list thumbnails. Click or tap the picture to open it full size, with zoom. A picture that already fits its band has nothing to move and offers no Reposition.
+
+### Fixed
+- A vault that was left "Waiting for first contact" by a relay running an older version is asked again at the next launch once the relay is updated, and every waiting relay row now has a "Try again now" button — nobody waits out a full day after a relay was fixed.
+- Quitting the desktop app no longer flashes a "Startup failed" box for a moment while the windows close.
+
 ## [0.99.28] - 2026-10-24
 
 ### Fixed
