@@ -20,6 +20,11 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.28] - 2026-10-24
+
+### Fixed
+- A relay on your network that already held a vault — one you had connected by hand earlier — showed "The relay stopped waiting; connect again" after "Connect all my vaults", and pressing Connect changed nothing. It now shows Connected. A relay that makes its first contact while the app is closed, or with your phone first, is now recognised at the next start instead of waiting a day and then failing. Pressing "Connect this vault" in Settings for a relay you were never asked about now keeps its state. A relay you removed from a vault under Devices now says so ("This relay was removed from this vault") instead of waiting forever. A relay in approve mode now reaches Connected once its administrator approves. "Connect all my vaults" with more than five vaults no longer gets "Try again in a minute" for the rest (the relay must be updated).
+
 ## [0.99.27] - 2026-10-24
 
 ### Added
