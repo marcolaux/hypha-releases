@@ -20,6 +20,18 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.30] - 2026-10-24
+
+### Added
+- Search finds other forms of the words you type. Under the exact matches, a new "Word forms & parts" section lists notes that hold the word in another form, such as "Kartoffel" or "Kartoffelpüree" when you search for "kartoffeln", then notes where it is part of a longer word, such as "Süßkartoffel". Each row says which word it found. A note whose title matches now ranks above one that only mentions the word.
+- Related notes under "Related (cluster)" are grouped by topic, and each group is headed with the words it is about, such as "Topic: recipe · oven · cream". Notes that are only loosely related no longer show there.
+
+### Fixed
+- Searching for a word with a dot, comma, apostrophe, slash, # or % in it, such as "v1.2" or "it's", showed the previous search's results instead of any for the new one. It now finds the note.
+- A related note in the search results no longer goes missing when the notes list is filtered.
+- A note in the trash no longer shows up in search under "Semantic matches" or "Related".
+- A relay you removed from a vault under Devices and then invited again now joins it again: it takes a new identity for that vault on its own, and shows Connected. Before, it said it had joined but never synced. `hypha-peer join` also says that it is waiting for your device, every 15 seconds until it answers, and `--timeout 10m` makes it give up instead of waiting forever.
+
 ## [0.99.29] - 2026-10-24
 
 ### Added
