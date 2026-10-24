@@ -138,7 +138,9 @@ docker compose up -d
 The invite comes from the desktop app: **Settings → Sync → Add a device**, for
 a relay. **The inviting device has to be online while you run
 `join`** — the two complete a live handshake, because there is no server to
-redeem a token against.
+redeem a token against. Until it does, `join` says "waiting for the vault's
+owner …", and every 15 seconds that it is still waiting. Add `--timeout 10m` to
+make it give up instead of waiting for as long as it takes.
 
 Afterwards, `docker compose logs -f` shows what it is doing and
 `docker compose run --rm peer status` prints a snapshot without disturbing it.
