@@ -20,6 +20,22 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.27] - 2026-10-24
+
+### Added
+- A web clip's summary written by Apple Intelligence is now headed "Excerpt", with a note under it that AI can make mistakes, a button that jumps to the original text below, and "Got it, don't show again". The page's own text is now headed "Original text" (it was "From the page").
+- Sharing several things to Hypha in a row on the iPhone or iPad no longer jumps to each one when you open the app. A spinner in the middle of the bar at the bottom shows they are being added, and a list then shows what was created — tap one to open it. Anything that still needs a place, such as a page that could not be clipped, is listed there too; tap it to choose where it goes. A single share opens as before.
+- After you share something to Hypha, a notification says how many shares are waiting; tap it to open Hypha. It goes away once Hypha is open.
+- When a sync relay offers itself on your local network, the vault's owner is asked once: connect this vault, connect all of them, not now, or never for that relay. Settings → Sync lists these relays and reverses every answer
+- When you make your fifth note and none of your notes is filed anywhere — no notebook, no tag, no link to another note — a short hint explains it and offers "Open Unsorted". It appears once per vault.
+- On the phone and iPad, a note's list, note and person properties are edited in a drawer, like its tags: tap the value to open it — add from a field, swipe a row left to remove, tap a list item to rename it, hold one to move it. A property that links one note or person works as a picker.
+
+### Fixed
+- On the phone, a property that links to other notes can be set again: its + used to open nothing.
+- On the iPhone and iPad, sharing a web page from Safari to Hypha works again — since mid-October it did nothing. And if a share can't be read, Hypha now says so instead of closing without a word.
+- On the phone, sharing many links at once could stop after one page took too long to clip: the rest waited until Hypha was restarted. They now carry on, and a page that clips late is no longer added twice.
+- On the phone, a share that could not be added showed a code (`share.shareIngestFailed`) instead of a message.
+
 ## [0.99.26] - 2026-10-23
 
 ### Added
@@ -38,6 +54,8 @@ upgrade" warning was checked back in by hand afterwards.
 - A property changed on another device or in another window now shows in tables, filters and type counts right away, instead of after the list next reloads.
 
 ### Changed
+- The animated background now has two colours — the accent at the top left and a second hue at the bottom right — and drifts a little faster.
+- An urgent standing notice in the daily note no longer carries a bar at its left edge; its pin is tinted instead, and every notice row shares the same hairline.
 - A tap on a task checkbox (and ⌘L) now ticks and unticks it on every platform. To mark a task cancelled, use the Block sheet on the phone or the right-click menu on the desktop.
 - Standing notices at the top of today's daily note are compact rows in the day's own column instead of full-width cards: one line each, with Done as a check button. From three notices on, two show and "+N more" opens the rest.
 - Templates are now their own kind of note: they no longer show up in All Notes, notebooks, tags, search, the map or your tasks, and live under Settings → Templates. Notes you had tagged "template" are converted automatically and the tag is removed.
