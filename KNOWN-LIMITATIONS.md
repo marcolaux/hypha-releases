@@ -224,6 +224,26 @@ runs it holds the vault's keys exactly as an open, unlocked vault does
 
 ---
 
+**A relay that offers itself on your network is trusted exactly as much as one
+you add by hand.** Since §4qz a relay run with `--advertise` announces itself
+on the LAN and the vault's owner device asks you once. Saying yes gives that
+relay the same owner-signed daemon credential a hand join gives: it stores and
+forwards your ciphertext and sees the metadata every relay sees (note ids,
+sizes, timings, device keys, your IP) — never your content. The only thing
+that identifies the relay is the 96-bit fingerprint in the dialog; compare it
+with what the relay's administrator published before you connect, because a
+rogue device on the same network can advertise a relay of its own with a
+convincing name. "Never for this relay" is remembered by that key on this
+device. For the administrator: a relay that accepts joins from the network on
+its own can have its slots occupied by anyone on that network who invents a
+vault — each such vault is bounded by the default quota (attachment bytes; its
+small `opaque.db` sits outside it, as for every vault) and dropped after a
+week without a second device — a filter, not a wall: a squatter that also
+connects a second device of its own keeps its slot — and `HYPHA_PEER_ADVERTISE_APPROVE=1` makes every
+join wait for `hypha-peer approve`; advertise only on a network you own, since
+behind a proxy or a VPC every source looks local. An older daemon that reads a
+"held" entry treats it as a vault with missing secrets and does not serve it.
+
 ## Platforms
 
 **macOS is Apple-silicon only.** No Intel build exists and none is planned.
@@ -374,6 +394,13 @@ an earlier day misses a note that was edited again since. "Done today" knows
 only boxes ticked after this update. The model sometimes words a note
 clumsily, or leaves a note out of its paragraph — every note is still listed and
 linked below it. Not yet tried on a phone.
+
+**On the iPhone and iPad, a page that blocks automated visitors cannot be
+clipped from a share.** A share from Safari hands Hypha the page's address,
+and Hypha downloads the page itself; a site that refuses anything but a real
+browser (IMDb, for one) then gives it nothing, and the link goes in as a link.
+On the Mac the same page is clipped through a hidden browser window. Taking
+the page Safari already shows was tried and does not work on iOS 27.2.
 
 **Quick capture on iPhone has not been tried on a phone yet.** The Action
 button, the Controls and the Home Screen quick actions are built and checked on
