@@ -20,6 +20,26 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.31] - 2026-10-28
+
+### Added
+- If the vault on your iPhone or iPad will not open, the start screen now helps instead of only offering Retry: it can check the vault file, recover what is still readable into a fresh copy (rows on damaged pages are listed as lost; search and previews rebuild on the next start), turn on logging for the next start, copy or share a diagnostics text, restore a backup, or remove the vault from the device so you can join it again from another one. A vault that opens and then answers "database disk image is malformed" later shows the same screen. Every failed start is also recorded on the device, with no note content in the record, so it can be read back later.
+- You can now sync a vault through hypha's relay by entering an invite code under Settings → Sync. The key the code enrols lives in your device's keychain — there is no account — and covers up to five of your vaults with 50 MB of attachment storage; your other owner devices pick it up through the vault itself, and "Stop using" removes the vault from the relay again. Everything stays end-to-end encrypted: the relay only ever holds ciphertext.
+- Every note now shows its type in the note's header — a pill reading "Note", "Recipe", "Movie" and so on — with a menu to change the type or let on-device AI detect it from the note's own text. Changing the type never touches what you wrote: the AI only fills the type's properties (and asks first if a type or properties were already set). "Auto-detect" in the same menu can also re-arrange the note as the detected type — a recipe gets ingredients and steps laid out — and you can undo that with ⌘Z.
+- On the desktop, the whole sidebar can now be arranged by dragging: the sections themselves (Favourites, Notebooks, Tags, Bookmarks) and the rows inside Notebooks and Tags. The order is saved in the vault and syncs to your other desktop devices; the iPhone and iPad keep their own sidebar layout.
+
+### Changed
+- Settings has a new shape on every device: pages of grouped rows with one line of explanation each, a line under a group saying whether it applies to this vault or to this device, and sub-pages for the long lists (devices, relays, themes, the note-type editor) that slide in and out, on the desktop too. The vault picker and the settings search stay in view while the list scrolls. A narrow window shows a list and a page, like the phone, and there is a search field for settings.
+- Settings sections were regrouped: General (the vault's name, colour and icon, what it opens with, defaults for new notes, formats, the daily note, trash) and Capture & web clips are new, Notes is gone, the backup folder and schedule are "Automatic backups" under This Mac while backing up, restoring and exporting stay with the vault, Storage includes attachments, Passphrase & lock is now Security, themes are browsed from Appearance, and search's technical details moved under Updates › Diagnostics. Old links to the moved sections still open the right page.
+- The monthly "Reclaim storage" offer no longer appears on the iPhone and iPad, and Settings → Storage says so: compacting rewrites the whole vault in one go, which is not safe on a phone yet.
+- The animated background is easier to see and moves faster. When your computer is on battery it settles into the still gradient until you plug back in, and with the system "reduce motion" setting on it now slows right down instead of stopping entirely.
+
+### Fixed
+- The "Load external images in notes" and "Load embedded web pages in notes" privacy settings now take effect in every open window as soon as you change them, without restarting the app.
+- Clips of pages behind Cloudflare's browser check now run the site's challenge in full: the render window no longer blocks the challenge's own requests, so a site that lets a clip through now can. A site that refuses even your own browser still cannot be clipped, and says so.
+- The language you choose under Settings → Language is now one choice for the whole device: it applies to every vault and window, and switching vaults no longer changes the interface language. A language a vault had already stored is kept the first time you open it.
+- Fixed a crash that could kill the iPhone app while it sat on a locked phone: ONNX Runtime — the engine behind search by meaning — enables Microsoft usage telemetry in its official builds by default, and its uploader died reading its own store. The telemetry is now off everywhere hypha runs the engine, and it was actively uploading: it shipped this way since 0.99.25 on the iPhone and iPad and on the desktop on macOS and Linux, reporting technical events about the engine itself, never note content. Desktop Windows builds never carried it.
+
 ## [0.99.30] - 2026-10-24
 
 ### Added
