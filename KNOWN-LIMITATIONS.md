@@ -31,13 +31,28 @@ does not carry) and is reported to hang without answering; the app gives up
 after 8 seconds and falls back to the place you typed, so the weather is still
 recorded — but *Use my location* may simply not produce a position on a Mac.
 
+**ONNX Runtime's own telemetry shipped on, since the 0.99.25 desktop and iPhone/iPad
+builds.** Search by meaning runs a Microsoft embedding engine (ONNX Runtime), and its
+official builds enable Microsoft's usage telemetry by default — hypha did not turn
+it off until 2026-10-27. While a model session was loaded, those builds sent
+technical events about the engine itself (model loads, timings, device facts) to
+Microsoft's collector — on the desktop this was observed live, an upload request
+in flight right after a session was created; on the iPhone it was found because
+its uploader crashed the app on a locked phone. Note content never left the
+device through it, and the desktop's earlier WASM engine (before 0.99.25) and
+every Windows desktop build never carried it at all. It is now disabled at both
+of the engine's switches, in the app and in every tool that runs the model.
+Weather remains the only feature that sends anything off the device at your
+request — this one did it without being asked, and no build after 0.99.30 does
+it at all.
+
 **Vault names are stored in the clear** in the local registry. This is needed for iOS so the share functionality lets the user choose a vault right in the share menu.
 
 **There is no recovery for a forgotten passphrase.** None. Nobody can reset it,
 including the author, because nobody else has anything to reset. This is the
 direct cost of there being no server. What there is: a device that keeps the
 vault's key in its keychain keeps the passphrase beside it, and Settings →
-Passphrase & lock → Show passphrase reads it back. On a Mac and an iPhone that
+Security → Show passphrase reads it back. On a Mac and an iPhone that
 read always asks the device owner first: Touch ID / Face ID, falling back to
 the login password or the passcode. A Mac or iPhone that cannot ask at all
 (no password, no passcode) refuses. **Windows, Linux and Android show it
@@ -106,6 +121,18 @@ trust (`--trust-proxy`), every device shares the proxy's address: at most 32 can
 be in the middle of connecting at once, and someone who holds those slots open
 delays the others by up to ten seconds.
 
+**The enrolment service learns who you are to it, never what you write.** A
+vault you enrol through hypha's relay stays end-to-end encrypted. The small
+service behind the invite codes can see your key's public half, which vault
+route tags and context ids it maps to, connection and byte volumes, and IP
+addresses (the web server's own logs included) — never vault keys, note
+content, or an email address (there is none).
+
+**"Stop using" removes every relay on the service's host.** The enrolled
+relay is told apart from your own relays by its address alone, so a relay you
+run yourself on the same host as hypha's service is removed from this vault's
+relay list with it — re-adding it by hand puts it back.
+
 **Revoking a device is not instant everywhere.** Revoking is a row in the
 vault's own device list, and it works by replicating: every device that receives
 it refuses the revoked one from then on. A relay cannot act on it: the row
@@ -129,7 +156,7 @@ a new device.
 Revoking a device that was added as an Owner takes away its place in the
 device list, but the owner key itself is a copy it keeps, and with it the
 device could still invite devices and sign for them. Settings → Sync →
-*Rotate owner key* gives the vault a new one: the record is signed by the old
+Advanced → *Rotate owner key* gives the vault a new one: the record is signed by the old
 key, the new key and the device that rotated, travels with the vault's data
 and in every handshake, and every device checks that the rotating device is a
 non-revoked Owner in its own device list before it follows. From then on the
@@ -165,7 +192,7 @@ credential has expired — and it resumes. The limit exists on purpose. It is wh
 makes revocation take effect on a device you can no longer reach to tell.
 
 **Background sync of a vault you have not opened is Mac-only and needs its
-key in the keychain.** With "Keep this vault syncing in the background" on
+key in the keychain.** With "Sync in the background" on
 (Settings → Sync, on by default since 0.99.26), the Mac opens that vault when hypha starts,
 with no window. It unlocks it from the keychain without asking, so while it
 runs it holds the vault's keys exactly as an open, unlocked vault does
@@ -266,6 +293,24 @@ password in that case instead. The switch itself, and the password prompt on a
 standard account, have been proven on the developer's Mac only; a copy older
 than 0.98.9 that came back on the same version after "updating" needs one fresh
 install from the DMG.
+
+**On the iPhone and iPad, the vault's "Reclaim storage" compaction is off**
+(since the 2026-10-27 recovery pass), and Settings → Storage says so. The
+compaction rewrites the whole vault in one go, in memory, with the app frozen;
+it had never been run on the phone's storage before an iPhone vault came back
+"database disk image is malformed" shortly after the offer. Whether the two are
+connected is not known — the compaction has since been run on the same storage
+stack in a headless browser without harm — but a phone has no automatic backup
+to fall back on, so the offer stays off there until the safer shape (a copy
+beside the vault, verified, then swapped) exists.
+
+**Recovering a damaged vault on the phone is best-effort.** The start screen's
+"Recover what is readable" copies every row SQLite can still read into a fresh
+vault file and lists, per table, what it could not; a note whose row sat on a
+damaged page is gone from that device, and nothing on the phone holds another
+copy unless another device or a backup does. Search, previews and tasks are
+rebuilt on the next start. The copy is only offered when SQLite's own check
+passes on it.
 
 **On the desktop, each vault runs in its own background process** (since
 September 2026), and every window of that vault talks to it rather than opening
@@ -415,8 +460,19 @@ linked below it. Not yet tried on a phone.
 clipped from a share.** A share from Safari hands Hypha the page's address,
 and Hypha downloads the page itself; a site that refuses anything but a real
 browser (IMDb, for one) then gives it nothing, and the link goes in as a link.
-On the Mac the same page is clipped through a hidden browser window. Taking
+On the Mac the same page is clipped through a render window that runs the
+site's challenge the way a browser does. Taking
 the page Safari already shows was tried and does not work on iOS 27.2.
+
+**A site that refuses even your own browser cannot be clipped.** The Mac's
+render window runs a challenged page's own script, but it does not click a
+checkbox for you, and some sites refuse a whole network outright — every
+browser on it, yours included. (allrecipes.com did exactly this on
+2026-10-25: the page asked every visitor on this network to wait forever.)
+Hypha says so — "this site only shows its pages to a web browser" — instead of
+clipping the challenge page. The images of a page that DID come through a
+challenge stay linked online: Hypha's own image download is the one request the
+site still refuses.
 
 **Quick capture on iPhone has not been tried on a phone yet.** The Action
 button, the Controls and the Home Screen quick actions are built and checked on
