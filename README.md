@@ -8,10 +8,6 @@ devices, encrypted at rest with a key derived from your passphrase, and syncs
 directly between your devices over an encrypted peer-to-peer connection. No
 central server required.
 
-| Light | Dark |
-|---|---|
-| <img src="docs/screenshots/desktop-light.png" alt="hypha desktop in the light theme: sidebar, note list and editor" width="100%"> | <img src="docs/screenshots/desktop-dark.png" alt="hypha desktop in the dark theme: sidebar, note list and editor" width="100%"> |
-
 ## Features
 
 - **Local-first.** Your database lives on your device; reads and writes never
@@ -123,30 +119,6 @@ Two consequences worth naming:
 
 Hence `hypha://`, `@hypha/*`.
 
-## Screenshots
-
-*(These are from 2026-08-07 and predate most of what the feature list above
-describes — the shell is the same, the detail has moved on. The website,
-`apps/website`, has current ones.)*
-
-The editor is TipTap over a per-note Yjs document — headings, lists and quotes
-are CRDT structure, not stored markup:
-
-<img src="docs/screenshots/desktop-editor.png" alt="A note open in the hypha editor, showing headings, a list and a blockquote" width="700">
-
-Devices are paired to a vault by scanning or pasting a `hypha://invite` token —
-there is no account to sign into. Roles are Member, Owner or Relay:
-
-<img src="docs/screenshots/desktop-sync.png" alt="The 'Add a device to this vault' dialog, showing a role picker, a QR code and an invite link" width="820">
-
-*(The invite shown above is a placeholder — a real one is a live credential.)*
-
-The iOS shell reuses the same renderer in a swipe-stack layout:
-
-| Notes | Editor |
-|---|---|
-| <img src="docs/screenshots/mobile-list.png" alt="The hypha mobile note list" width="290"> | <img src="docs/screenshots/mobile-editor.png" alt="A note open in the hypha mobile editor" width="290"> |
-
 ## Download
 
 **`0.13.0` was the first public build** — the beta; the newest is whatever the
@@ -159,8 +131,7 @@ macOS (Apple silicon) as a notarized `.dmg` that updates itself through Sparkle,
 Windows as an installer and a portable build, and Linux as an AppImage, a
 `tar.gz` and a Flatpak repository — the Windows and Linux builds are unsigned
 and tested only occasionally. iPhone and iPad are through **TestFlight**, by
-invitation. An experimental Android APK is attached to some releases. The
-**[Install guide](INSTALL.md)** is the procedure for all of them, and the
+invitation. The **[Install guide](INSTALL.md)** is the procedure for all of them, and the
 website is <https://hypha.miniml.net>.
 
 Read **[Known limitations](KNOWN-LIMITATIONS.md)** before putting
@@ -200,9 +171,6 @@ tokens), not by signing in. A "server" is just another node — the `apps/peer`
 relay daemon. Every vault is the same kind of thing: local-first, encrypted at
 rest, and syncable to peers. There is no separate "local" mode and no "synced"
 mode to choose between.
-
-> **Upgrading from 0.18 or earlier?** Profiles are not migrated — see the
-> changelog's *Existing installs must start fresh* note for the data paths.
 
 ## Architecture
 
