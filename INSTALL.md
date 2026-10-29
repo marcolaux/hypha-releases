@@ -135,8 +135,8 @@ docker compose run --rm peer join "hypha://invite/…"
 docker compose up -d
 ```
 
-The invite comes from the desktop app: **Settings → Sync → Add a device**, for
-a relay. **The inviting device has to be online while you run
+The invite comes from the desktop app: **Settings → Sync → Devices → Add a device**,
+for a relay. **The inviting device has to be online while you run
 `join`** — the two complete a live handshake, because there is no server to
 redeem a token against. Until it does, `join` says "waiting for the vault's
 owner …", and every 15 seconds that it is still waiting. Add `--timeout 10m` to
@@ -161,6 +161,15 @@ vault's owner key. Every device of the vault then also dials that address.
 **Phones need `wss://`**: a plain `ws://` address works from a Mac or PC only.
 `apps/peer/deploy/README.md` has the proxy example and the limits.
 
+**hypha's own relay, by invite code (beta).** If you were given an invite code,
+you do not need a relay of your own: on a device that holds the vault's owner
+key, open **Settings → Sync**, enter the code, and the vault is enrolled on
+hypha's relay with a small quota of vaults and storage per code. The relay sees
+ciphertext only, like any relay; the service behind the codes can see your
+key's public half, which vault route tags it maps to, connection and byte
+volumes, and your IP address — never vault keys, note content, or an email
+address (there is none). **Stop using** in the same place un-enrols the vault.
+
 ---
 
 ## Setting it up
@@ -171,8 +180,8 @@ password to recover.
 - **First device:** you choose a passphrase, and it encrypts the vault. If you
   forget it, the notes are gone. Nobody can reset it. Write it down somewhere
   safe — a password manager, or paper.
-- **Second device:** on the first device, open **Settings → Sync → Add a
-  device**. On an iPhone, open the code with the Camera app; on a Mac, paste
+- **Second device:** on the first device, open **Settings → Sync → Devices →
+  Add a device**. On an iPhone, open the code with the Camera app; on a Mac, paste
   the invite link. The new device then asks for the vault's passphrase. The two
   devices sync directly to each other, over Wi-Fi when they are on the same
   network and over the internet when they are not.
@@ -190,7 +199,7 @@ security problem, use that address and please do not post it publicly first.
 Useful things to include:
 
 - what you did, and what happened instead;
-- the version (Settings → the version is at the bottom);
+- the version (Settings → Updates shows it);
 - your OS version;
 - whether it involved two devices, and if so what each was doing.
 
@@ -203,8 +212,8 @@ it also leaves names and filenames in the clear — see
 
 ## Building it yourself
 
-macOS and iPhone both have builds now (above); building from source is the way
-to run it on anything else, or to run unreleased work.
+Every platform above has a build; building from source is the way to run
+unreleased work.
 [`README.md`](README.md) has the steps: Node.js 22 or newer, `npm install`,
 then `npm run dev` for the desktop app or
 `npm run package:mac --workspace apps/desktop` for an installable build.
@@ -213,16 +222,11 @@ then `npm run dev` for the desktop app or
 
 ## If macOS refuses to open it
 
-**The first launch may need a right-click.** If double-clicking shows
-*"Hypha" cannot be opened because Apple cannot check it for malicious
-software*, that is Gatekeeper. A release build should be signed and notarized,
-but no published build has exercised that end to end yet, so the prompt is
-possible rather than a bug. **Right-click** (or Control-click) Hypha in
-Applications → **Open** → **Open** in the dialog. You only have to do this once.
-
-If macOS refuses even after that, first **verify what you downloaded.**
-Download `SHA256SUMS.txt` from the same release, put it beside the `.dmg`, and
-run:
+**Every macOS build since 0.99.23 is signed and notarized**, so a release
+build opens with a double-click. If macOS shows *"Hypha" cannot be opened
+because Apple cannot check it for malicious software*, the file is not the one
+on the releases page: **verify what you downloaded.** Download `SHA256SUMS.txt`
+from the same release, put it beside the `.dmg`, and run:
 
 ```sh
 shasum -a 256 -c SHA256SUMS.txt
@@ -230,12 +234,6 @@ shasum -a 256 -c SHA256SUMS.txt
 
 You want `OK` on the line for your file. `FAILED` means the download is corrupt
 or has been altered — do not open it. (Lines for files you did not download will
-say `No such file`; that is fine.)
-
-With the checksum verified, clear the quarantine flag:
-
-```sh
-xattr -d com.apple.quarantine /Applications/Hypha.app
-```
-
-Only run that on a build whose checksum you verified.
+say `No such file`; that is fine.) A build older than 0.99.23 was not notarized:
+for one of those, **right-click** (or Control-click) Hypha in Applications →
+**Open** → **Open** in the dialog, once.
