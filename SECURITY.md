@@ -34,8 +34,12 @@ Claiming precisely matters more here than claiming strongly.
   ciphertext.
 - **Sync traffic is end-to-end encrypted** between paired devices, over a Noise
   handshake. There is no server that can read it, because there is no server.
-- **There is no account, no telemetry, no analytics and no crash reporting.**
-  Nothing is sent anywhere you did not pair with.
+- **There is no account, and no telemetry, analytics or crash reporting of
+  hypha's own.** Two exceptions are on record: ONNX Runtime's engine telemetry
+  shipped on in 0.99.25–0.99.30 (off since 0.99.31), and the hosted beta's
+  enrolment service sees your key's public half, byte volumes and address.
+  Everything else that leaves a device is a feature you turned on or an
+  action you took; the known-limitations page lists them.
 
 **What is not protected, and you should assume is readable**
 
@@ -65,7 +69,7 @@ Claiming precisely matters more here than claiming strongly.
   by the database key (kept in the OS keychain) and not by your passphrase.
   Both are cleared when the vault locks and again at every start of a sealed
   vault, so after a crash the stale copy lasts until the next launch
-  (`docs/SECURITY-AUDIT-2026-08-25.md`, lane D).
+  (`docs/history/SECURITY-AUDIT-2026-08-25.md`, lane D).
 - **Attachment names on the sync wire and in a relay's blob store** are a
   hash of the file's plaintext — a "do you have this exact file" oracle for
   anyone who can see a frame or list the directory. On disk every device names
@@ -81,9 +85,9 @@ Claiming precisely matters more here than claiming strongly.
   keychain through the main process, and the main process refuses a window
   both. So an XSS cannot carry the database key off to decrypt the file later,
   and after a lock it cannot decrypt without the passphrase — **unless you
-  turned on "remember the key in the keychain"**, in which case it can ask the
-  host to unlock from the keychain, as the app does (turn on biometric unlock
-  to put a fingerprint in front of that). What a window still holds: this
+  turned on "Unlock with keychain"** under Settings → Security, in which case
+  it can ask the host to unlock from the keychain, as the app does (turn on
+  "Ask for Touch ID / Face ID" beside it to put a fingerprint in front of that). What a window still holds: this
   device's signing key and, on the owner's device, the owner key and the room
   secret — enough to invite or revoke devices as this device, not to decrypt
   anything. On iOS the WebView is the host, so none of this separation exists
@@ -97,7 +101,7 @@ Claiming precisely matters more here than claiming strongly.
   standard, well-regarded primitives (libsodium, Argon2id, XChaCha20-Poly1305,
   Noise-XX) rather than invented ones, and that is a much weaker statement than
   "audited". Nobody outside this project has reviewed how they are composed.
-  An internal audit on 2026-08-25 (`docs/SECURITY-AUDIT-2026-08-25.md`) found
+  An internal audit on 2026-08-25 (`docs/history/SECURITY-AUDIT-2026-08-25.md`) found
   real problems in how they are composed. Several are fixed since — the
   context binding (AAD) is on for every sealed field, and a joining device no
   longer shows its invite to a peer that has not proven it is an owner — but
