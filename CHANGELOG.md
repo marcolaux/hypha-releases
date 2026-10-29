@@ -20,6 +20,19 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+### Added
+- Two new note types: **Meeting** and **Contact**. A meeting holds its start, end, location, the contacts who were there and the projects it is about; a contact holds how to reach someone (email, phone, organization, role, website, address, birthday). Projects also gain a "Contacts" field for the people a project is talked to.
+- A note that other notes point to through a property now shows those notes in its own properties panel, as read-only rows — a contact shows the projects and meetings that name it, beside the footer's existing "Referenced in properties".
+- The title format has a new `$type$` placeholder that becomes the note's type word ("Meeting", or "Note" for an untyped note), and the setting now offers every placeholder as a pill you can click or drag into the field.
+- The date format is now a choice of the world's common formats, each shown with today's date as it will look; a "Custom…" option brings back the free-text field for anything else.
+
+### Changed
+- The default title format is now "$type$ $date$ $time$", and a vault that still had the old default moves to it once. A note whose title still follows the format keeps its type word in step when the note's type changes; a title you wrote yourself is never touched.
+- The note header shows exactly one type pill, under the title: the "add type" icon beside the cover button and the second pill on the properties panel are gone. The remaining pill opens the same type menu as before.
+- On the desktop, compacting the vault (Settings → Storage, or the monthly offer) now keeps a checked copy of the vault beside it while the rewrite runs, checks the result, and only then deletes the copy. If the rewritten vault fails its check, the copy is put back and the vault is as it was — the app keeps running.
+- On the iPhone and iPad, the monthly "Reclaim storage" offer and the Settings → Storage button are back, in a safer shape: hypha writes a compacted copy of the vault beside it, checks that copy, and only then swaps it in — the vault itself is never rewritten in place. The copy from before stays on the device until the next start has checked the vault, and if that start fails, the start screen offers to restore it. The offer is withheld when the device has less than twice the vault's size free.
+- The start screen's vault check now names the table or index each problem sits in, says when it stopped at its limit, and its lists can be selected and copied; the recovery report's lost rows per table are kept in the device's failure record after the restart.
+
 ## [0.99.31] - 2026-10-28
 
 ### Added
