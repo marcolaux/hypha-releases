@@ -15,7 +15,9 @@ saying so is useful.
 the passphrase, so the passphrase's strength is the backup's — Treat a backup
 as sensitive.
 
-**Weather is the one feature that sends a position off the device.** A daily
+**Weather is one of three features that send a position off the device** — the
+other two, both on an iPhone or iPad with *Note where I captured it* on, are a
+photo's place name and quick capture, further down. A daily
 note's weather comes from Open-Meteo, which receives a position (a place you
 typed, or your device's location cut to two decimals — about a kilometre) and
 a date. The position is kept on the device only, in the app's own settings, and
@@ -42,9 +44,9 @@ its uploader crashed the app on a locked phone. Note content never left the
 device through it, and the desktop's earlier WASM engine (before 0.99.25) and
 every Windows desktop build never carried it at all. It is now disabled at both
 of the engine's switches, in the app and in every tool that runs the model.
-Weather remains the only feature that sends anything off the device at your
-request — this one did it without being asked, and no build after 0.99.30 does
-it at all.
+This one sent without being asked; no build after 0.99.30 does it at all.
+Everything else that leaves a device is a feature you turned on or an action you
+took — the list is under *What is deliberately absent* at the end.
 
 **Vault names are stored in the clear** in the local registry. This is needed for iOS so the share functionality lets the user choose a vault right in the share menu.
 
@@ -294,15 +296,26 @@ standard account, have been proven on the developer's Mac only; a copy older
 than 0.98.9 that came back on the same version after "updating" needs one fresh
 install from the DMG.
 
-**On the iPhone and iPad, the vault's "Reclaim storage" compaction is off**
-(since the 2026-10-27 recovery pass), and Settings → Storage says so. The
-compaction rewrites the whole vault in one go, in memory, with the app frozen;
-it had never been run on the phone's storage before an iPhone vault came back
-"database disk image is malformed" shortly after the offer. Whether the two are
-connected is not known — the compaction has since been run on the same storage
-stack in a headless browser without harm — but a phone has no automatic backup
-to fall back on, so the offer stays off there until the safer shape (a copy
-beside the vault, verified, then swapped) exists.
+**On the iPhone and iPad, the vault's "Reclaim storage" compaction has not yet
+run on a device.** In 0.99.31 the monthly offer and the Settings → Storage
+button are withheld on the phone. The next release brings them back in the
+copy-and-swap shape: a compacted
+copy written beside the vault, checked, swapped in, and kept until the next
+start has checked the vault (the start screen restores it if that start
+fails). All of that has run only in a headless browser on the same storage
+stack; a phone has still to confirm it. The in-place rewrite it replaced had
+been offered to an iPhone vault that came back "database disk image is
+malformed" on 2026-10-27 — its damage sat in the search indexes and the
+recovery copy lost nothing — and whether that rewrite caused the damage is
+still not known.
+
+**On the Mac, Windows and Linux, the compaction's snapshot and check has run
+only in the test suite.** Since 2026-10-29 "Reclaim storage" keeps a checked
+copy of the vault beside it while the rewrite runs, checks the result, and
+deletes the copy only then; a rewrite that fails its check is undone from the
+copy. Every shape of that has run against the real SQLite module on a test
+vault, not yet in a running app on a real one; the copy needs free space of
+twice the vault's size, and the rewrite still freezes the app meanwhile.
 
 **Recovering a damaged vault on the phone is best-effort.** The start screen's
 "Recover what is readable" copies every row SQLite can still read into a fresh
@@ -382,8 +395,8 @@ set it, and a task whose text really ends in a lone `!` after a space reads as l
 older version that writes a picture's description (yours, or its own reader's) writes the file's info back
 without the date and place, and they are gone on every device. Update every device together.
 
-**Search by meaning on the phone needs the Mac updated first, or together.** This version rebuilds the
-meaning index in a new form, and devices on different versions do not exchange it: a phone updated before
+**Search by meaning on the phone needs the Mac updated first, or together.** Since 0.99.23 the
+meaning index is built in a new form, and devices on different versions do not exchange it: a phone updated before
 its Mac finds nothing by meaning until the Mac is updated and has rebuilt (it does so on its own, once).
 
 **Who's here only knows about notes open in an editor.** A tab restored at
@@ -504,6 +517,18 @@ the relay is interrupted it starts again from the beginning, because the relay
 cannot tell whether the bytes it is holding belong to anything you still have.
 Resuming *from* the relay works.
 
+**A table's lifted header band follows a few rules.** A header of several rows
+lifts as one; a first row that mixes header and ordinary cells lifts nothing;
+and the band is measured on every scroll for every table in the note, so a note
+with very many tables is the one to watch.
+
+**A Markdown export writes a rollup's or formula's value only for notes in the
+list.** An archived note's computed fields are left out of the export.
+
+**Two windows on the same note inside one save delay keep the later save's
+caret, not the later visit's.** The window you left last does not always win
+the remembered position; the difference is bounded to under a second.
+
 ---
 
 ## What is deliberately absent
@@ -511,8 +536,18 @@ Resuming *from* the relay works.
 Not limitations so much as decisions, listed because their absence is sometimes
 mistaken for an oversight:
 
-- **No telemetry, no analytics, no crash reporting.** Nothing is sent anywhere.
-  The cost is real and is worth stating: there is no automatic signal when
-  something breaks for you, so a bug nobody reports is a bug nobody knows about.
+- **No telemetry, analytics or crash reporting of hypha's own.** Two exceptions,
+  both described above: ONNX Runtime's engine telemetry shipped on in
+  0.99.25–0.99.30 and is off since 0.99.31, and the hosted beta's enrolment
+  service sees who you are to it. Everything else that leaves a device is a
+  feature you turned on or an action you took: sync with the devices and relays
+  you paired (over the internet, discovery contacts Hyperswarm's three public
+  bootstrap nodes at `hyperdht.org`, which see your address and your device
+  key's public half); weather; a photo's place name and quick capture's
+  location on a phone; a web clip; a chat link preview (the sender's device
+  fetches the first part of the linked page); embedded pages and external
+  images; the update check and the What's New notes, both from GitHub; and
+  publishing to your own bucket. The cost of having no signal of its own is
+  real and is worth stating: a bug nobody reports is a bug nobody knows about.
 - **No account, no cloud, no server.** There is nothing to sign up for.
 - **No web version.**
