@@ -20,6 +20,14 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.33] - 2026-10-30
+
+### Fixed
+- Removing or replacing a note's cover now asks whether to delete the image when nothing else uses it, and Attachments no longer calls a just-removed image "still in use"; what uses a file is listed by name — notes, notes in the trash, styles, comments, chat.
+- Every place that lists or links a note — Home's recent list and activity, On this day, related notes, attachment usage, linked notes, notices and more — now has the note's menu on right-click (long-press on the phone) and opens it in a background tab on middle-click.
+- Formatted text pasted on the iPhone and iPad (from an AI app, for example) keeps its characters exactly as written instead of arriving as "AnfÃ¤nger".
+- On the iPhone, a styled note's cover no longer runs past the screen's edge, the bar at the top takes a dark style's colours, the formatting bar no longer stays up after the keyboard has gone, and the note-type pill matches the pills beside it.
+
 ## [0.99.32] - 2026-10-30
 
 ### Added
