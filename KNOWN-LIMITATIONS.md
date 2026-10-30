@@ -118,7 +118,9 @@ it connects; newer apps wait a day, or until the relay has room.
 
 **A relay you reach by address learns your IP address.** Over the address the
 relay sees which device's IP (or the proxy's) connected when, and which of its
-vaults that device wants — never what is in it. Behind a proxy that the relay is not told to
+vaults that device wants, and — once every device sends the §4sd envelope —
+whether a sync batch carries a chat message, a comment or an @mention; never
+what is in it, from whom or to whom. Behind a proxy that the relay is not told to
 trust (`--trust-proxy`), every device shares the proxy's address: at most 32 can
 be in the middle of connecting at once, and someone who holds those slots open
 delays the others by up to ten seconds.
@@ -207,8 +209,16 @@ runs it holds the vault's keys exactly as an open, unlocked vault does
   window closed, Lock in the menu bar, the Mac going to sleep) keeps
   receiving, still locked: what your other devices send is stored encrypted
   on disk and applied the next time you unlock it. The menu bar says
-  "Locked — receiving", and a banner says only that the vault received changes
-  — a locked vault cannot read what they are. While locked it sends nothing.
+  "Locked — receiving", and a banner says which kind of thing arrived — new
+  messages, new comments, or that someone was mentioned — never from whom or
+  what; an ordinary note edit raises none. (From the next release on: this
+  release teaches every app and the relay to read the kind and keeps sending
+  the old envelope, so until then the banner still says only that the vault
+  received changes.) An app or relay older than this version drops a sync
+  batch sent in the new envelope — the relay outright, live and on catch-up;
+  a locked Mac that old stops storing for the session — so the apps start
+  sending it only after the relay and the apps have updated. While locked it
+  sends nothing.
   What arrives this way: every change to notes, notebooks, tags and chat, and
   edits to the notes open on the sending device; the text of other notes
   catches up when you open them after unlocking. A vault that never synced on
@@ -265,7 +275,9 @@ you add by hand.** Since §4qz a relay run with `--advertise` announces itself
 on the LAN and the vault's owner device asks you once. Saying yes gives that
 relay the same owner-signed daemon credential a hand join gives: it stores and
 forwards your ciphertext and sees the metadata every relay sees (note ids,
-sizes, timings, device keys, your IP) — never your content. The only thing
+sizes, timings, device keys, your IP and, once the apps send the §4sd
+envelope, whether a batch holds a chat message, a comment or a mention) —
+never your content. The only thing
 that identifies the relay is the 96-bit fingerprint in the dialog; compare it
 with what the relay's administrator published before you connect, because a
 rogue device on the same network can advertise a relay of its own with a
@@ -334,6 +346,10 @@ Activity Monitor or Task Manager therefore shows several hypha processes.
 ---
 
 ## Features that are present but incomplete
+
+**Title suggestions need Apple Intelligence.** "Generate title" runs on the device's own model only: on Windows, Linux and a Mac without Apple Intelligence it is not offered, and with Apple Intelligence turned off its menu rows say so. German suggestions sometimes put words in an odd order.
+
+**The day's timeline shows what has a time.** A task's creation, a new link, a tag and a bookmark have no recorded time, so they do not appear. Edits made on another device show only as the note's last edit, and comments appear only for the last couple of weeks of loaded chat.
 
 **An older build of Hypha shows your templates as ordinary notes.** Templates are now a kind of note rather than a note tagged "template", and an app from before that change does not know the kind: on it they appear in All Notes, in search, on the map and in the tasks list, and its Templates list is empty because the tag is gone. Update every device. A template made on an older build still arrives as a tagged note and is converted the next time the newer build syncs.
 
