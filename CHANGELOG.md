@@ -20,18 +20,40 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.32] - 2026-10-30
+
 ### Added
+- The command palette (⌘K) has a "New note: <type>" command for every note type — Meeting, Recipe, your own types — and a type you create, rename or hide updates it right away.
 - Two new note types: **Meeting** and **Contact**. A meeting holds its start, end, location, the contacts who were there and the projects it is about; a contact holds how to reach someone (email, phone, organization, role, website, address, birthday). Projects also gain a "Contacts" field for the people a project is talked to.
 - A note that other notes point to through a property now shows those notes in its own properties panel, as read-only rows — a contact shows the projects and meetings that name it, beside the footer's existing "Referenced in properties".
 - The title format has a new `$type$` placeholder that becomes the note's type word ("Meeting", or "Note" for an untyped note), and the setting now offers every placeholder as a pill you can click or drag into the field.
 - The date format is now a choice of the world's common formats, each shown with today's date as it will look; a "Custom…" option brings back the free-text field for anything else.
+- "Change note type" joins the command palette (⌘K): it opens the same type menu as the pill under the title — the type list, the warning when a switch would lose values, and auto-detect.
+- The "New note" menu's "By type" row explains each type on hover — what a Movie, a Recipe or a Contact note is — and a type of your own shows the description you gave it.
+- A bookmark's overview page lists every highlighted passage under its note, and a notebook's overview lists the passages of all its bookmarks beside its open tasks. Clicking one opens the note on the passage.
+- A vault that receives while locked will say what kind of thing arrived — new messages, new comments, or that someone was mentioned — never from whom or what, and an ordinary note edit will raise no banner. This release teaches every app and the relay to read that information; the apps start sending it in the next release, once the relay has been updated.
+- **Generate a title** for a note you never named: once it has some text, a sparkle beside the colour dot (and "Generate title…" in the title's and the tab's menu) offers three titles in the note's own language from Apple Intelligence on your device. Pick one, edit it, or try again; ⌘Z undoes it. It can be turned off under Settings → Editor.
+- **The day's timeline**: every day in the daily notes shows a small timeline of what happened — notes created and edited, tasks done, clips, attachments, comments and reminders — each as a dot you can hover or open. In a wide window it becomes a rail beside the day. It can be turned off under Settings → General → Daily note.
+- "Today's daily note" is now its own choice under Settings → General → Opens on.
+- Middle-click opens a note in a background tab, and right-click shows the note's menu, in every list that shows notes — search results, the sidebar's favourites, references, the graphs, the archive, the trash, task cards and the daily notes included.
 
 ### Changed
+- Overview pages fit a narrow window or a split pane: the view tabs stay visible, the header's buttons shrink to icons, and the tasks and bookmarks panel folds into a summary line you can open.
 - The default title format is now "$type$ $date$ $time$", and a vault that still had the old default moves to it once. A note whose title still follows the format keeps its type word in step when the note's type changes; a title you wrote yourself is never touched.
 - The note header shows exactly one type pill, under the title: the "add type" icon beside the cover button and the second pill on the properties panel are gone. The remaining pill opens the same type menu as before.
 - On the desktop, compacting the vault (Settings → Storage, or the monthly offer) now keeps a checked copy of the vault beside it while the rewrite runs, checks the result, and only then deletes the copy. If the rewritten vault fails its check, the copy is put back and the vault is as it was — the app keeps running.
 - On the iPhone and iPad, the monthly "Reclaim storage" offer and the Settings → Storage button are back, in a safer shape: hypha writes a compacted copy of the vault beside it, checks that copy, and only then swaps it in — the vault itself is never rewritten in place. The copy from before stays on the device until the next start has checked the vault, and if that start fails, the start screen offers to restore it. The offer is withheld when the device has less than twice the vault's size free.
 - The start screen's vault check now names the table or index each problem sits in, says when it stopped at its limit, and its lists can be selected and copied; the recovery report's lost rows per table are kept in the device's failure record after the restart.
+
+### Fixed
+- Folding a checklist item now hides its sub-items.
+- A pasted or typed app link such as `message://…` becomes one link, whole.
+- Formatted text pasted on the Mac (from an AI chat, for example) keeps its characters exactly as written, in every language, instead of arriving as "SÃ¼ÃŸspeisen".
+- Opening a comment from Chat or from the comments panel lands on the commented passage — also a long passage, and also when you were writing at the end of the note.
+- Jumping to someone's cursor from the "Here now" list no longer shifts the whole window's content.
+- Numbered lists: "10." and higher stay on one line instead of breaking in two.
+- The monthly "Reclaim storage" offer now says "about", because the space it names can be partly reused by the time you click; the result shows what was actually reclaimed.
+- A note opened while it is still receiving changes from another device no longer shakes.
 
 ## [0.99.31] - 2026-10-28
 
