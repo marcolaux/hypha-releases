@@ -20,6 +20,32 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.34] - 2026-10-31
+
+### Added
+- Every tab shows an icon, which becomes its close button on hover.
+- Unread comments are easier to find: a dot in the sidebar, a marker in the folder view next to open tasks, and a coloured icon in the notes list that opens the note at the comment.
+- Unsorted has its own place in the sidebar, and every sidebar entry can be reordered by dragging.
+- Recipe clips keep their ingredient groups ("For the filling", "Sauce").
+- Clip summaries stick to what the page says: up to six main points in the page's own words, translated into your language when Apple Translation has the pair. The clip saves right away and the summary follows. Recipes get no summary.
+- Recovering a damaged vault on an iPhone or iPad keeps the damaged original until a full backup is made, the vault has synced for a week, or you join again or restore.
+
+### Fixed
+- Undo takes back a pasted or dropped picture again — since 0.99.16 a picture whose text the app had already read could not be undone.
+- A picture pasted on an empty line takes that line instead of the next one.
+- The daily notes timeline animates only new markers, and the daily stream no longer jumps when a date sticks or more days load.
+- "Modified on this day" lists every note you edited that day on this device, not only the ones last edited then.
+- In a narrow pane the note's sidebar floats over the editor instead of squeezing it.
+- Renaming a tag to a name containing "/" no longer doubles its parent, and a new tag keeps the name you give it.
+- On a Mac, a web page, note or day too long for Apple Intelligence is tried again with a shorter text, instead of getting no fields, summary or title suggestions.
+- Attachments larger than 16 MB reach your relay again — since 0.17.1 every such transfer to a relay failed at its last step. Update the relay too.
+- A relay you revoke deletes its copy of that vault and stays revoked: a device set to connect all vaults asks before connecting it again, and says who revoked it and when.
+- Settings → Sync shows a relay as Connected only while it really is, and says which side refused a connection.
+- After a damaged vault is recovered on an iPhone or iPad, a device that is a member of the vault is never made its owner: it is asked to join again, and the recovered notes open once it does.
+- After another device changes the vault passphrase, backups no longer become impossible to restore on a new device.
+- On the iPhone: no gradient over a header stuck under the top bar, a styled note shows its colours under the bar before you scroll, search results start below the bar, and the "Suggested" bar sits above the bottom buttons instead of over the title.
+- On the iPhone and iPad, going back never gets stuck: back from the home screen right after launch does nothing instead of opening a list you never chose, and back never lands on the same screen again.
+
 ## [0.99.33] - 2026-10-30
 
 ### Fixed
