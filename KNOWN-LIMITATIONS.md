@@ -15,6 +15,23 @@ saying so is useful.
 the passphrase, so the passphrase's strength is the backup's — Treat a backup
 as sensitive.
 
+**A recovered vault can wait for its key.** When the damaged part of a vault
+held its key, the recovered copy cannot open on its own: join it again from
+another of your devices, open it with the key saved on this device, or restore
+a backup. With none of those, its notes stay locked; the damaged original is
+kept on the device. A vault created before late August 2026 whose damaged key table
+lost any row is treated the same way, even if its key survived. If a vault is
+recovered a second time before the first recovery settles, only the original
+from the FIRST recovery is kept.
+
+**A device that made itself a vault's owner during a recovery, before this was
+fixed, needs removing and rejoining.** Settings → Sync names it. Back up or
+export it first: notes written on it since are only there.
+
+**After another device changes the vault passphrase, this device's backups seal
+only your notes** until you type the passphrase here once (Settings → Backup
+says so).
+
 **Weather is one of three features that send a position off the device** — the
 other two, both on an iPhone or iPad with *Note where I captured it* on, are a
 photo's place name and quick capture, further down. A daily
@@ -81,6 +98,16 @@ only claim being made.
 ## Sync
 
 **Both devices have to be running so they can sync (if you don't use the peer relay).** There is no server holding a copy while one is asleep. If your laptop is shut and you write on your phone, the laptop gets it when it next opens and the two can reach each other — not before.
+
+**A revoked relay deletes its copy only when it hears the order.** It deletes
+the vault the next time an Owner device of that vault connects to it; until
+then it keeps the encrypted copy. A relay running an older version never
+deletes, and a LAN relay that forwards to hypha's server leaves the server's
+copies in place. Revoking, then rotating the owner key, then connecting again
+by hand is refused — run `hypha-peer leave <vault>` on the relay first.
+
+**Attachments larger than 16 MB never reached a relay from 0.17.1 until this
+fix.** They sync once both your devices and the relay are updated.
 
 **Permanently deleting a note does not remove it from a relay immediately.** Your own
 devices reclaim the note's text when you empty the trash on any one of them
