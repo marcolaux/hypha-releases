@@ -20,6 +20,20 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.36] - 2026-11-02
+
+### Fixed
+
+- iPhone and iPad: after switching vaults, the new vault reaches your relay and your other devices over the internet without restarting the app.
+- iPhone and iPad: internet sync that fails now recovers on its own while another device stays connected, and gives up after a few tries until you reopen the app or change network, to save battery.
+- A device your relay or computer refused once is no longer locked out until they restart: it gets checked again and back in on its own.
+
+## [0.99.35] - 2026-11-01
+
+### Fixed
+- A relay no longer stops when saving a newly joined vault fails, and a join interrupted halfway is finished instead of dropped.
+- A relay in Docker restarts after a crash instead of refusing to start; a busy network port no longer stops it.
+
 ## [0.99.34] - 2026-10-31
 
 ### Added
