@@ -20,6 +20,10 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+### Fixed
+
+- The desktop app is about 150 MB smaller to download and install: it no longer carries a second copy of the search model and its own source files.
+
 ## [0.99.37] - 2026-11-02
 
 ### Fixed
