@@ -20,6 +20,13 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.37] - 2026-11-02
+
+### Fixed
+
+- Internet sync connects within seconds of opening the app on a slow network such as a phone's hotspot, instead of up to ten minutes per vault.
+- The app no longer crashes while quitting.
+
 ## [0.99.36] - 2026-11-02
 
 ### Fixed
