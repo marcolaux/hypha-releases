@@ -20,9 +20,12 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.38] - 2026-11-03
+
 ### Fixed
 
 - The desktop app is about 150 MB smaller to download and install: it no longer carries a second copy of the search model and its own source files.
+- Settings → Sync no longer says a relay was removed or could not connect while that relay serves the vault under a newer key, and names the relay server on its Relays and Devices rows.
 
 ## [0.99.37] - 2026-11-02
 
