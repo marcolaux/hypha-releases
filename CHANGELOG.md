@@ -20,6 +20,46 @@ upgrade" warning was checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.39] - 2026-11-05
+
+### Added
+
+- Calendars in the daily notes. Subscribe to a calendar (a webcal or .ics address — Google's "secret address", an Outlook "publish" link, a Nextcloud or iCloud subscription) under Settings → Calendars, and its events appear in each day: as coloured bands on the day's timeline, and as rows under the day's note with the time and place. "Write a note" on an event makes a Meeting note with its start, end and location filled in. The address stays on the Mac or PC that fetches; the events sync to every device, so the phone shows them too. Only Owner devices can add or remove a calendar, and any Owner device can remove one, including from a phone.
+- Calendars with a sign-in. Under Settings → Calendars, give a CalDAV server such as Nextcloud with a username and an app password, and choose which of its calendars to bring in.
+- Paste an image straight into a note's cover or background picker, with ⌘V or the new Paste button.
+- "On this day" stands out at the top of today's note: each past year is a card with the year, how long ago it was and the weekday, lined up with the date.
+
+### Changed
+
+- Settings are sorted by what they apply to. What belongs to one vault is under that vault: Calendars, Colour blocks by type (now on Appearance), and a vault's Notifications. What applies to the whole app is under this device: Capture & web clips, a new Daily notes page with the timeline and weather, Reminder notifications, and on a Mac Keep running when closed, now in Launch and close. The tag your web clips get is in General › New notes. No setting changes value.
+- Settings → Sync is one page again: how your sync is doing in one line, your devices and "Add a device" one tap away, and one Relay card where every relay appears once — whether it joined from your network, by address or through hypha. Adding a relay is one page with the three ways in; keys, rotation and the connections that are not your devices moved to Advanced.
+- iPhone and iPad: every switch in Settings is a full-size tap target, not just its track.
+- "Add a device…" in Settings → Sync opens the same invite as the title bar's QR button on a Mac and the sync dot's sheet on an iPhone, and the QR overlay now lets you choose how long the invite lasts.
+- ⌘L on a task now steps through open, done and cancelled, and a cancelled task's × is easier to see.
+- In the folder-tree sidebar, Unsorted is a row like in the classic sidebar instead of a collapsible group.
+- Callouts are square on the side with the coloured bar.
+- Suggestions, the find bar and the tag and notebook pickers stay readable on a note whose style is the other way round from the theme (a bright note in dark mode, a dark note in light mode).
+- The connected-devices popover in the sidebar lists only the devices connected now, with a Sync settings button beside Add a device. On the phone, the sync dot opens the same list as a drawer; Add a device there opens the invite QR.
+- iPhone: when a day's date sticks under the top bar in Daily Notes, the bar's frosted glass runs down through the date, so it no longer floats under bare status-bar text.
+- Settings look the same on every page and every device: fields, buttons and notes share one set of sizes, and on iPhone and iPad every button is a full-size tap target.
+
+### Fixed
+
+- On the phone, back from a note opened from a row of the daily stream goes to the daily once, then Home.
+- The day's calendar rows sit closer together on the phone, and Sync's presence settings read properly there.
+- Deleting a note written from a calendar event frees the event again: the day offers to write a new note instead of opening an empty one, and restoring the note brings it back.
+- Android: Back closes the open sheet, menu or dialog first, instead of moving the screen under it or leaving the app with it still up.
+- Sharing into a note says it is adding while it works, and Continue in background lets you carry on: the share lands without moving you and the dock shows it finished. If it fails, the sheet comes back to say why.
+- Pictures, a note's cover and its tag row hold their space while they load, so a note no longer jumps under your finger as they arrive. On the iPhone, with diagnostic logging on, a note's ⋯ menu offers "Copy scroll trace" — a record of what moved the note, for reporting a jitter.
+- A list pasted as plain text keeps every item: the items that followed an indented one used to vanish until the next blank line. Same for numbered lists and for a heading right after an indented item.
+- iPhone: back and the edge swipe always return to the screen you saw before — a note you followed a link from, the daily stream a PDF was opened from, the home screen — and a second tap during a slow return no longer skips a screen. Relaunching into "where I left off" also brings back the list you were in, behind the note.
+- iPhone: going back no longer gets stuck on a list; if back would show the same screen again, it goes to the home screen.
+- iPhone: Settings no longer offers the folder-tree sidebar, which left the phone's lists empty.
+- iPhone: Settings → Sync's device list is easier to use: its buttons are full-size, and renaming a person opens the keyboard straight away.
+- Settings can no longer be opened while the first-run setup is on screen, where it opened a broken window.
+- Settings opens straight onto its own page, without showing a normal hypha window first.
+- The daily notes view no longer keeps the Mac busy while it is open: the timeline's "now" line no longer pulses.
+
 ## [0.99.38] - 2026-11-03
 
 ### Fixed
