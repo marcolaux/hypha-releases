@@ -32,6 +32,27 @@ export it first: notes written on it since are only there.
 only your notes** until you type the passphrase here once (Settings → Backup
 says so).
 
+**A subscribed calendar is fetched by one of your computers and read by all
+your devices.** Settings → Calendars takes a webcal or `.ics` address on a Mac
+or PC; that computer fetches it about once an hour while the app is open, and
+the events go into the vault, so your phone shows them too and says when and
+on which computer they were last brought in — it does not fetch on its own in
+this build. The address stays on the computer that fetches, in its keychain (for a Google
+or iCloud subscription the address *is* the secret), and is sent only to the
+host it names, with your IP address, as any site you visit sees it. The calendar is
+read-only in hypha: nothing you do here changes the calendar, and an event's
+words are sealed in the vault like a note's. A calendar server that wants a
+sign-in (CalDAV, such as Nextcloud) takes a username and an app password, which
+stay in that computer's keychain and are sent only to the server you typed. Over
+plain `http://` they are sent only inside your own network, unencrypted on it, and
+the form says so; a server whose certificate is self-signed or from a private CA
+cannot be added. iCloud's CalDAV, Digest sign-ins, a Google or Microsoft account,
+and all-day events on the day's timeline are not supported — all-day events appear
+in the day's Calendar rows only. Only an Owner device can add or remove a calendar; a
+device added as a Member just shows them. That is the app's rule, not a
+cryptographic one: a calendar's rows are ordinary vault rows, and a modified app
+on a Member device could still change them, as it could a note.
+
 **Weather is one of three features that send a position off the device** — the
 other two, both on an iPhone or iPad with *Note where I captured it* on, are a
 photo's place name and quick capture, further down. A daily
@@ -118,8 +139,8 @@ prunes by age (`hypha-peer prune`, or `run --auto-prune-age`, which is off by
 default). The content stays encrypted throughout, and no device will accept it
 back — but if you want deleted notes gone from a relay you run, turn pruning on.
 
-**A relay address reaches a device only after it has synced once.** The list under
-Settings → Sync → Relays travels inside the vault itself, so a device that has
+**A relay address reaches a device only after it has synced once.** The list behind
+the Relay card under Settings → Sync travels inside the vault itself, so a device that has
 just joined learns it the first time it meets another device over the internet
 or your Wi-Fi — not before. A phone with neither cannot find the relay by
 address. If a member device overwrites the list, devices that already had the
@@ -128,8 +149,8 @@ device that joins in between sees no relays until then. The Mac's background
 sync of a vault you have not opened does not dial relays by address yet.
 
 **An address a relay announces is checked only for the relay's key.** A relay
-run with `--public-url` can put its address in the list by itself (see
-Settings → Sync → Relays). Before the app adds it, an owner device checks that
+run with `--public-url` can put its address in the list by itself (the row's
+Details under Settings → Sync say "Added by the relay itself"). Before the app adds it, an owner device checks that
 the address answers with that relay's key, so a wrong address leads nowhere. But
 nothing checks where the address points, so a relay you invited could name a
 host that sees your devices' IP addresses when they dial it. Remove the entry to
