@@ -63,7 +63,8 @@ central server required.
   carry tags, notebooks and bookmarks of their own. Text in a picture and words
   in a recording are read on the device and made searchable.
 - **Notes that come to you.** Reminders that fire natively on both platforms,
-  daily notes as a continuous stream, note history you can restore from,
+  daily notes as a continuous stream with the events of calendars you
+  subscribe to, note history you can restore from,
   templates, an archive and a trash — and web pages clipped into notes,
   sanitized on the way in.
 - **Backups.** One automatic backup kept by day, week and month, plus manual
