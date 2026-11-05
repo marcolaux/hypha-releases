@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **hypha**
-Last updated: 29 October 2026
+Last updated: 5 November 2026
 
 <!--
   THIS FILE IS THE SOURCE. It is published at
@@ -46,7 +46,9 @@ Specifically, Hypha does not collect, transmit or store on any server:
 - your attachments, tags, notebooks or reminders;
 - usage, analytics, telemetry, diagnostics or crash reports;
 - advertising identifiers, device identifiers or IP addresses;
-- contacts, calendar or health data;
+- contacts or health data, or the calendars on your device — a calendar you
+  subscribe to by address (under *Optional features* below) is fetched by your
+  own computer into your own encrypted vault and sent to no one;
 - your location — with the exceptions you opt into, described under *Optional
   features* below: a coarse position, sent to a weather service or, on an
   iPhone or iPad, to Apple's geocoder for a place name, and never stored by the
@@ -201,6 +203,18 @@ is the only way data leaves your device:
   stored or sent. Nothing is sent until you have done one of those two things;
   the switch beside them turns the feature off. Open-Meteo sees your IP
   address, as any site you visit does.
+- **Calendar subscriptions.** Under Settings → Calendars you can give a Mac
+  or PC the address of a calendar (a webcal or `.ics` link). That computer
+  fetches the file from the address you entered, about once an hour while the
+  app is open, and from nowhere else; the host sees your IP address and the
+  request, as any site you visit does, and receives nothing from your vault.
+  The events are stored in your vault, encrypted like your notes, and
+  synchronised to your other devices the way notes are. The address itself
+  stays on the computer you entered it on. A calendar server that wants a
+  sign-in, such as Nextcloud, also gets the username and app password you
+  entered; they stay in that computer's keychain, go to that server and nowhere
+  else, and are never in your vault. Remove the calendar and its events leave
+  the vault.
 - **A photo's place, on iPhone and iPad.** With "Note where I captured it" on,
   the place a photo was taken is given a name by Apple's geocoder, which is
   sent a position rounded to about a kilometre — when you open the photo's
