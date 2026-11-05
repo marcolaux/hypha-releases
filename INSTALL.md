@@ -19,7 +19,9 @@ Downloads: <https://github.com/marcolaux/hypha-releases/releases>
 Intel Macs are not supported and there is no Intel build. This is deliberate,
 not an oversight.
 
-1. Download `hypha_mac_arm64.dmg` from the latest release.
+1. Download `hypha_mac_arm64.dmg` from the website's Download section. Not every
+   release carries a DMG, so this one may be a few versions old; Hypha updates
+   itself from there.
 2. Open the `.dmg` and drag Hypha to Applications.
 3. Open Hypha from Applications.
 
@@ -135,7 +137,7 @@ docker compose run --rm peer join "hypha://invite/…"
 docker compose up -d
 ```
 
-The invite comes from the desktop app: **Settings → Sync → Devices → Add a device**,
+The invite comes from the desktop app: **Settings → Sync → Add a device…**,
 for a relay. **The inviting device has to be online while you run
 `join`** — the two complete a live handshake, because there is no server to
 redeem a token against. Until it does, `join` says "waiting for the vault's
@@ -156,14 +158,14 @@ relay over the internet's peer network or on your own Wi-Fi, which can take a
 while. Start the relay with `--listen 127.0.0.1:8443` (or set
 `HYPHA_PEER_LISTEN`) behind a web server that terminates TLS with a real
 certificate, then enter its address — `wss://relay.example.com`, no path — and
-pick the relay under **Settings → Sync → Relays** on a device that holds the
+add it under **Settings → Sync → Add a relay → By address** on a device that holds the
 vault's owner key. Every device of the vault then also dials that address.
 **Phones need `wss://`**: a plain `ws://` address works from a Mac or PC only.
 `apps/peer/deploy/README.md` has the proxy example and the limits.
 
 **hypha's own relay, by invite code (beta).** If you were given an invite code,
 you do not need a relay of your own: on a device that holds the vault's owner
-key, open **Settings → Sync**, enter the code, and the vault is enrolled on
+key, open **Settings → Sync → Add a relay**, enter the code under *hypha's relay*, and the vault is enrolled on
 hypha's relay with a small quota of vaults and storage per code. The relay sees
 ciphertext only, like any relay; the service behind the codes can see your
 key's public half, which vault route tags it maps to, connection and byte
@@ -180,8 +182,8 @@ password to recover.
 - **First device:** you choose a passphrase, and it encrypts the vault. If you
   forget it, the notes are gone. Nobody can reset it. Write it down somewhere
   safe — a password manager, or paper.
-- **Second device:** on the first device, open **Settings → Sync → Devices →
-  Add a device**. On an iPhone, open the code with the Camera app; on a Mac, paste
+- **Second device:** on the first device, open **Settings → Sync → Add a
+  device…**. On an iPhone, open the code with the Camera app; on a Mac, paste
   the invite link. The new device then asks for the vault's passphrase. The two
   devices sync directly to each other, over Wi-Fi when they are on the same
   network and over the internet when they are not.
