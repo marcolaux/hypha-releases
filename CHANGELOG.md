@@ -17,6 +17,12 @@ checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.41] - 2026-11-10
+
+### Fixed
+
+- Resizing the window, a split or the sidebar is smooth again while a pane shows Daily Notes.
+
 ## [0.99.40] - 2026-11-10
 
 ### Added
