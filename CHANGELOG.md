@@ -11,14 +11,61 @@ why the old behaviour was wrong: those belong in the commit message, which is
 where anyone asking "why" will look. Entries here are the release notes, and
 the desktop *What's New* window shows them verbatim to people who just want to
 know what is different. Versions 0.1.0–0.13.0 were written before that rule and
-were shortened to it on 2026-08-27, almost entirely by truncation: of the 160
-entries that got shorter, 155 are a strict prefix of what they said before. The
-other five were compressed rather than cut, so they are the only places the
-wording is not the author's own — checked, and none of them changed what the
-entry claims. Every published correction and every "this is not an automatic
-upgrade" warning was checked back in by hand afterwards.
+were shortened to it on 2026-08-27, almost entirely by truncation; every
+published correction and every "this is not an automatic upgrade" warning was
+checked back in by hand afterwards.
 
 ## [Unreleased]
+
+## [0.99.40] - 2026-11-10
+
+### Added
+
+- A recording on iPhone and iPad keeps running when you lock the screen or switch apps. While it runs, the Lock Screen and the Dynamic Island show it with a Stop button. If it has run in the background for ten minutes you get a reminder, and after two minutes of silence it stops by itself. A recording stopped any of these ways is saved and placed in the daily note of the day it started the next time you open hypha.
+
+- Archive a whole notebook. Right-click a notebook, or several, and choose Archive. If it holds notes, you choose whether they go to the Archive with it (the default) or stay in All notes. The Archive lists archived notebooks above the notes, and Unarchive brings a notebook back, with its archived notes if you like. Its favourite and its tile on the phone come back with it.
+- A property that links to notes, such as a meeting's Projects, opens a picker right under it instead of the search bar, with a "Create Project “…”" row that makes the new project on the spot. On the phone the property drawer offers the same. A link property can name the type it links to, under "Links to" in the note type editor.
+- A project now lists every note linked to it or from it below its text, one section per type (Meetings, Contacts, …), each shown as cards, a list or a table. "New Meeting" in a section makes a meeting already linked to the project. Turn the list on for any type with "Show linked notes" in the type editor. A project exported to Markdown carries the same tables after its text, and importing the file back leaves them out of the note.
+- Every note in a list shows its type's icon (a meeting, a daily note, a whiteboard, a plain note) and the notebook it is in, beside its tags. This applies to the notes list, cards, boards, the Archive, the Trash, search results and the link picker, on the desktop and the phone.
+- Search results under the search bar open where you want them: right-click a note for Open in new tab, Open in new window or a split. ⌘-click (Ctrl-click) opens a background tab and Shift-click a new window; ⌘+Enter and Shift+Enter do the same from the keyboard.
+- Four high-contrast themes, two light and two dark, made to be easy on the eyes. Settings → Themes marks them with an accessibility icon, and a High contrast filter shows only them.
+
+### Changed
+
+- Turning off "Unlock with keychain" asks first when it would delete the stored passphrase, and "Remove target" in Publishing asks, says which pages stay online and offers to unpublish them first.
+- The setup has one clear button per step. "Getting started" on Home can be hidden at any time and brought back in Settings → General. The welcome notes come in German when the app is in German. Copying your new passphrase hides it from clipboard managers and clears it after five minutes.
+- Every button's tooltip looks and behaves the same, dialogs keep the Tab key inside them and return focus when they close, and dialogs, popovers and toasts fade in. Keyboard focus has one ring everywhere.
+- Dates, counts and tags in the lists are larger. Menus for notes, notebooks and tags have an icon on every entry; "Move to trash" is no longer red, because it can be undone.
+- English spelling is British throughout, and the German wording is consistent (Schlagwort, das Relay).
+- The themes have new names and refreshed colours, all of them hypha's own. A theme you picked from the list carries over to its successor on every device; a theme you loaded from a file stays exactly as it was.
+
+### Fixed
+
+- On the iPhone, a long press on a task or a highlighted passage in the notes list, and on a reminder's note button, opens its menu.
+- A recording left running while hypha was in the background for more than an hour came back empty. The recording is no longer deleted while it is in use, and hypha now tells you when a recording could not be saved instead of adding an empty one.
+- A page shared from the phone into today's daily note no longer goes missing when another device had already started that day's note. The two notes for the day are merged into one once the devices have synced, and a second note for a day can be opened like any other note.
+
+- An untitled notebook, tag or bookmark reads "Unbenannt" in the German app, not "Untitled".
+
+- On the phone, an info bubble in Settings, the date picker and the cover picker stay above the keyboard.
+- On the desktop, Escape with a menu, a link preview or an info bubble open over a dialog closes that, not the dialog.
+- With a hardware keyboard on an iPhone or iPad, shortcuts are shown with ⌘, and the tab shortcuts answer to the Command key.
+- The publish, reminder, colour, icon, web clip, notebook picker, unused attachments and property dialogs share one look with the confirm dialog: the same panel, buttons and fields.
+- Escape closes the note type editor even when nothing inside it has focus, and on the phone, back closes it rather than the screen behind it.
+- Tapping a calendar event or a task under a day in the daily notes no longer adds an empty line to that day's note.
+- The date headers of a list grouped by date ("Today", "Earlier this week", "Older") are in the app's language; they were English in the German app.
+- Dates in Settings → Sync, the import and restore pages, a note's history, the reminders list and the vault-key notice follow General › Formats and the app's language, instead of the system's.
+- A reminder that has passed, a repeating one's next time and a few errors on the passphrase and restore screens are in the app's language.
+- The Attachments view's filter (All, Images, Videos…) is one control a screen reader names and the arrow keys move through.
+- The result of a Markdown-folder import, the phone search's loading line and the Copy button of a link's preview showed an internal name instead of their text.
+- Counts read "1 note" and "3 notes" instead of "note(s)" in the notes list, Tasks, the Archive, the Trash, views and the publish dialog.
+- Dates in the note lists and on Home use the app's language for weekdays and months, not the system's.
+- Creating a vault says so when it fails, and holding Enter on the passphrase screen no longer skips the backup question.
+- The setup screens name the right Settings pages for backups, and say "phone" and "computer" where they said iPhone and Mac.
+- What's New and the invite code no longer sit under menus and notices, and What's New offers an update only when there is one.
+- A long right-click menu in a short window scrolls instead of running off the bottom.
+- Labels on the accent colour (the sidebar badge, the selected day in the date picker) are readable in themes with a light accent.
+- On the phone, the last rows of the Archive, the Trash, Web notes and Attachments are no longer hidden behind the buttons at the bottom, and the switches in the reminder editor answer a tap on their label.
 
 ## [0.99.39] - 2026-11-05
 
@@ -1539,9 +1586,7 @@ upgrade" warning was checked back in by hand afterwards.
   line beneath it. Before you type, it offers recent notes. The list keeps
   itself clear of the on-screen keyboard and scrolls inside whatever room it
   has.
-- **Eleven more themes, each with a light and a dark variant**: Solarized, Nord,
-  Dracula, One, Noctis, One Monokai, GitHub, SynthWave '84, Catppuccin, Gruvbox
-  and hypha Amethyst.
+- **Eleven more theme families, each with a light and a dark variant.**
 
 ### Fixed
 
