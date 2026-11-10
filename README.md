@@ -128,7 +128,7 @@ release: built on one machine, never signed for distribution, never uploaded
 anywhere. `1.0.0` stays reserved for the release these are the rehearsal for.
 
 **[Releases](https://github.com/marcolaux/hypha-releases/releases)** carries
-macOS (Apple silicon) as a notarized `.dmg` that updates itself through Sparkle,
+macOS (Apple silicon) as a notarized `.dmg` (a release that only updates carries a `.zip` and points new installs at the last `.dmg`) that updates itself through Sparkle,
 Windows as an installer and a portable build, and Linux as an AppImage, a
 `tar.gz` and a Flatpak repository — the Windows and Linux builds are unsigned
 and tested only occasionally. iPhone and iPad are through **TestFlight**, by
