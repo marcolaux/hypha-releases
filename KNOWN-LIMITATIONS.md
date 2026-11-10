@@ -127,8 +127,14 @@ deletes, and a LAN relay that forwards to hypha's server leaves the server's
 copies in place. Revoking, then rotating the owner key, then connecting again
 by hand is refused — run `hypha-peer leave <vault>` on the relay first.
 
-**Attachments larger than 16 MB never reached a relay from 0.17.1 until this
-fix.** They sync once both your devices and the relay are updated.
+**An archived notebook still shows on a device running an older version.**
+Archiving a notebook (added after 0.99.39) syncs as a flag older versions do not
+read: on such a device the notebook stays in the sidebar, but its archived notes
+are archived there too. Update every device to see the same tree.
+
+**Attachments larger than 16 MB never reached a relay from 0.17.1 to
+0.99.33.** They sync once both your devices and the relay are on 0.99.34 or
+later.
 
 **Permanently deleting a note does not remove it from a relay immediately.** Your own
 devices reclaim the note's text when you empty the trash on any one of them
@@ -259,14 +265,14 @@ runs it holds the vault's keys exactly as an open, unlocked vault does
   on disk and applied the next time you unlock it. The menu bar says
   "Locked — receiving", and a banner says which kind of thing arrived — new
   messages, new comments, or that someone was mentioned — never from whom or
-  what; an ordinary note edit raises none. (From the next release on: this
-  release teaches every app and the relay to read the kind and keeps sending
-  the old envelope, so until then the banner still says only that the vault
-  received changes.) An app or relay older than this version drops a sync
-  batch sent in the new envelope — the relay outright, live and on catch-up;
-  a locked Mac that old stops storing for the session — so the apps start
-  sending it only after the relay and the apps have updated. While locked it
-  sends nothing.
+  what; an ordinary note edit raises none. (Not yet in any release: since
+  0.99.31 every app and the relay can read the kind, but they keep sending
+  the old envelope, so the banner still says only that the vault received
+  changes. An app or relay older than 0.99.31 drops a sync batch sent in the
+  new envelope — the relay outright, live and on catch-up; a locked Mac that
+  old stops storing for the session — so the apps will start sending it only
+  once every relay and app can be assumed updated.) While locked it sends
+  nothing.
   What arrives this way: every change to notes, notebooks, tags and chat, and
   edits to the notes open on the sending device; the text of other notes
   catches up when you open them after unlocking. A vault that never synced on
@@ -334,8 +340,8 @@ device. For the administrator: a relay that accepts joins from the network on
 its own can have its slots occupied by anyone on that network who invents a
 vault — each such vault is bounded by the default quota (attachment bytes; its
 small `opaque.db` sits outside it, as for every vault) and dropped after a
-week without a second device — a filter, not a wall: a squatter that also
-connects a second device of its own keeps its slot — and `HYPHA_PEER_ADVERTISE_APPROVE=1` makes every
+week if no device ever synced with it — a filter, not a wall: a squatter that
+connects once keeps its slot — and `HYPHA_PEER_ADVERTISE_APPROVE=1` makes every
 join wait for `hypha-peer approve`; advertise only on a network you own, since
 behind a proxy or a VPC every source looks local. An older daemon that reads a
 "held" entry treats it as a vault with missing secrets and does not serve it.
@@ -357,12 +363,11 @@ than 0.98.9 that came back on the same version after "updating" needs one fresh
 install from the DMG.
 
 **On the iPhone and iPad, the vault's "Reclaim storage" compaction has not yet
-run on a device.** In 0.99.31 the monthly offer and the Settings → Storage
-button are withheld on the phone. The next release brings them back in the
-copy-and-swap shape: a compacted
-copy written beside the vault, checked, swapped in, and kept until the next
-start has checked the vault (the start screen restores it if that start
-fails). All of that has run only in a headless browser on the same storage
+run on a device.** 0.99.31 withheld the monthly offer and the Settings →
+Storage button on the phone; since 0.99.32 they are back in the copy-and-swap
+shape: a compacted copy written beside the vault, checked, swapped in, and
+kept until the next start has checked the vault (the start screen restores it
+if that start fails). All of that has run only in a headless browser on the same storage
 stack; a phone has still to confirm it. The in-place rewrite it replaced had
 been offered to an iPhone vault that came back "database disk image is
 malformed" on 2026-10-27 — its damage sat in the search indexes and the
@@ -550,6 +555,15 @@ Hypha says so — "this site only shows its pages to a web browser" — instead 
 clipping the challenge page. The images of a page that DID come through a
 challenge stay linked online: Hypha's own image download is the one request the
 site still refuses.
+
+**Recording in the background on iPhone has not been tried on a phone yet.** A
+recording now continues with the screen locked, shown on the Lock Screen with a
+Stop button, and stops by itself after two minutes of silence. The silence check
+is a rough one: a phone that rustles in a pocket counts as sound and keeps
+recording, and a long pause in a quiet room ends the recording early (what was
+recorded is kept). The reminder after ten minutes appears only if notifications
+are allowed for hypha. If iOS ends the app in the middle of a recording, that
+recording cannot be played and is lost.
 
 **Quick capture on iPhone has not been tried on a phone yet.** The Action
 button, the Controls and the Home Screen quick actions are built and checked on
