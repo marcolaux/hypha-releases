@@ -17,6 +17,12 @@ checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.42] - 2026-11-10
+
+### Fixed
+
+- Resizing the window, a split or the sidebar with Daily Notes in a pane is smooth also when some days show the weather in their header; 0.99.41 fixed it only for vaults without it.
+
 ## [0.99.41] - 2026-11-10
 
 ### Fixed
