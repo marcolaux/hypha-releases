@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **hypha**
-Last updated: 5 November 2026
+Last updated: 11 November 2026
 
 <!--
   THIS FILE IS THE SOURCE. It is published at
@@ -215,6 +215,17 @@ is the only way data leaves your device:
   entered; they stay in that computer's keychain, go to that server and nowhere
   else, and are never in your vault. Remove the calendar and its events leave
   the vault.
+- **Microsoft calendars.** Under Settings → Calendars you can sign in to a
+  Microsoft account (Outlook.com or Microsoft 365). The sign-in happens in your
+  browser, on Microsoft's own page; hypha asks only to read your calendars.
+  Microsoft gives that computer a token, which stays in its keychain and is
+  never in your vault. The computer then reads the calendars you chose from
+  Microsoft (`graph.microsoft.com`) about once an hour while the app is open,
+  and from that computer only. Microsoft sees the request and your IP address
+  and receives nothing from your vault. The events are stored and synchronised
+  like a subscribed calendar's, above. Remove the account's last calendar and
+  the token is deleted; you can also withdraw hypha's access in your Microsoft
+  account at any time.
 - **A photo's place, on iPhone and iPad.** With "Note where I captured it" on,
   the place a photo was taken is given a name by Apple's geocoder, which is
   sent a position rounded to about a kilometre — when you open the photo's
