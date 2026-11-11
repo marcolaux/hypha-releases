@@ -46,8 +46,12 @@ sign-in (CalDAV, such as Nextcloud) takes a username and an app password, which
 stay in that computer's keychain and are sent only to the server you typed. Over
 plain `http://` they are sent only inside your own network, unencrypted on it, and
 the form says so; a server whose certificate is self-signed or from a private CA
-cannot be added. iCloud's CalDAV, Digest sign-ins, a Google or Microsoft account,
-and all-day events on the day's timeline are not supported — all-day events appear
+cannot be added. A Microsoft account (Outlook.com or Microsoft 365) signs in
+through your browser; hypha may only read its calendars, and what it keeps to
+stay signed in stays in that computer's keychain. A work or school account usually
+needs the organisation's administrator to approve hypha once, and an office that
+forces a proxy server can block the sign-in. iCloud's CalDAV, Digest sign-ins, a
+Google account, and all-day events on the day's timeline are not supported — all-day events appear
 in the day's Calendar rows only. Only an Owner device can add or remove a calendar; a
 device added as a Member just shows them. That is the app's rule, not a
 cryptographic one: a calendar's rows are ordinary vault rows, and a modified app
