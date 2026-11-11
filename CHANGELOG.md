@@ -17,6 +17,12 @@ checked back in by hand afterwards.
 
 ## [Unreleased]
 
+## [0.99.43] - 2026-11-11
+
+### Added
+
+- Settings → Calendars can sign in to a Microsoft account — Outlook.com or Microsoft 365 — and show its calendars in Daily Notes. A work account may need the organisation's IT to approve hypha once; the ⓘ beside *Work or school accounts* holds the request to send them, ready to copy.
+
 ## [0.99.42] - 2026-11-10
 
 ### Fixed
