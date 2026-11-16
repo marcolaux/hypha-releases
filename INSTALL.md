@@ -1,0 +1,241 @@
+# Installing Hypha
+
+Hypha is a beta. It is a real notes app holding real notes. Read
+[Known limitations](KNOWN-LIMITATIONS.md) before you put anything in it that you
+would be upset to lose, and **keep your own backups**.
+
+> **This is a beta**, and the procedure below was written and checked long
+> before it was ever walked by a stranger — so if a step does not match what you
+> see, that is worth reporting rather than working around.
+
+Downloads: <https://github.com/marcolaux/hypha-releases/releases>
+
+---
+
+## macOS
+
+**Requirements: an Apple-silicon Mac (M1 or later), macOS 12 Monterey or newer.**
+
+Intel Macs are not supported and there is no Intel build. This is deliberate,
+not an oversight.
+
+1. Download `hypha_mac_arm64.dmg` from the website's Download section. Not every
+   release carries a DMG, so this one may be a few versions old; Hypha updates
+   itself from there.
+2. Open the `.dmg` and drag Hypha to Applications.
+3. Open Hypha from Applications.
+
+If macOS says Hypha cannot be opened, see
+[If macOS refuses to open it](#if-macos-refuses-to-open-it) at the end of this
+page.
+
+**What to expect on first run:** Hypha will ask for permission to find devices
+on your local network. That is how it syncs to your other devices directly,
+without a server. If you decline, the app still works; sync over Wi-Fi will not.
+
+**Updates.** Hypha checks for updates and will offer to install them. From
+0.98.9 the Mac updates through Sparkle: if the app was installed by an
+administrator and you run it from a standard account, macOS asks for an
+administrator password when you press *Restart to update* — that is the
+update installing, not the app misbehaving. If a build turns out not to be
+notarized, each update is signed with a different identity, so macOS asks you
+to re-grant local-network permission after updating. A copy older than 0.98.9
+that "updated" and came back on the same version needs one fresh install from
+the DMG; see [Known limitations](KNOWN-LIMITATIONS.md).
+
+---
+
+## Windows
+
+The Windows build is **unsigned** and tested only occasionally — see
+[Known limitations](KNOWN-LIMITATIONS.md).
+
+1. From the latest release, download the installer (`.exe`), or the
+   `_portable.exe` if you want to run Hypha without installing it.
+2. Run it. Windows SmartScreen warns about an unrecognised app because the
+   build is not signed: choose **More info → Run anyway**.
+
+The installed copy checks for updates and offers to install them.
+
+## Linux
+
+Three forms, all unsigned and tested only occasionally:
+
+- **Flatpak** (updates through `flatpak update` or your software center):
+  ```bash
+  flatpak install --user https://hypha.miniml.net/flatpak/hypha.flatpakref
+  ```
+- **AppImage**: download it, `chmod +x` it, run it. It checks for updates itself.
+- **`tar.gz`**: unpack and run the `hypha` binary inside; it does not update
+  itself.
+
+---
+
+## iPhone and iPad
+
+**Requirements: iOS / iPadOS 16.4 or newer.**
+
+The same app runs on both. An iPad gets the desktop layout (sidebar, notes
+list and editor side by side, tabs, split panes); an iPhone gets the
+one-panel-at-a-time phone layout. The iPad layout has been run in the
+simulator only — no iPad hardware has been available — so expect rough edges
+there, and see `docs/IPAD-DESIGN.md` §6 for what is known to be missing.
+
+The iOS build is distributed through **TestFlight**. You need an invitation —
+ask for one at the address in [SECURITY.md](SECURITY.md), or use the public
+link on the releases page if one is posted.
+
+1. Install **TestFlight** from the App Store.
+2. Open the invitation link on the device.
+3. Install **hypha notes** from TestFlight — that is the App Store listing
+   name; the app itself appears on the home screen as **hypha**.
+
+TestFlight builds expire after 90 days. When one does, update from TestFlight
+again — **your notes are not affected**, they live on the device and on
+whatever other devices you have paired.
+
+**There is no `.ipa` on the releases page, and there will not be one.** From
+0.13.0 the iOS build is an `app-store-connect` export — the package format Apple
+accepts for TestFlight and the App Store, which iOS refuses to side-load at all.
+Publishing it would offer a download that nobody, including the developer, can
+install. TestFlight is the only way onto a phone.
+
+(Before 0.13.0 the `.ipa` WAS published, as a `development` export installable
+on devices registered to the developer account. That stopped being true the
+moment the first TestFlight build was cut.)
+
+---
+
+## An always-on relay (optional)
+
+Hypha syncs your devices directly, so both have to be awake at the same time.
+Write on your phone with the laptop shut and the laptop gets it the next time
+you open it — not before. A relay is a third peer that is always awake, which
+removes that wait.
+
+It holds **ciphertext only**. It joins your vault as a member with no ability to
+read anything in it, and a stolen relay disk yields sealed blobs, not notes. It
+is a convenience, not a backup, and nothing about syncing changes if you never
+run one.
+
+It wants a machine that is always on — a home server, a NAS, a small VPS.
+**Linux is the right home**: on macOS and Windows, Docker cannot pass multicast
+through, so the relay will not find devices on your own network and falls back
+to the internet path only.
+
+From the [releases page](https://github.com/marcolaux/hypha-releases/releases),
+download `hypha-peer-compose.yml` and `hypha-peer.env.example` into an empty
+directory:
+
+```sh
+mv hypha-peer-compose.yml docker-compose.yml
+mv hypha-peer.env.example .env
+# open .env and set HYPHA_PEER_SECRETS_PASSPHRASE — `openssl rand -base64 32`
+
+docker compose run --rm peer init
+docker compose run --rm peer join "hypha://invite/…"
+docker compose up -d
+```
+
+The invite comes from the desktop app: **Settings → Sync → Add a device…**,
+for a relay. **The inviting device has to be online while you run
+`join`** — the two complete a live handshake, because there is no server to
+redeem a token against. Until it does, `join` says "waiting for the vault's
+owner …", and every 15 seconds that it is still waiting. Add `--timeout 10m` to
+make it give up instead of waiting for as long as it takes.
+
+Afterwards, `docker compose logs -f` shows what it is doing and
+`docker compose run --rm peer status` prints a snapshot without disturbing it.
+
+Two things worth knowing before you rely on it. Its data volume holds the
+relay's identity, so **back it up** — losing it means re-inviting the relay
+(your notes are unaffected; they live on your own devices). And it accumulates
+ciphertext forever unless you set `HYPHA_PEER_AUTO_PRUNE_AGE`; the example file
+explains the trade-off.
+
+**Reaching the relay by address (optional).** By default your devices find the
+relay over the internet's peer network or on your own Wi-Fi, which can take a
+while. Start the relay with `--listen 127.0.0.1:8443` (or set
+`HYPHA_PEER_LISTEN`) behind a web server that terminates TLS with a real
+certificate, then enter its address — `wss://relay.example.com`, no path — and
+add it under **Settings → Sync → Add a relay → By address** on a device that holds the
+vault's owner key. Every device of the vault then also dials that address.
+**Phones need `wss://`**: a plain `ws://` address works from a Mac or PC only.
+`apps/peer/deploy/README.md` has the proxy example and the limits.
+
+**hypha's own relay, by invite code (beta).** If you were given an invite code,
+you do not need a relay of your own: on a device that holds the vault's owner
+key, open **Settings → Sync → Add a relay**, enter the code under *hypha's relay*, and the vault is enrolled on
+hypha's relay with a small quota of vaults and storage per code. The relay sees
+ciphertext only, like any relay; the service behind the codes can see your
+key's public half, which vault route tags it maps to, connection and byte
+volumes, and your IP address — never vault keys, note content, or an email
+address (there is none). **Stop using** in the same place un-enrols the vault.
+
+---
+
+## Setting it up
+
+Hypha has **no account and no server**. There is nothing to sign up for and no
+password to recover.
+
+- **First device:** you choose a passphrase, and it encrypts the vault. If you
+  forget it, the notes are gone. Nobody can reset it. Write it down somewhere
+  safe — a password manager, or paper.
+- **Second device:** on the first device, open **Settings → Sync → Add a
+  device…**. On an iPhone, open the code with the Camera app; on a Mac, paste
+  the invite link. The new device then asks for the vault's passphrase. The two
+  devices sync directly to each other, over Wi-Fi when they are on the same
+  network and over the internet when they are not.
+
+Sync needs both devices to be running. There is no server holding a copy while
+one of them is asleep.
+
+---
+
+## If something goes wrong
+
+**Report it.** The address is in [SECURITY.md](SECURITY.md). For a
+security problem, use that address and please do not post it publicly first.
+
+Useful things to include:
+
+- what you did, and what happened instead;
+- the version (Settings → Updates shows it);
+- your OS version;
+- whether it involved two devices, and if so what each was doing.
+
+**Do not send your notes or a backup file** to report a bug. A backup carries
+your vault credential, and on a machine with no keychain slot for the backup key
+it also leaves names and filenames in the clear — see
+[Known limitations](KNOWN-LIMITATIONS.md).
+
+---
+
+## Building it yourself
+
+Every platform above has a build; building from source is the way to run
+unreleased work.
+[`README.md`](README.md) has the steps: Node.js 22 or newer, `npm install`,
+then `npm run dev` for the desktop app or
+`npm run package:mac --workspace apps/desktop` for an installable build.
+
+---
+
+## If macOS refuses to open it
+
+**Every macOS build since 0.99.23 is signed and notarized**, so a release
+build opens with a double-click. If macOS shows *"Hypha" cannot be opened
+because Apple cannot check it for malicious software*, the file is not the one
+on the releases page: **verify what you downloaded.** Download `SHA256SUMS.txt`
+from the same release, put it beside the `.dmg`, and run:
+
+```sh
+shasum -a 256 -c SHA256SUMS.txt
+```
+
+You want `OK` on the line for your file. `FAILED` means the download is corrupt
+or has been altered — do not open it. (Lines for files you did not download will
+say `No such file`; that is fine.) A build older than 0.99.23 was not notarized:
+for one of those, **right-click** (or Control-click) Hypha in Applications →
+**Open** → **Open** in the dialog, once.
