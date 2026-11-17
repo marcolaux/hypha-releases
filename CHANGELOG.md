@@ -4,6 +4,56 @@ All notable changes to hypha. The format follows [Keep a Changelog](https://keep
 
 ## [Unreleased]
 
+## [0.99.45] - 2026-11-17
+
+### Added
+
+- Every note's context menu has a Type submenu, in lists, view pages and search results alike.
+- Several selected notes change type together, with Undo.
+- On a type change, a value moves to the new type's field of the same name when it fits; others stay.
+- Changing several notes can create typed copies instead, and can fill each note's properties from its text.
+- A view can sort its notes by a property in every layout: ⋯ → Property, on the Mac, the iPad and the iPhone.
+- Notes of one type can be merged: select them → "Merge into one…", or a note's menu → "Merge into".
+- A merge keeps the note you pick; the others go to the trash, their text added under their titles.
+- Links and properties that pointed at a merged note point at the one that stays. Undo puts everything back.
+- While the app quits, the status line at the bottom of the sidebar says what it is doing: saving notes, disconnecting, closing the vault.
+- The Tasks board's columns can be moved: drag a column's header, or use Move left / Move right in its menu.
+- Notes boards on the Mac have Move left / Move right in a column's menu too.
+- The Tasks board shows done and cancelled tasks from the last 7 days; older ones are counted under their column.
+- Board ▾ → Done tasks switches that window to 30 days or All.
+- Typing a type's name after @, such as "project", lists that type's notes first, most recently edited first.
+- Keep typing to narrow them: "project web" shows the projects with "web" in their title.
+- The @ picker and search show a note's status (a project's Active, On hold, Done…) next to its title, in the status's colour.
+- Cards in a view page show the note's status, on the Mac, the iPad and the iPhone.
+- Projects have a Client property that links to a contact.
+- Contacts have a Contact type: Person, Company or Agency. A select's menu has "Edit choices…" to change its choices.
+- Image → From attachments… puts a picture already in your vault into a note without uploading it again.
+- The / menu has Image from attachments, and the right-click menu has it under Insert.
+- An empty notebook, tag or type list shows a clear New note button, in the classic layout and in Folders.
+- A note made there lands right in that list; an empty Tasks list offers New task.
+- Right-click a notebook, tag or favourite in the sidebar for New note and New whiteboard, made right in that list.
+- Right-click a type's row for New and the type's name, such as New Project.
+
+### Changed
+
+- Quitting is faster: the app no longer waits for its sync connections to finish closing.
+- A note with a type no longer counts as unsorted: Unsorted lists only notes with no notebook, tag, colour or type.
+
+### Fixed
+
+- An empty notebook, tag or type no longer shows a blank list in the classic layout.
+- A single note selected with ⌘/Ctrl-click, Shift-click or a drawn rectangle now shows as selected on view pages and in the notes list.
+- A task ticked in a daily note shows as done at once in a page's Tasks section, the Tasks board and the list's task rows.
+- A task ticked just before leaving the daily notes no longer stays open on the Tasks board and in lists.
+- A note whose type you change joins that type's list at once, before the AI fills in its properties.
+- Undoing a type change takes the note out of that type's list right away.
+- A renamed note shows its new title in the @ picker and search; searching the new title finds it by words and meaning.
+- The sidebar's status line stays on one line; text that does not fit ends in "…".
+- Moving a board column by its header no longer sends hidden columns to the end.
+- Quitting no longer hangs when the backup folder is on a network share that stopped responding.
+- A backup to a folder that stops responding now fails after a few minutes instead of waiting forever.
+- A backup no longer recreates its folder on this computer's disk when the drive or share holding it is not connected.
+
 ## [0.99.44] - 2026-11-16
 
 ### Added
