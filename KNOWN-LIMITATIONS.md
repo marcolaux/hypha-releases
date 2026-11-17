@@ -32,6 +32,15 @@ export it first: notes written on it since are only there.
 only your notes** until you type the passphrase here once (Settings → Backup
 says so).
 
+**A backup folder on a network share that stops responding** fails the backup
+after about three minutes, and the app quits normally. The file operation that got
+stuck stays with a small background helper until the share comes back or the
+computer restarts; the app does not use that folder again until then. A backup
+folder whose drive or share is not connected fails the backup instead of being
+created on this computer's disk — **unless the folder you picked is the share's
+mount point itself**: unmounted, that is an empty local folder, and backups
+would go into it. Pick a folder inside the share.
+
 **A subscribed calendar is fetched by one of your computers and read by all
 your devices.** Settings → Calendars takes a webcal or `.ics` address on a Mac
 or PC; that computer fetches it about once an hour while the app is open, and
