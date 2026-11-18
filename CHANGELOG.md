@@ -4,6 +4,36 @@ All notable changes to hypha. The format follows [Keep a Changelog](https://keep
 
 ## [Unreleased]
 
+## [0.99.46] - 2026-11-18
+
+### Changed
+
+- A locked Mac's banner now says what arrived: a message, a comment or a mention. It does so for changes sent by this version.
+- A self-hosted relay older than 0.99.32 drops changes sent by this version. Update the relay before your devices.
+- A tag that cannot be moved because its name is taken says so in a short message instead of a dialog.
+- Opening a note reads and renders it once instead of twice.
+- The app checks for updates every hour while it is open, instead of every four hours.
+- The Linux app no longer includes the search engine's unused graphics-card libraries, which made up a large part of its download.
+
+### Fixed
+
+- Closing a tab no longer removes the inline tag, notebook and colour chips from that note's text.
+- Closing a tab no longer leaves a date-titled copy of a note that holds such a chip.
+- Trashing a daily note that is on screen no longer strips its inline tag, notebook and colour chips.
+- A day's note keeps its inline chips when a sync hands that date to another device's note.
+- An open note no longer loses its inline chips when reading its tags briefly fails.
+- A note published to the web shows its table formulas' computed values instead of the raw formulas.
+- A reminder made from the daily timeline's menu is titled with the day's name, not its raw date.
+- Removing a vault clears its unread count from the Mac dock badge at once.
+- A bookmark renamed or recoloured in one Mac window updates in your other windows right away.
+- The outline and minimap work on a daily note opened from search, a list or a link, and follow the day you are in.
+- A photo whose GPS minutes or seconds are unreadable gets no location instead of one up to a degree off.
+- On iPhone and iPad, an unreadable storage estimate no longer refuses incoming attachments as if storage were full.
+- Resuming an interrupted attachment download no longer asks for room the partial download already takes up.
+- Deleting a tag together with its notes no longer trashes the notes when the tag itself could not be deleted.
+- An invite link that cannot be an invite is refused before it reaches a window, and a broken link is no longer logged whole.
+- Pages hosted on WordPress.com can be clipped again; the app took their addresses for local ones and refused them.
+
 ## [0.99.45] - 2026-11-17
 
 ### Added
