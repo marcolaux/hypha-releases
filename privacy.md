@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **hypha**
-Last updated: 11 November 2026
+Last updated: 18 November 2026
 
 <!--
   THIS FILE IS THE SOURCE. It is published at
@@ -93,7 +93,14 @@ passphrase. This is documented in the app's known-limitations page.
 If you pair two or more of your own devices, Hypha synchronises directly between
 them, peer to peer. There is no intermediary server that holds a copy.
 
-- On the same local network, devices connect to each other directly.
+- On the same local network, devices connect to each other directly. To find
+  each other there, each device announces itself about once a second to the
+  other machines on that network, unencrypted: a tag that is the same for all
+  devices of one vault (it does not reveal the vault's name or let anyone join
+  it), the device's public key, and the port it listens on. Anyone on the same
+  network can therefore see that a hypha vault is in use and recognise the
+  same device again later, on this network or another one. Nothing from your
+  notes is in the announcement.
 - Across the internet, devices find each other through a public distributed hash
   table (DHT). Joining it starts with a request to three public entry nodes
   (`hyperdht.org`, run by the makers of the DHT library), which see your
@@ -142,8 +149,11 @@ is the only way data leaves your device:
 - **Update checks.** The desktop app checks for a new version by requesting a
   file from GitHub. This reveals your IP address to GitHub, as visiting any web
   page would, and nothing about you or your notes is sent with the request. The
-  check runs only when you open Settings → Updates or explicitly ask for it —
-  never in the background and never at startup.
+  check runs by itself about ten seconds after the app starts and then every
+  hour while it is open, and whenever you open Settings → Updates or ask for
+  it. (Until 18 November 2026 this policy said the check never ran at
+  startup or in the background. That was wrong: it has run this way since the
+  first desktop release.)
 - **Publishing a note to the web.** If you explicitly publish a note, its
   contents are uploaded to storage that you configure and control. Only notes you
   choose to publish are ever uploaded.
