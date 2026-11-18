@@ -92,10 +92,22 @@ technical events about the engine itself (model loads, timings, device facts) to
 Microsoft's collector — on the desktop this was observed live, an upload request
 in flight right after a session was created; on the iPhone it was found because
 its uploader crashed the app on a locked phone. Note content never left the
-device through it, and the desktop's earlier WASM engine (before 0.99.25) and
-every Windows desktop build never carried it at all. It is now disabled at both
-of the engine's switches, in the app and in every tool that runs the model.
-This one sent without being asked; no build after 0.99.30 does it at all.
+device through it, and the desktop's earlier WASM engine (before 0.99.25) never
+carried it at all. On macOS, Linux, iPhone and iPad it is now disabled at both
+of the engine's switches, in the app and in every tool that runs the model;
+no build after 0.99.30 sends it on those systems.
+
+**On Windows the engine reports through a different channel, and hypha does not
+switch it off yet.** This was found on 2026-11-18; until then this page said the
+Windows builds carried no telemetry, which was wrong. The Windows engine holds
+no collector address and does not upload by itself. It hands the same kind of
+technical events (a model session created, timings, errors) to Windows' own
+event tracing, under the name Microsoft.ML.ONNXRuntime, and its vendor's
+documentation says Windows may forward them to Microsoft depending on the
+diagnostic-data setting of the PC. The switch hypha uses elsewhere does not
+exist in the Windows engine. Whether anything left a Windows PC this way has
+not been measured. Every Windows build since 0.99.25 is affected. Note content
+is not part of these events.
 Everything else that leaves a device is a feature you turned on or an action you
 took — the list is under *What is deliberately absent* at the end.
 
@@ -204,6 +216,19 @@ relay is told apart from your own relays by its address alone, so a relay you
 run yourself on the same host as hypha's service is removed from this vault's
 relay list with it — re-adding it by hand puts it back.
 
+**In a vault you share, a member with an altered app can take the owner's place.**
+Found and confirmed by test on 2026-11-18; no release fixes it yet. Who is an
+Owner, and who has been removed, are entries in the vault's synced data that
+other devices do not check against the owner's signature. A member running a
+deliberately altered copy of the app can therefore mark its own device as an
+Owner and change the vault's passphrase, which locks every other device — yours
+included — until the new passphrase is typed; and it can mark your devices as
+removed, so the other devices stop syncing with them. Neither can be undone from
+the app: a backup made before the change still opens with the old passphrase.
+It can also keep an Owner's wipe order from reaching a lost device. This needs
+someone you invited and an altered app; a vault that holds only your own devices
+is not affected. A member cannot forge a wipe order: that check holds.
+
 **Revoking a device is not instant everywhere.** Revoking is a row in the
 vault's own device list, and it works by replicating: every device that receives
 it refuses the revoked one from then on. A relay cannot act on it: the row
@@ -278,14 +303,16 @@ runs it holds the vault's keys exactly as an open, unlocked vault does
   on disk and applied the next time you unlock it. The menu bar says
   "Locked — receiving", and a banner says which kind of thing arrived — new
   messages, new comments, or that someone was mentioned — never from whom or
-  what; an ordinary note edit raises none. (Not yet in any release: since
-  0.99.31 every app and the relay can read the kind, but they keep sending
-  the old envelope, so the banner still says only that the vault received
-  changes. An app or relay older than 0.99.31 drops a sync batch sent in the
-  new envelope — the relay outright, live and on catch-up; a locked Mac that
-  old stops storing for the session — so the apps will start sending it only
-  once every relay and app can be assumed updated.) While locked it sends
-  nothing.
+  what; an ordinary note edit raises none. The kind travels beside the
+  encrypted batch, unencrypted: a relay and every device of the vault can
+  read that a batch holds a message, a comment or a mention, and nothing
+  more. Apps send it from 0.99.46 on; a change sent by an older app still
+  raises the banner that says only that the vault received changes. An app or
+  relay older than 0.99.32 cannot read the new envelope and drops the batch —
+  the relay outright, live and on catch-up; a locked Mac that old stops
+  storing for the session — so update a self-hosted relay and every device
+  before, or together with, the first one that runs 0.99.46. While locked it
+  sends nothing.
   What arrives this way: every change to notes, notebooks, tags and chat, and
   edits to the notes open on the sending device; the text of other notes
   catches up when you open them after unlocking. A vault that never synced on
