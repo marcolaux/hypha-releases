@@ -1,0 +1,38 @@
+# hypha
+
+> hypha is a local-first, end-to-end encrypted notes app for macOS (Apple silicon), Windows, Linux, iPhone and iPad. Notes, a journal of your days and a small database of your life, synced peer-to-peer between your own devices. No account, no server, no one in between.
+
+Site: https://hypha.miniml.net/ (English) and https://hypha.miniml.net/de/ (German).
+
+## What it is
+
+- Notes with a rich editor: headings, lists, tasks with due dates, tables, code, callouts, images, PDFs, whiteboards, links between notes, tags, notebooks and bookmarks (a colour that marks a note and a passage in it).
+- Note types with properties (Recipe, Book, Movie, Person, Project, Task, Meeting, your own), and saved views of them as a table, a board or a calendar.
+- A daily note for every day, with a stream of your days, and reminders.
+- Search by words and by meaning (an on-device embedding model; nothing leaves the device), and a map of how notes connect.
+- Sharing a vault with other people: every device holds the whole vault; a vault chat and comments on passages; roles are owner, member and relay.
+- Import from Obsidian, any Markdown folder and Standard Notes backups; export as Markdown, PDF or a portable encrypted backup. Automatic backups by day, week and month.
+- English and German interface.
+
+## How sync works
+
+- Every note is encrypted on the device before it travels, with keys derived from one passphrase. Keys live on your devices only.
+- On the same Wi-Fi, devices find each other by themselves and sync directly.
+- Across the internet, online at the same time, devices meet through a distributed hash table and connect end to end. The network that introduces them carries no notes.
+- Devices that are never online together meet through an optional relay (hypha-peer): a small program you run on your own machine with Docker or systemd, or hypha's own relay while it is in beta (by invite code). A relay stores and forwards ciphertext and never holds a key.
+- Edits made in two places merge without conflicts (CRDTs).
+
+## Facts
+
+- No account, no e-mail address, no telemetry, no analytics on the website.
+- Cost: the apps are free. Licence: source-available (use, read, change and share at no charge; not for sale by others), not open source.
+- Status: beta. The cryptography has not been audited yet. Intel Macs are not supported. iPhone and iPad come through TestFlight.
+- Author: Marco Laux.
+
+## Links
+
+- Download and release notes: https://github.com/marcolaux/hypha-releases/releases
+- Install guide (including the relay): https://github.com/marcolaux/hypha-releases/blob/main/INSTALL.md
+- Known limitations: https://github.com/marcolaux/hypha-releases/blob/main/KNOWN-LIMITATIONS.md
+- Changelog: https://github.com/marcolaux/hypha-releases/blob/main/CHANGELOG.md
+- Privacy policy: https://github.com/marcolaux/hypha-releases/blob/main/privacy.md
