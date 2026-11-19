@@ -4,6 +4,14 @@ All notable changes to hypha. The format follows [Keep a Changelog](https://keep
 
 ## [Unreleased]
 
+## [0.99.47] - 2026-11-19
+
+### Removed
+
+- Search by meaning is off for now and returns with a new engine in a later version. Search finds notes by their words.
+- With it, related notes in the Connections sidebar and the Meaning view of the note map are unavailable. The note map opens on Links.
+- The app no longer includes that search engine and its language model, so the download is much smaller on every platform.
+
 ## [0.99.46] - 2026-11-18
 
 ### Changed
