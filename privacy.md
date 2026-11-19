@@ -1,7 +1,7 @@
 # Privacy Policy
 
 **hypha**
-Last updated: 18 November 2026
+Last updated: 19 November 2026
 
 <!--
   THIS FILE IS THE SOURCE. It is published at
@@ -65,7 +65,11 @@ Two things have to be disclosed against that list:
   off. While a model session was loaded they sent technical events about the
   engine itself (model loads, timings, device facts) to Microsoft's collector.
   No note content and nothing you typed was part of it. Every build from
-  0.99.31 on has it switched off at both of the engine's switches.
+  0.99.31 on has it switched off at both of the engine's switches. On Windows
+  the engine handed the same kind of events to the system's own event tracing
+  in every build from 0.99.25 to 0.99.46, where that switch does not exist
+  (the known-limitations page has the detail). Since 0.99.47 no build carries
+  the engine.
 - **The beta relay service, if you enrol with an invite code.** This is the
   one thing run by the developer that your device talks to, and only if you
   enter a code under Settings → Sync. It can see your sync key's public half,
@@ -172,9 +176,9 @@ is the only way data leaves your device:
   each time it cannot tell who notifies whom. No published build names one:
   hypha's own relay sends notifications only for vaults it was invited to
   sync, through that vault's connection.
-- **Semantic search.** The language model ships inside the app; nothing is
-  downloaded. The model runs entirely on your device; no note text is sent
-  anywhere.
+- **Semantic search.** Off since 0.99.47: its engine and model left the app,
+  and it returns with a new engine. When it ran, the model shipped inside the
+  app and ran entirely on your device; no note text was sent anywhere.
 - **Web clipping.** If you save a web page, Hypha fetches that page, and may
   fetch images it references, from the sites that host them. When the page
   says what it is about (a film, a recipe, a book, a product, an event), Hypha
