@@ -84,7 +84,19 @@ does not carry) and is reported to hang without answering; the app gives up
 after 8 seconds and falls back to the place you typed, so the weather is still
 recorded — but *Use my location* may simply not produce a position on a Mac.
 
-**ONNX Runtime's own telemetry shipped on, since the 0.99.25 desktop and iPhone/iPad
+**Search by meaning is off since 0.99.47, on every device.** The engine it ran
+on (Microsoft's ONNX Runtime) and its language model left the app, and nothing
+replaces them yet; the feature returns with a new engine in a later version.
+Until then search finds notes by their words, Settings → Search says the
+feature is temporarily unavailable, the Connections sidebar shows no related
+notes, and the note map opens on Links. In a vault without a passphrase the
+meaning index a device already holds is kept, not deleted; a vault with a
+passphrase clears it at every lock and start, as it always has, and nothing
+rebuilds it until the new engine. A device still on 0.99.46 or older keeps searching
+by meaning, and keeps the engine (with what the next two paragraphs say about
+it) until it is updated.
+
+**ONNX Runtime's own telemetry shipped on, in the 0.99.25 to 0.99.30 desktop and iPhone/iPad
 builds.** Search by meaning runs a Microsoft embedding engine (ONNX Runtime), and its
 official builds enable Microsoft's usage telemetry by default — hypha did not turn
 it off until 2026-10-27. While a model session was loaded, those builds sent
@@ -95,10 +107,11 @@ its uploader crashed the app on a locked phone. Note content never left the
 device through it, and the desktop's earlier WASM engine (before 0.99.25) never
 carried it at all. On macOS, Linux, iPhone and iPad it is now disabled at both
 of the engine's switches, in the app and in every tool that runs the model;
-no build after 0.99.30 sends it on those systems.
+no build after 0.99.30 sends it on those systems, and since 0.99.47 no build
+carries the engine at all.
 
-**On Windows the engine reports through a different channel, and hypha does not
-switch it off yet.** This was found on 2026-11-18; until then this page said the
+**On Windows the engine reported through a different channel, in 0.99.25 to
+0.99.46.** This was found on 2026-11-18; until then this page said the
 Windows builds carried no telemetry, which was wrong. The Windows engine holds
 no collector address and does not upload by itself. It hands the same kind of
 technical events (a model session created, timings, errors) to Windows' own
@@ -106,8 +119,8 @@ event tracing, under the name Microsoft.ML.ONNXRuntime, and its vendor's
 documentation says Windows may forward them to Microsoft depending on the
 diagnostic-data setting of the PC. The switch hypha uses elsewhere does not
 exist in the Windows engine. Whether anything left a Windows PC this way has
-not been measured. Every Windows build since 0.99.25 is affected. Note content
-is not part of these events.
+not been measured. Every Windows build from 0.99.25 to 0.99.46 is affected;
+0.99.47 carries no engine. Note content is not part of these events.
 Everything else that leaves a device is a feature you turned on or an action you
 took — the list is under *What is deliberately absent* at the end.
 
@@ -432,9 +445,8 @@ passes on it.
 
 **On the desktop, each vault runs in its own background process** (since
 September 2026), and every window of that vault talks to it rather than opening
-the vault itself. Search by meaning adds one more background process for the
-whole app while it is indexing or answering; it quits after five idle minutes.
-Activity Monitor or Task Manager therefore shows several hypha processes.
+the vault itself. Activity Monitor or Task Manager therefore shows several
+hypha processes.
 
 ---
 
@@ -512,10 +524,6 @@ set it, and a task whose text really ends in a lone `!` after a space reads as l
 older version that writes a picture's description (yours, or its own reader's) writes the file's info back
 without the date and place, and they are gone on every device. Update every device together.
 
-**Search by meaning on the phone needs the Mac updated first, or together.** Since 0.99.23 the
-meaning index is built in a new form, and devices on different versions do not exchange it: a phone updated before
-its Mac finds nothing by meaning until the Mac is updated and has rebuilt (it does so on its own, once).
-
 **Who's here only knows about notes open in an editor.** A tab restored at
 launch but never clicked, a tab pushed out of a pane's last twelve, and PDF,
 attachment and search tabs do not show who is reading them. At "Only where I'm
@@ -538,24 +546,11 @@ mentioned there) or in a thread you wrote in; the iPhone's push still announces
 every comment in the vault, and its per-vault switch is not yet split into
 chat, mentions and comments.
 
-**On the phone, search by meaning needs a desktop.** The phone never builds
-the meaning index itself: it reads the index a desktop in the same vault
-built and synced, and only turns your question into a vector on the device. A
-vault that lives only on phones has full-text search but no search by meaning,
-and a note written on the phone is found by meaning once a desktop has seen
-it. The language model makes the app download about 135 MB larger on iPhone
-and iPad (about 127 MB on the desktop).
-
 **Picture descriptions need Apple Intelligence.** A picture's one-sentence
 description comes from the on-device model of macOS or iOS 27, and the text in
 a picture from Apple's Vision. Windows and Linux read neither — they read a
 PDF's text only — and show a description another of your devices wrote. A
 scanned PDF has no text layer, so nothing is read out of it.
-
-**A long PDF is found by meaning through its first ~12 pages, by words
-throughout.** Search by meaning embeds a file's description and the first
-~5,800 words of its text; the rest of a long document is still found by its
-words. Like notes, files are embedded by a desktop and synced to the phone.
 
 **Word forms are found by simple endings, not by grammar.** "Word forms &
 parts" removes a common ending from what you type (-n, -en, -e, -er, -s and a
@@ -664,7 +659,8 @@ mistaken for an oversight:
 
 - **No telemetry, analytics or crash reporting of hypha's own.** Two exceptions,
   both described above: ONNX Runtime's engine telemetry shipped on in
-  0.99.25–0.99.30 and is off since 0.99.31, and the hosted beta's enrolment
+  0.99.25–0.99.30 and is off since 0.99.31 (on Windows it reported through
+  the system's event tracing until 0.99.46; 0.99.47 carries no engine), and the hosted beta's enrolment
   service sees who you are to it. Everything else that leaves a device is a
   feature you turned on or an action you took: sync with the devices and relays
   you paired (over the internet, discovery contacts Hyperswarm's three public
