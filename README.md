@@ -46,10 +46,9 @@ central server required.
   the note map lays out notes and the edges between them, per vault, with the
   view options it remembers for each.
 - **Search that reads the note, not the title.** Full-text search over note
-  bodies (SQLite FTS5), plus search by *meaning* over locally computed
-  embeddings. The embedding model ships inside the app and runs in one
-  background process; the phone reads the index your desktop built and embeds
-  only the question, natively. Nothing is sent anywhere to make either work.
+  bodies (SQLite FTS5). Search by *meaning* is off since 0.99.47: its engine
+  and model left the app, and it returns with a new engine. Nothing is sent
+  anywhere to make search work.
 - **Writing.** A TipTap editor over the note's Yjs document: headings, lists
   you can fold, tasks that can be done or cancelled, tables with row and column
   handles that also calculate, code blocks, callouts, embeds, equations,
@@ -190,17 +189,16 @@ mode to choose between.
   — an Electron `utilityProcess` holding the engine, the Yjs authority, the
   keys and that vault's sync session; every window of the vault is an
   `@hypha/engine-rpc` client over a MessagePort, and the main process
-  supervises hosts and brokers ports but runs no SQL and no sync itself. The
-  embedding model runs in one further utility process for the whole app,
-  spawned on the first embed and stopped after a few idle minutes. On iOS the
+  supervises hosts and brokers ports but runs no SQL and no sync itself. On iOS the
   WebView is the host: the LAN transport's Noise handshake runs in the WebView
   over a native TCP/UDP byte relay, and the DHT runs in a BareKit worklet the
   WebView drives through a byte pipe.
-- **Search by meaning** = `granite-embedding-97m-multilingual-r2` (ModernBERT,
-  384 dimensions) as a mixed ONNX export (fp32 arithmetic, ~127 MB) bundled
-  with the app; `sqlite-vec` rows on the desktop, a portable table on the
-  phone, synced as pages like everything else. `docs/SEARCH-EVAL.md` is the
-  measurement behind every tuning decision.
+- **Search by meaning** is off since 0.99.47 (no engine ships). Until then it
+  was `granite-embedding-97m-multilingual-r2` (ModernBERT, 384 dimensions) on
+  ONNX Runtime; the stored vectors stay — `sqlite-vec` rows on the desktop, a
+  portable table on the phone, synced as pages like everything else — for the
+  new engine. `docs/SEARCH-EVAL.md` is the measurement behind every tuning
+  decision.
 
 ## What is in this repository
 
