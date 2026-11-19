@@ -36,7 +36,9 @@ Claiming precisely matters more here than claiming strongly.
   handshake. There is no server that can read it, because there is no server.
 - **There is no account, and no telemetry, analytics or crash reporting of
   hypha's own.** Two exceptions are on record: ONNX Runtime's engine telemetry
-  shipped on in 0.99.25–0.99.30 (off since 0.99.31), and the hosted beta's
+  shipped on in 0.99.25–0.99.30 (off since 0.99.31; on Windows it reported
+  through the system's event tracing until 0.99.46; no build carries the
+  engine since 0.99.47), and the hosted beta's
   enrolment service sees your key's public half, byte volumes and address.
   Everything else that leaves a device is a feature you turned on or an
   action you took; the known-limitations page lists them.
